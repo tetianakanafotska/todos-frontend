@@ -1,10 +1,24 @@
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home.jsx";
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import About from "./pages/About.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import Sidebar from "./components/Sidebar.jsx";
 
 function App() {
   return (
     <>
-      <Home />
+      <Navbar />
+      <Sidebar />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/:taskId" element={<Dashboard />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+      <Footer />
     </>
   );
 }

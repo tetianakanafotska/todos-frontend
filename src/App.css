@@ -1,15 +1,182 @@
-.topNavBar {
-  margin: 20px 40px;
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
 }
 
-.topNavBar img {
-  position: absolute;
-  top: 25px;
-  width: 60px;
+body {
+  margin: 0;
+}
+
+.topNavBar {
+  height: 45px;
+  background-color: #000000;
+  display: flex;
+  color: #fff;
+}
+
+.bx.bx-calendar-check {
+  font-size: 1.4rem;
+  margin: auto 10px auto 20px;
+  line-height: 45px;
 }
 
 .topNavBar h1 {
-  text-align: center;
-  width: 100%;
-  padding-top: 15px;
+  font-size: 1.1rem;
+  margin: auto 0;
+  font-weight: 100;
+}
+
+main {
+  position: absolute;
+  left: 80px;
+  padding: 30px 5vw;
+  transition: all 0.5s ease;
+  background-image: url("src/assets/main-bg2.jpg");
+  background-size: cover;
+  width: calc(100vw - 80px);
+  height: calc(100vh - 45px);
+}
+
+aside.opened ~ main {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  padding: 0 20px;
+  color: #fff;
+}
+
+footer i {
+  font-size: 1.3rem;
+}
+
+footer p {
+  font-size: 0.8rem;
+}
+
+footer a {
+  text-decoration: none;
+  color: #fff;
+}
+
+aside {
+  position: absolute;
+  top: 45px;
+  width: 80px;
+  height: calc(100vh - 45px);
+  background-color: #12171e;
+  padding: 20px 15px 0 15px;
+  border-right: 0.5px solid #383838;
+  border-top: 0.5px solid #383838;
+  transition: all 0.5s ease;
+}
+
+aside p {
+  opacity: 0;
+  white-space: nowrap;
+}
+
+aside a span {
+  opacity: 0;
+}
+
+aside.opened {
+  width: 250px;
+}
+
+aside.opened a span {
+  opacity: 1;
+}
+
+aside.opened p {
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* navlinks */
+aside a {
+  display: flex;
+  color: #fff;
+  font-size: 1rem;
+  text-decoration: none;
+  height: 40px;
+  border-radius: 20px;
+  line-height: 40px;
+  padding: 0 17px;
+  transition: all 0.5s ease;
+  min-width: 50px;
+  margin-bottom: 10px;
+}
+
+aside a:hover {
+  background-color: #fff;
+  color: black;
+}
+
+/* icons in navlinks */
+aside a .bx {
+  line-height: 40px;
+  min-width: 30px;
+}
+
+aside #menu-btn {
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding-left: 8px;
+  padding-bottom: 20px;
+}
+
+aside img {
+  width: 45px;
+  height: 45px;
+  border-radius: 25px;
+  filter: contrast(1.2);
+  border: 1px solid #eee;
+}
+
+aside .userInfo {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  margin-left: 3px;
+}
+
+main.error,
+main.about {
+  color: #fff;
+  font-size: 4rem;
+}
+
+#priority {
+  width: 15px;
+  height: 50px;
+  float: right;
+  border-bottom-left-radius: 3px;
+}
+
+.edit-task {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.edit-task label {
+  color: #fff;
+}
+
+.edit-task-page {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 500px;
+  position: fixed;
+  background-color: #000000;
+  z-index: 30;
 }
