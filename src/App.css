@@ -154,13 +154,6 @@ main.about {
   font-size: 4rem;
 }
 
-#priority {
-  width: 15px;
-  height: 50px;
-  float: right;
-  border-bottom-left-radius: 3px;
-}
-
 .edit-task {
   display: flex;
   flex-direction: column;
@@ -171,12 +164,86 @@ main.about {
   color: #fff;
 }
 
-.edit-task-page {
-  display: flex;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
-  width: 500px;
+.task-editor-background {
+  width: 100%;
+  height: 100%;
   position: fixed;
-  background-color: #000000;
+  background-color: #0000006c;
   z-index: 30;
+}
+
+.task-editor-form {
+  background-color: #eee;
+  border-radius: 20px;
+  display: flex;
+  gap: 15qpx;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 600px;
+  align-items: flex-start;
+  margin: auto;
+  padding: 30px;
+  box-shadow: #383838;
+  position: relative;
+}
+
+.btn-close-editor {
+  align-self: flex-end;
+  min-width: 40px;
+  padding: 0;
+  transform: translate(10px, -7px);
+}
+
+.task-editor-form label {
+  font-size: 1rem;
+}
+
+.task-editor-form.double-inputs {
+  display: flex;
+}
+
+input#title {
+  font-size: 1.2rem;
+  width: 100%;
+}
+
+.task-list-card h3 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.task-card {
+  padding: 10px 20px;
+  position: relative;
+}
+
+.task-card p {
+  font-size: 0.9rem;
+}
+
+#priority-tag {
+  width: 17px;
+  height: 17px;
+  border-bottom-right-radius: 17px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#btn-edit-task {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#task-card-avatar {
+  position: absolute;
+  bottom: 13px;
+  right: 13px;
+}
+
+#task-dates {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

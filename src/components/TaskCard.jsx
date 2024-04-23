@@ -1,11 +1,11 @@
 import React from "react";
 import Card from "@mui/material/Card";
-import { CardHeader } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 function TaskCard({ task, setOpenEditor }) {
   const convertDate = (date) => {
@@ -29,17 +29,29 @@ function TaskCard({ task, setOpenEditor }) {
   const [priorityColor] = useState(addPriorityColor);
 
   return (
-    <Card sx={{ mb: 2 }}>
-      <div id="priority" style={{ backgroundColor: priorityColor }}></div>
-      <Link to={`/${task.id}`} onClick={() => setOpenEditor(true)}>
-        <EditIcon />
+    <Card className="task-card" sx={{ mb: 2 }}>
+      <div id="priority-tag" style={{ backgroundColor: priorityColor }}></div>
+      <Link
+        to={`/${task.id}`}
+        id="btn-edit-task"
+        onClick={() => setOpenEditor(true)}
+      >
+        <IconButton aria-label="edit the task">
+          <EditIcon sx={{ width: 20, height: 20 }} />
+        </IconButton>
       </Link>
-      <div>{task.title}</div>
-      <div>{task.description}</div>
-      <div>
+      <h4>{task.title}</h4>
+      <p>{task.description}</p>
+      <p id="task-dates">
+        <AccessTimeIcon sx={{ width: "19px" }} />
         {convertDate(task.createdDate)} - {convertDate(task.dueDate)}
-      </div>
-      <Avatar>{convertName(task.assignee)}</Avatar>
+      </p>
+      <Avatar
+        id="task-card-avatar"
+        sx={{ width: 35, height: 35, fontSize: 13 }}
+      >
+        {convertName(task.assignee)}
+      </Avatar>
     </Card>
   );
 }
