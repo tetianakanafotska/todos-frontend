@@ -1,25 +1,30 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import EditorForm from "../components/EditorForm";
 import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-function TaskEditor({ kanbanDB, setKanbanDB, setOpenEditor }) {
+function AddTask({ kanbanDB, setKanbanDB, setAddTask }) {
   const navigate = useNavigate();
-  const { taskId } = useParams();
-  const currentTask = kanbanDB.find((task) => {
-    return task.id == taskId;
-  });
+
+  const currentTask = {
+    id: kanbanDB.length + 1,
+    title: "",
+    status: "To Do",
+    priority: "Low",
+    description: "",
+    assignee: "",
+    createdDate: new Date().toISOString().slice(0, 10),
+    dueDate: "",
+  };
 
   const saveEdit = (formInputs) => {
     setKanbanDB((prev) => {
-      return prev.map((task) => {
-        if (task.id == formInputs.id) {
-          return formInputs;
-        } else return task;
-      });
+      console.log(prev);
+      return [...prev, formInputs];
     });
-    setOpenEditor(false);
+    console.log(kanbanDB);
+    setAddTask(false);
     navigate("/");
   };
 
@@ -31,7 +36,7 @@ function TaskEditor({ kanbanDB, setKanbanDB, setOpenEditor }) {
           className="btn-close-editor"
           onClick={() => {
             navigate("/");
-            setOpenEditor(false);
+            setAddTask(false);
           }}
         >
           <CloseIcon />
@@ -39,11 +44,11 @@ function TaskEditor({ kanbanDB, setKanbanDB, setOpenEditor }) {
         <EditorForm
           currentTask={currentTask}
           saveEdit={saveEdit}
-          setOpenEditor={setOpenEditor}
+          setAddTask={setAddTask}
         />
       </form>
     </article>
   );
 }
 
-export default TaskEditor;
+export default AddTask;

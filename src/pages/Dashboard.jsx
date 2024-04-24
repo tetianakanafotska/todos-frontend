@@ -1,16 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TaskList from "../components/TaskList";
 import { Grid } from "@mui/material";
 import { useState } from "react";
 import TaskEditor from "./TaskEditor";
-import kanbanDB from "../kanban.json";
+import AddTask from "./AddTask";
+import kanbanJson from "../kanban.json";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-function Dashboard() {
-  const [openEditor, setOpenEditor] = useState(false);
+function Dashboard({ withEditor, withAddTask }) {
+  const [kanbanDB, setKanbanDB] = useState(kanbanJson);
+  const [openEditor, setOpenEditor] = useState(null);
+  const [addTask, setAddTask] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setOpenEditor(withEditor);
+  }, [withEditor]);
+
+  useEffect(() => {
+    setAddTask(withAddTask);
+  }, [withAddTask]);
+
+  //pass params here
+  //if params true, setopen editor to true
+  //useeffect here
   return (
     <>
       {openEditor && (
-        <TaskEditor setOpenEditor={setOpenEditor} kanbanDB={kanbanDB} />
+        <TaskEditor
+          setOpenEditor={setOpenEditor}
+          kanbanDB={kanbanDB}
+          setKanbanDB={setKanbanDB}
+        />
+      )}
+      {addTask && (
+        <AddTask
+          setAddTask={setAddTask}
+          kanbanDB={kanbanDB}
+          setKanbanDB={setKanbanDB}
+        />
       )}
       <Grid
         container
@@ -23,28 +53,40 @@ function Dashboard() {
       >
         <Grid item lg={4} md={6} sm={6} xs={12}>
           <TaskList
-            setOpenEditor={setOpenEditor}
-            kanbanDB={kanbanDB}
             listType="To Do"
+            setOpenEditor={setOpenEditor}
+            kanbanDB={kanbanDB}
           />
         </Grid>
 
         <Grid item lg={4} md={6} sm={6} xs={12}>
           <TaskList
-            setOpenEditor={setOpenEditor}
-            kanbanDB={kanbanDB}
             listType="In Progress"
+            setOpenEditor={setOpenEditor}
+            kanbanDB={kanbanDB}
           />
         </Grid>
 
         <Grid item lg={4} md={6} sm={6} xs={12}>
           <TaskList
+            listType="Done"
             setOpenEditor={setOpenEditor}
             kanbanDB={kanbanDB}
-            listType="Done"
           />
         </Grid>
       </Grid>
+      <Button
+        id="btn-add-task"
+        size="large"
+        variant="contained"
+        aria-label="add a task"
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={() => {
+          navigate("/addTask");
+        }}
+      >
+        Add a task
+      </Button>
     </>
   );
 }

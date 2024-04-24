@@ -247,3 +247,9 @@ input#title {
   align-items: center;
   gap: 5px;
 }
+
+#btn-add-task {
+  position: absolute;
+  bottom: 100px;
+  right: 100px;
+}
