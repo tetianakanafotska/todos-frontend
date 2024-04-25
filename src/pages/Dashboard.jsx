@@ -1,31 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { Grid, Button } from "@mui/material";
 import TaskList from "../components/TaskList";
-import { Grid } from "@mui/material";
-import { useState } from "react";
 import TaskEditor from "./TaskEditor";
 import AddTask from "./AddTask";
 import kanbanJson from "../kanban.json";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-function Dashboard({ withEditor, withAddTask }) {
-  const [kanbanDB, setKanbanDB] = useState(kanbanJson);
+function Dashboard({ withAddTask }) {
+  const initialKanbanDB = kanbanJson;
+
+  const [kanbanDB, setKanbanDB] = useState(() => {
+    const storedDB = localStorage.getItem("kanbanDB");
+    return storedDB ? JSON.parse(storedDB) : initialKanbanDB;
+  });
+
   const [openEditor, setOpenEditor] = useState(null);
   const [addTask, setAddTask] = useState(null);
   const navigate = useNavigate();
 
+  const { taskId } = useParams();
+
   useEffect(() => {
-    setOpenEditor(withEditor);
-  }, [withEditor]);
+    if (taskId) {
+      setOpenEditor(true);
+    } else if (typeof taskId !== "undefined") {
+      navigate("*");
+    }
+  }, [taskId]);
 
   useEffect(() => {
     setAddTask(withAddTask);
   }, [withAddTask]);
 
-  //pass params here
-  //if params true, setopen editor to true
-  //useeffect here
   return (
     <>
       {openEditor && (
@@ -49,9 +56,9 @@ function Dashboard({ withEditor, withAddTask }) {
         alignItems="flex-start"
         component="main"
         width="calc(100vw - 80px)"
-        height="calc(100vh - 45px)"
+        className="dashboard-main"
       >
-        <Grid item lg={4} md={6} sm={6} xs={12}>
+        <Grid item lg={4} md={4} sm={4} xs={12}>
           <TaskList
             listType="To Do"
             setOpenEditor={setOpenEditor}
@@ -59,7 +66,7 @@ function Dashboard({ withEditor, withAddTask }) {
           />
         </Grid>
 
-        <Grid item lg={4} md={6} sm={6} xs={12}>
+        <Grid item lg={4} md={4} sm={4} xs={12}>
           <TaskList
             listType="In Progress"
             setOpenEditor={setOpenEditor}
@@ -67,26 +74,26 @@ function Dashboard({ withEditor, withAddTask }) {
           />
         </Grid>
 
-        <Grid item lg={4} md={6} sm={6} xs={12}>
+        <Grid item lg={4} md={4} sm={4} xs={12}>
           <TaskList
             listType="Done"
             setOpenEditor={setOpenEditor}
             kanbanDB={kanbanDB}
           />
         </Grid>
+        <Button
+          id="btn-add-task"
+          size="large"
+          variant="contained"
+          aria-label="add a task"
+          startIcon={<AddCircleOutlineIcon />}
+          onClick={() => {
+            navigate("/addTask");
+          }}
+        >
+          Add a task
+        </Button>
       </Grid>
-      <Button
-        id="btn-add-task"
-        size="large"
-        variant="contained"
-        aria-label="add a task"
-        startIcon={<AddCircleOutlineIcon />}
-        onClick={() => {
-          navigate("/addTask");
-        }}
-      >
-        Add a task
-      </Button>
     </>
   );
 }

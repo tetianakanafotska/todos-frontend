@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
-        <Route path="/:taskId" element={<Dashboard withEditor={true} />} />
+        <Route path="/:taskId" element={<Dashboard />} />
         <Route path="/addTask" element={<Dashboard withAddTask={true} />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

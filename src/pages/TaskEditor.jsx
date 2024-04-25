@@ -12,13 +12,21 @@ function TaskEditor({ kanbanDB, setKanbanDB, setOpenEditor }) {
   });
 
   const saveEdit = (formInputs) => {
-    setKanbanDB((prev) => {
-      return prev.map((task) => {
-        if (task.id == formInputs.id) {
-          return formInputs;
-        } else return task;
-      });
+    const updatedDB = kanbanDB.map((task) => {
+      return task.id === formInputs.id ? formInputs : task;
     });
+    setKanbanDB(updatedDB);
+    localStorage.setItem("kanbanDB", JSON.stringify(updatedDB));
+    setOpenEditor(false);
+    navigate("/");
+  };
+
+  const deleteTask = (id) => {
+    const updatedKanbanDB = kanbanDB.filter((task) => {
+      return task.id != id;
+    });
+    setKanbanDB(updatedKanbanDB);
+    localStorage.setItem("kanbanDB", JSON.stringify(updatedKanbanDB));
     setOpenEditor(false);
     navigate("/");
   };
@@ -27,6 +35,7 @@ function TaskEditor({ kanbanDB, setKanbanDB, setOpenEditor }) {
     <article className="task-editor-background">
       <form className="task-editor-form" action="">
         <Button
+          id="btn-close-editor"
           sx={{ minWidth: "30px", borderRadius: "20px" }}
           className="btn-close-editor"
           onClick={() => {
@@ -39,6 +48,7 @@ function TaskEditor({ kanbanDB, setKanbanDB, setOpenEditor }) {
         <EditorForm
           currentTask={currentTask}
           saveEdit={saveEdit}
+          deleteTask={deleteTask}
           setOpenEditor={setOpenEditor}
         />
       </form>

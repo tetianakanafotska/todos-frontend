@@ -45,12 +45,12 @@ function TaskCard({ task }) {
   };
 
   return (
-    <Card className="task-card" sx={{ mb: 2 }}>
+    <Card className="task-card" sx={{ mb: 1 }}>
       <div id="priority-tag" style={tagStyling}></div>
       <h4>{task.title}</h4>
       <p>{task.description}</p>
       <p id="task-dates">
-        <AccessTimeIcon sx={{ width: "19px" }} />
+        <AccessTimeIcon sx={{ width: "15px" }} />
         {convertDates(task.createdDate, task.dueDate)}
       </p>
       <IconButton
@@ -60,11 +60,11 @@ function TaskCard({ task }) {
         }}
         aria-label="edit the task"
       >
-        <EditIcon sx={{ width: 20, height: 20 }} />
+        <EditIcon sx={{ width: 17, height: 17 }} />
       </IconButton>
       <Avatar
         id="task-card-avatar"
-        sx={{ width: 35, height: 35, fontSize: 13 }}
+        sx={{ width: 28, height: 28, fontSize: 12.5 }}
       >
         {convertName(task.assignee)}
       </Avatar>

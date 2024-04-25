@@ -8,7 +8,7 @@ function AddTask({ kanbanDB, setKanbanDB, setAddTask }) {
   const navigate = useNavigate();
 
   const currentTask = {
-    id: kanbanDB.length + 1,
+    id: Date.now().toString(),
     title: "",
     status: "To Do",
     priority: "Low",
@@ -19,11 +19,14 @@ function AddTask({ kanbanDB, setKanbanDB, setAddTask }) {
   };
 
   const saveEdit = (formInputs) => {
-    setKanbanDB((prev) => {
-      console.log(prev);
-      return [...prev, formInputs];
-    });
-    console.log(kanbanDB);
+    const updatedKanban = [...kanbanDB, formInputs];
+    setKanbanDB(updatedKanban);
+    localStorage.setItem("kanbanDB", JSON.stringify(updatedKanban));
+    setAddTask(false);
+    navigate("/");
+  };
+
+  const deleteTask = () => {
     setAddTask(false);
     navigate("/");
   };
@@ -31,20 +34,25 @@ function AddTask({ kanbanDB, setKanbanDB, setAddTask }) {
   return (
     <article className="task-editor-background">
       <form className="task-editor-form" action="">
-        <Button
-          sx={{ minWidth: "30px", borderRadius: "20px" }}
-          className="btn-close-editor"
-          onClick={() => {
-            navigate("/");
-            setAddTask(false);
-          }}
-        >
-          <CloseIcon />
-        </Button>
+        <div className="title">
+          <h3>Create a new task</h3>
+          <Button
+            sx={{ minWidth: "30px", borderRadius: "20px" }}
+            className="btn-close-editor"
+            onClick={() => {
+              navigate("/");
+              setAddTask(false);
+            }}
+          >
+            <CloseIcon />
+          </Button>
+        </div>
+
         <EditorForm
           currentTask={currentTask}
           saveEdit={saveEdit}
           setAddTask={setAddTask}
+          deleteTask={deleteTask}
         />
       </form>
     </article>

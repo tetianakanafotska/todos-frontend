@@ -5,6 +5,9 @@
 
 body {
   margin: 0;
+  background-image: url("src/assets/main-bg2.jpg");
+  background-size: cover;
+  height: 100%;
 }
 
 .topNavBar {
@@ -27,47 +30,46 @@ body {
 }
 
 main {
-  position: absolute;
-  left: 80px;
+  margin-left: 80px;
   padding: 30px 5vw;
   transition: all 0.5s ease;
-  background-image: url("src/assets/main-bg2.jpg");
-  background-size: cover;
   width: calc(100vw - 80px);
-  height: calc(100vh - 45px);
+  height: 100%;
 }
 
 aside.opened ~ main {
-  left: 250px;
+  margin-left: 250px;
   width: calc(100% - 250px);
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  right: 10px;
-  padding: 0 20px;
-  color: #fff;
+  display: flex;
+  color: #c3c3c3;
+  margin-top: 200px;
 }
 
 footer i {
   font-size: 1.3rem;
 }
 
-footer p {
+footer div {
+  display: flex;
   font-size: 0.8rem;
+  gap: 5px;
+  width: 200px;
+  margin: 0 auto 20px;
 }
 
 footer a {
   text-decoration: none;
-  color: #fff;
+  color: #c3c3c3;
 }
 
 aside {
   position: absolute;
   top: 45px;
   width: 80px;
-  height: calc(100vh - 45px);
+  height: 100%;
   background-color: #12171e;
   padding: 20px 15px 0 15px;
   border-right: 0.5px solid #383838;
@@ -116,7 +118,10 @@ aside a:hover {
   background-color: #fff;
   color: black;
 }
-
+aside a.active {
+  background-color: #fff;
+  color: black;
+}
 /* icons in navlinks */
 aside a .bx {
   line-height: 40px;
@@ -148,7 +153,6 @@ aside .userInfo {
   margin-left: 3px;
 }
 
-main.error,
 main.about {
   color: #fff;
   font-size: 4rem;
@@ -173,18 +177,80 @@ main.about {
 }
 
 .task-editor-form {
-  background-color: #eee;
+  background-color: #ffffff;
   border-radius: 20px;
   display: flex;
-  gap: 15qpx;
-  flex-wrap: wrap;
   flex-direction: column;
   width: 600px;
-  align-items: flex-start;
   margin: auto;
-  padding: 30px;
+  padding: 30px 30px 30px;
   box-shadow: #383838;
   position: relative;
+}
+
+#btn-close-editor {
+  position: absolute;
+  top: 20px;
+}
+
+.task-editor-form input,
+.task-editor-form select,
+.task-editor-form textarea {
+  border: 1px solid #e8e8e8;
+  border-radius: 7px;
+}
+
+.task-editor-form .editor-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.task-editor-form .main {
+  display: flex;
+  gap: 25px;
+}
+
+.task-editor-form .main .leftColumn {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1.6;
+  gap: 10px;
+}
+
+.task-editor-form .main .leftColumn textarea {
+  display: block;
+}
+
+.task-editor-form .main .title {
+  display: flex;
+}
+
+.task-editor-form #title-icon,
+.task-editor-form #description-icon,
+.task-editor-form #dueDate-icon {
+  color: #9e9e9e;
+}
+
+.task-editor-form .main .rightColumn {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1.2;
+  background-color: #d7d7d7;
+  margin-top: 30px;
+}
+
+.task-editor-form .title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-editor-form .assignee {
+  display: flex;
+}
+
+.task-editor-form .title h3 {
+  margin: 0;
 }
 
 .btn-close-editor {
@@ -198,13 +264,13 @@ main.about {
   font-size: 1rem;
 }
 
-.task-editor-form.double-inputs {
-  display: flex;
-}
-
 input#title {
   font-size: 1.2rem;
   width: 100%;
+}
+
+.task-list-card {
+  margin-bottom: 10px;
 }
 
 .task-list-card h3 {
@@ -215,6 +281,11 @@ input#title {
 .task-card {
   padding: 10px 20px;
   position: relative;
+}
+
+.task-card h4 ~ p {
+  margin-top: 9px;
+  margin-bottom: 7px;
 }
 
 .task-card p {
@@ -232,8 +303,8 @@ input#title {
 
 #btn-edit-task {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 7px;
+  right: 7px;
 }
 
 #task-card-avatar {
@@ -242,14 +313,21 @@ input#title {
   right: 13px;
 }
 
+.task-card h4 {
+  margin: 7px 0 0px;
+  font-size: 0.96rem;
+}
+
 #task-dates {
   display: flex;
   align-items: center;
   gap: 5px;
+  margin: 0 0 2px;
+  font-size: 0.85rem;
 }
 
 #btn-add-task {
-  position: absolute;
+  position: fixed;
   bottom: 100px;
   right: 100px;
 }
