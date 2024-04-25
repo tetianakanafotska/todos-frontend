@@ -12,7 +12,7 @@ body {
 
 .topNavBar {
   height: 45px;
-  background-color: #000000;
+  background-color: #12171e;
   display: flex;
   color: #fff;
 }
@@ -367,4 +367,17 @@ main.about {
   position: fixed;
   bottom: 100px;
   right: 100px;
+}
+
+.error {
+  color: #00ff80;
+  font-size: 7rem;
+  background-color: #000230;
+  text-decoration: underline;
+  height: 100vh;
+}
+
+.error div {
+  width: fit-content;
+  margin: 0 auto;
 }
