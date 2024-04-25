@@ -20,6 +20,7 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
 
   const handleOnChange = (e) => {
     const { id, value } = e.target;
+    console.log(id, value);
     setFormInputs((prev) => ({ ...prev, [id]: value }));
   };
 
@@ -42,15 +43,14 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
             <input
               id="title"
               type="text"
-              minLength={1}
               value={formInputs.title}
               onChange={handleOnChange}
             />
           </div>
 
-          <div>
+          <label htmlFor="description">Description</label>
+          <div className="description-div">
             <SubjectIcon id="description-icon" />
-            <label htmlFor="description">Description</label>
             <textarea
               id="description"
               type="text"
@@ -58,17 +58,29 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
               onChange={handleOnChange}
             />
           </div>
-          <div className="assignee">
-            <Avatar sx={{ width: 25, height: 25 }} />
-            <label htmlFor="assignee">Assignee</label>
+          <label htmlFor="assignee">Assignee</label>
+          <div className="assignee-div">
+            <Avatar sx={{ width: 21, height: 21 }} />{" "}
+            <input
+              id="assignee"
+              type="text"
+              value={formInputs.assignee}
+              onChange={handleOnChange}
+            />
+          </div>
+          {/* due*/}
+          <label htmlFor="dueDate">Due:</label>
+          <div className="dueDate-div">
+            <AccessTimeIcon id="dueDate-icon" sx={{ width: 23, height: 23 }} />
+            <input
+              id="dueDate"
+              type="date"
+              value={formInputs.dueDate}
+              onChange={handleOnChange}
+            />
           </div>
 
-          <input
-            id="assignee"
-            type="text"
-            value={formInputs.assignee}
-            onChange={handleOnChange}
-          />
+          {/* due*/}
         </div>
         <div className="rightColumn">
           {/* task type */}
@@ -84,16 +96,6 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
             <option value="Done">Done</option>
           </select>
           {/* task type */}
-          {/* due*/}
-          <label htmlFor="dueDate">Due:</label>
-          <AccessTimeIcon id="dueDate-icon" />
-          <input
-            id="dueDate"
-            type="date"
-            value={formInputs.dueDate}
-            onChange={handleOnChange}
-          />
-          {/* due*/}
           {/* priority */}
           <label htmlFor="priority">Set priority:</label>
           <select
@@ -120,7 +122,11 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
       </div>
 
       <div className="editor-buttons">
-        <Button onClick={handleSaveButton} variant="contained">
+        <Button
+          onClick={handleSaveButton}
+          variant="contained"
+          //disabled={formInputs.title === ""}
+        >
           Save
         </Button>
         <Button onClick={handleDeleteButton} variant="outlined">

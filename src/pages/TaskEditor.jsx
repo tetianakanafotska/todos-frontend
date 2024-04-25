@@ -36,7 +36,7 @@ function TaskEditor({ kanbanDB, setKanbanDB, setOpenEditor }) {
       <form className="task-editor-form" action="">
         <Button
           id="btn-close-editor"
-          sx={{ minWidth: "30px", borderRadius: "20px" }}
+          sx={{ minWidth: "30px", minHeight: "30px", borderRadius: "20px" }}
           className="btn-close-editor"
           onClick={() => {
             navigate("/");

@@ -3,14 +3,9 @@ import { NavLink } from "react-router-dom";
 import pic from "../assets/pic.jpeg";
 
 function Sidebar() {
-  const [openSideBar, setOpenSidebar] = useState(false);
-  const toggleSidebar = () => {
-    setOpenSidebar(!openSideBar);
-  };
-
   return (
-    <aside id="sidebar" className={openSideBar ? "opened" : ""}>
-      <i id="menu-btn" className="bx bx-menu" onClick={toggleSidebar}></i>
+    <aside id="sidebar">
+      <i id="menu-btn" className="bx bx-menu"></i>
       <div className="userInfo">
         <img src={pic}></img>
         <p>Tetiana K.</p>

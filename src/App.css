@@ -174,6 +174,7 @@ main.about {
   position: fixed;
   background-color: #0000006c;
   z-index: 30;
+  top: 0;
 }
 
 .task-editor-form {
@@ -182,15 +183,9 @@ main.about {
   display: flex;
   flex-direction: column;
   width: 600px;
-  margin: auto;
+  margin: 100px auto 0;
   padding: 30px 30px 30px;
-  box-shadow: #383838;
   position: relative;
-}
-
-#btn-close-editor {
-  position: absolute;
-  top: 20px;
 }
 
 .task-editor-form input,
@@ -208,22 +203,59 @@ main.about {
 
 .task-editor-form .main {
   display: flex;
-  gap: 25px;
 }
 
 .task-editor-form .main .leftColumn {
   display: flex;
   flex-direction: column;
-  flex-grow: 1.6;
-  gap: 10px;
 }
 
 .task-editor-form .main .leftColumn textarea {
   display: block;
 }
 
-.task-editor-form .main .title {
+.task-editor-form .title {
   display: flex;
+}
+
+.task-editor-form #assignee,
+.task-editor-form #dueDate,
+.task-editor-form #description {
+  display: flex;
+  width: 46%;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.task-editor-form #status,
+.task-editor-form #priority,
+.task-editor-form #createdDate {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.task-editor-form #assignee,
+.task-editor-form #dueDate {
+  height: 30px;
+}
+
+.task-editor-form .description-div {
+  display: flex;
+  height: 70px;
+}
+
+.task-editor-form #title {
+  display: flex;
+  font-size: 1.2rem;
+  width: 513px;
+  height: 35px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.task-editor-form .title {
+  margin-bottom: 10px;
 }
 
 .task-editor-form #title-icon,
@@ -235,9 +267,13 @@ main.about {
 .task-editor-form .main .rightColumn {
   display: flex;
   flex-direction: column;
-  flex-grow: 1.2;
-  background-color: #d7d7d7;
-  margin-top: 30px;
+  background-color: #f1f1f1;
+  position: absolute;
+  right: 0;
+  top: 100px;
+  bottom: 0;
+  width: 47%;
+  padding: 20px 32px 0 16px;
 }
 
 .task-editor-form .title {
@@ -245,28 +281,29 @@ main.about {
   justify-content: space-between;
 }
 
-.task-editor-form .assignee {
+.task-editor-form .assignee-div {
   display: flex;
+  align-items: baseline;
 }
 
 .task-editor-form .title h3 {
   margin: 0;
 }
 
-.btn-close-editor {
+.task-editor-form .btn-close-editor {
   align-self: flex-end;
-  min-width: 40px;
   padding: 0;
   transform: translate(10px, -7px);
 }
 
 .task-editor-form label {
-  font-size: 1rem;
+  font-size: 0.85rem;
+  color: #505050;
+  margin-bottom: 5px;
 }
 
-input#title {
-  font-size: 1.2rem;
-  width: 100%;
+.task-editor-form .dueDate-div {
+  display: flex;
 }
 
 .task-list-card {

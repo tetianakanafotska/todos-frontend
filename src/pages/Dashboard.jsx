@@ -58,7 +58,7 @@ function Dashboard({ withAddTask }) {
         width="calc(100vw - 80px)"
         className="dashboard-main"
       >
-        <Grid item lg={4} md={4} sm={4} xs={12}>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
             listType="To Do"
             setOpenEditor={setOpenEditor}
@@ -66,7 +66,7 @@ function Dashboard({ withAddTask }) {
           />
         </Grid>
 
-        <Grid item lg={4} md={4} sm={4} xs={12}>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
             listType="In Progress"
             setOpenEditor={setOpenEditor}
@@ -74,7 +74,7 @@ function Dashboard({ withAddTask }) {
           />
         </Grid>
 
-        <Grid item lg={4} md={4} sm={4} xs={12}>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
             listType="Done"
             setOpenEditor={setOpenEditor}
