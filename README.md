@@ -1,5 +1,5 @@
 # Flowboard
-Flowboard is a Kanban-style project management tool designed to help teams and individuals manage tasks efficiently. It offers a simple, intuitive interface for tracking tasks across different stages of completion — from "To Do," through "In Progress," to "Done."
+Flowboard is a Kanban-style project management tool designed to help individuals manage tasks. It offers a simple, intuitive interface for tracking tasks across different stages of completion — from "To Do," through "In Progress," to "Done."
 ## Features
 - **Dashboard**: Visualize all tasks across different columns based on their status.
 - **Task Management**: Add, edit, and delete tasks using a simple form-based interface.
