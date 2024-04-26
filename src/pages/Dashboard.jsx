@@ -22,7 +22,7 @@ function Dashboard({ withAddTask }) {
   const { taskId } = useParams();
 
   useEffect(() => {
-    if (taskId) {
+    if (taskId && kanbanDB.some((task) => task.id === taskId)) {
       setOpenEditor(true);
     } else if (typeof taskId !== "undefined") {
       navigate("*");
