@@ -125,7 +125,7 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
         <Button
           onClick={handleSaveButton}
           variant="contained"
-          //disabled={formInputs.title === ""}
+          disabled={formInputs.title === ""}
         >
           Save
         </Button>

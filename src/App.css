@@ -3,6 +3,10 @@
   box-sizing: border-box;
 }
 
+#root {
+  height: inherit;
+}
+
 body {
   margin: 0;
   background-image: url("src/assets/main-bg2.jpg");
@@ -155,7 +159,8 @@ aside .userInfo {
 
 main.about {
   color: #fff;
-  font-size: 4rem;
+  width: 700px;
+  line-height: 1.5;
 }
 
 .edit-task {
