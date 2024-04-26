@@ -27,6 +27,7 @@ function AddTask({ kanbanDB, setKanbanDB, setAddTask }) {
   };
 
   const deleteTask = () => {
+    //same as if cancel
     setAddTask(false);
     navigate("/");
   };
