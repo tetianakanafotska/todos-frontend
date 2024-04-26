@@ -15,8 +15,10 @@ To get Flowboard up and running locally, follow these steps:
    ```bash
    git clone https://github.com/yourusername/flowboard.git
 2. Install dependencies:
+   ```bash
    npm i
-3. Run the app:
+4. Run the app:
+  ```bash
    npm run dev
 ## Pages and Routes
 - **/:** The main dashboard where tasks are displayed.
