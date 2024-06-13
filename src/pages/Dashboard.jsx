@@ -6,14 +6,18 @@ import TaskList from "../components/TaskList";
 import TaskEditor from "./TaskEditor";
 import AddTask from "./AddTask";
 import kanbanJson from "../kanban.json";
+import tasksService from "../services/task.service";
 
 function Dashboard({ withAddTask }) {
-  const initialKanbanDB = kanbanJson;
+  const [kanbanDb, setKanbanDb] = useState([]);
+  const initialKanbanDb = kanbanJson;
 
-  const [kanbanDB, setKanbanDB] = useState(() => {
-    const storedDB = localStorage.getItem("kanbanDB");
-    return storedDB ? JSON.parse(storedDB) : initialKanbanDB;
-  });
+  useEffect(() => {
+    tasksService.get({}).then((allTasks) => {
+      console.log("fetched tasks", allTasks.data);
+      allTasks.data ? setKanbanDb(allTasks.data) : setKanbanDb(initialKanbanDb);
+    });
+  }, []);
 
   const [openEditor, setOpenEditor] = useState(null);
   const [addTask, setAddTask] = useState(null);
@@ -22,7 +26,7 @@ function Dashboard({ withAddTask }) {
   const { taskId } = useParams();
 
   useEffect(() => {
-    if (taskId && kanbanDB.some((task) => task.id === taskId)) {
+    if (taskId && kanbanDb.some((task) => task._id === taskId)) {
       setOpenEditor(true);
     } else if (typeof taskId !== "undefined") {
       navigate("*");
@@ -38,15 +42,15 @@ function Dashboard({ withAddTask }) {
       {openEditor && (
         <TaskEditor
           setOpenEditor={setOpenEditor}
-          kanbanDB={kanbanDB}
-          setKanbanDB={setKanbanDB}
+          kanbanDb={kanbanDb}
+          setKanbanDb={setKanbanDb}
         />
       )}
       {addTask && (
         <AddTask
           setAddTask={setAddTask}
-          kanbanDB={kanbanDB}
-          setKanbanDB={setKanbanDB}
+          kanbanDb={kanbanDb}
+          setKanbanDb={setKanbanDb}
         />
       )}
       <Grid
@@ -62,7 +66,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="To Do"
             setOpenEditor={setOpenEditor}
-            kanbanDB={kanbanDB}
+            kanbanDb={kanbanDb}
           />
         </Grid>
 
@@ -70,7 +74,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="In Progress"
             setOpenEditor={setOpenEditor}
-            kanbanDB={kanbanDB}
+            kanbanDb={kanbanDb}
           />
         </Grid>
 
@@ -78,7 +82,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="Done"
             setOpenEditor={setOpenEditor}
-            kanbanDB={kanbanDB}
+            kanbanDb={kanbanDb}
           />
         </Grid>
         <Button

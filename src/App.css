@@ -233,7 +233,7 @@ main.about {
   font-size: 1rem;
 }
 
-.task-editor-form #status,
+.task-editor-form #type,
 .task-editor-form #priority,
 .task-editor-form #createdDate {
   margin-bottom: 10px;

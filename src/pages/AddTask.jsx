@@ -3,31 +3,30 @@ import { useNavigate } from "react-router-dom";
 import EditorForm from "../components/EditorForm";
 import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import tasksService from "../services/task.service";
 
-function AddTask({ kanbanDB, setKanbanDB, setAddTask }) {
+function AddTask({ kanbanDb, setKanbanDb, setAddTask }) {
   const navigate = useNavigate();
 
-  const currentTask = {
-    id: Date.now().toString(),
+  const newTask = {
+    type: "To Do",
     title: "",
-    status: "To Do",
-    priority: "Low",
     description: "",
+    priority: "Low",
     assignee: "",
-    createdDate: new Date().toISOString().slice(0, 10),
     dueDate: "",
   };
 
-  const saveEdit = (formInputs) => {
-    const updatedKanban = [...kanbanDB, formInputs];
-    setKanbanDB(updatedKanban);
-    localStorage.setItem("kanbanDB", JSON.stringify(updatedKanban));
+  const saveTask = (formInputs) => {
+    tasksService.post(formInputs).then((savedTask) => {
+      console.log(savedTask);
+      setKanbanDb((prev) => [...prev, savedTask]);
+    });
     setAddTask(false);
     navigate("/");
   };
 
-  const deleteTask = () => {
-    //same as if cancel
+  const cancel = () => {
     setAddTask(false);
     navigate("/");
   };
@@ -49,12 +48,7 @@ function AddTask({ kanbanDB, setKanbanDB, setAddTask }) {
           </Button>
         </div>
 
-        <EditorForm
-          currentTask={currentTask}
-          saveEdit={saveEdit}
-          setAddTask={setAddTask}
-          deleteTask={deleteTask}
-        />
+        <EditorForm newTask={newTask} saveTask={saveTask} cancel={cancel} />
       </form>
     </article>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@mui/material";
 import TaskCard from "./TaskCard";
 
-function TaskList({ listType, kanbanDB, setOpenEditor }) {
+function TaskList({ listType, kanbanDb, setOpenEditor }) {
   return (
     <Card
       className="task-list-card"
@@ -12,12 +12,12 @@ function TaskList({ listType, kanbanDB, setOpenEditor }) {
     >
       <h3>{listType}</h3>
       <div className="task-list-content">
-        {kanbanDB.map((task) => {
-          if (task.status === listType) {
+        {kanbanDb.map((task) => {
+          if (task.type === listType) {
             return (
               <TaskCard
                 setOpenEditor={setOpenEditor}
-                key={task.id}
+                key={task._id}
                 task={task}
               />
             );

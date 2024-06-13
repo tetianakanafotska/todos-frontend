@@ -6,38 +6,46 @@ import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 
-function EditorForm({ saveEdit, deleteTask, currentTask }) {
+function EditorForm({
+  saveEdit,
+  deleteTask,
+  currentTask,
+  newTask,
+  saveTask,
+  cancel,
+}) {
+  const task = currentTask ? currentTask : newTask;
   const [formInputs, setFormInputs] = useState({
-    id: currentTask.id,
-    title: currentTask.title,
-    status: currentTask.status,
-    priority: currentTask.priority,
-    description: currentTask.description,
-    assignee: currentTask.assignee,
-    createdDate: currentTask.createdDate,
-    dueDate: currentTask.dueDate,
+    _id: currentTask ? currentTask._id : null,
+    title: task.title,
+    type: task.type,
+    priority: task.priority,
+    description: task.description,
+    assignee: task.assignee,
+    createdDate: task.createdDate,
+    dueDate: task.dueDate,
   });
 
   const handleOnChange = (e) => {
     const { id, value } = e.target;
-    console.log(id, value);
     setFormInputs((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSaveButton = (e) => {
     e.preventDefault();
-    saveEdit(formInputs);
+    saveEdit ? saveEdit(formInputs) : saveTask(formInputs);
   };
 
   const handleDeleteButton = (e) => {
     e.preventDefault();
-    deleteTask(currentTask.id);
+    deleteTask ? deleteTask(currentTask._id) : cancel();
   };
 
   return (
     <>
       <div className="main">
         <div className="leftColumn">
+          {/* title*/}
           <div className="title">
             <SubtitlesIcon id="title-icon" />
             <input
@@ -47,7 +55,7 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
               onChange={handleOnChange}
             />
           </div>
-
+          {/* description*/}
           <label htmlFor="description">Description</label>
           <div className="description-div">
             <SubjectIcon id="description-icon" />
@@ -58,6 +66,7 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
               onChange={handleOnChange}
             />
           </div>
+          {/* assignee*/}
           <label htmlFor="assignee">Assignee</label>
           <div className="assignee-div">
             <Avatar sx={{ width: 21, height: 21 }} />{" "}
@@ -79,23 +88,20 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
               onChange={handleOnChange}
             />
           </div>
-
-          {/* due*/}
         </div>
         <div className="rightColumn">
           {/* task type */}
-          <label htmlFor="status">Task type:</label>
+          <label htmlFor="type">Task type:</label>
           <select
-            name="status"
-            id="status"
-            value={formInputs.status}
+            name="type"
+            id="type"
+            value={formInputs.type}
             onChange={handleOnChange}
           >
             <option value="To Do">To Do</option>
             <option value="In Progress">In Progress</option>
             <option value="Done">Done</option>
           </select>
-          {/* task type */}
           {/* priority */}
           <label htmlFor="priority">Set priority:</label>
           <select
@@ -108,7 +114,6 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
             <option value="Medium">Medium</option>
             <option value="Low">Low</option>
           </select>
-          {/* priority */}
           {/* created*/}
           <label htmlFor="createdDate">Created:</label>
           <input
@@ -117,7 +122,6 @@ function EditorForm({ saveEdit, deleteTask, currentTask }) {
             value={formInputs.createdDate}
             onChange={handleOnChange}
           />
-          {/* created*/}
         </div>
       </div>
 

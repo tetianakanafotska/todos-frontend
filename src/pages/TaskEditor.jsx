@@ -3,32 +3,45 @@ import { useNavigate, useParams } from "react-router-dom";
 import EditorForm from "../components/EditorForm";
 import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import tasksService from "../services/task.service";
 
-function TaskEditor({ kanbanDB, setKanbanDB, setOpenEditor }) {
+function TaskEditor({ kanbanDb, setKanbanDb, setOpenEditor }) {
   const navigate = useNavigate();
   const { taskId } = useParams();
-  const currentTask = kanbanDB.find((task) => {
-    return task.id == taskId;
+  const currentTask = kanbanDb.find((task) => {
+    return task._id == taskId;
   });
 
   const saveEdit = (formInputs) => {
-    const updatedDB = kanbanDB.map((task) => {
-      return task.id === formInputs.id ? formInputs : task;
-    });
-    setKanbanDB(updatedDB);
-    localStorage.setItem("kanbanDB", JSON.stringify(updatedDB));
-    setOpenEditor(false);
-    navigate("/");
+    tasksService
+      .put(taskId, formInputs)
+      .then((updatedTask) => {
+        const updatedDb = kanbanDb.map((task) => {
+          return task.id === taskId ? updatedTask : task;
+        });
+        setKanbanDb(updatedDb);
+        setOpenEditor(false);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
-  const deleteTask = (id) => {
-    const updatedKanbanDB = kanbanDB.filter((task) => {
-      return task.id != id;
-    });
-    setKanbanDB(updatedKanbanDB);
-    localStorage.setItem("kanbanDB", JSON.stringify(updatedKanbanDB));
-    setOpenEditor(false);
-    navigate("/");
+  const deleteTask = () => {
+    tasksService
+      .delete(taskId)
+      .then((deletedTask) => {
+        const updatedKanbanDb = kanbanDb.filter((task) => {
+          return task._id != taskId;
+        });
+        setKanbanDb(updatedKanbanDb);
+        setOpenEditor(false);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
