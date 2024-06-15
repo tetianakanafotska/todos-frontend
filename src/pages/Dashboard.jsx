@@ -19,49 +19,17 @@ function Dashboard({ withAddTask }) {
   const { taskId } = useParams();
   const navigate = useNavigate();
 
-  const handleDragEnd = (result) => {
-    const { source, destination } = result;
-
-    const { index: sourceIndex, droppableId: sourceId } = source;
-    const { index: destIndex, droppableId: destId } = destination;
-    console.log("source", sourceIndex, sourceId, "desti", destIndex, destId);
-
-    if (!destId) return;
-    console.log("sourceId", sourceId);
-    console.log("the one which is moved", tasks[sourceId][sourceIndex]);
-    const movedTask = tasks[sourceId][sourceIndex];
-    console.log("new type", movedTask);
-
-    const newSourceTasks = [...tasks[sourceId]];
-    const newDestTasks = [...tasks[destId]];
-    newSourceTasks.splice(sourceIndex, 1);
-    newDestTasks.splice(destIndex, 0, { ...movedTask, type: destId });
-
-    console.log("reordered source task", newSourceTasks);
-    console.log("reordered dest tasks", newDestTasks);
-    setTasks((prevTasks) => ({
-      ...prevTasks,
-      [sourceId]: newSourceTasks,
-      [destId]: newDestTasks,
-    }));
-  };
-
   useEffect(() => {
     tasksService
       .get({})
       .then((response) => {
         const tasksData = response.data || [];
-        const toDoTasks = tasksData.filter((task) => task.type === "To Do");
-        const inProgressTasks = tasksData.filter(
-          (task) => task.type === "In Progress"
-        );
-        const doneTasks = tasksData.filter((task) => task.type === "Done");
-
-        setTasks({
-          toDo: toDoTasks,
-          inProgress: inProgressTasks,
-          done: doneTasks,
-        });
+        const updatedTasks = {
+          toDo: tasksData.filter((task) => task.type === "toDo"),
+          inProgress: tasksData.filter((task) => task.type === "inProgress"),
+          done: tasksData.filter((task) => task.type === "done"),
+        };
+        setTasks(updatedTasks);
       })
       .catch((err) => {
         console.error("Failed to fetch all tasks", err);
@@ -85,7 +53,21 @@ function Dashboard({ withAddTask }) {
     setAddTask(withAddTask);
   }, [withAddTask]);
 
-  console.log(tasks);
+  const handleDragEnd = (result) => {
+    const { source, destination } = result;
+    if (!destination) return;
+    const { index: sourceIndex, droppableId: sourceId } = source;
+    const { index: destIndex, droppableId: destId } = destination;
+
+    const updatedTasks = { ...tasks };
+    const sourceTasks = updatedTasks[sourceId];
+    const destTasks = updatedTasks[destId];
+
+    const [movedTask] = sourceTasks.splice(sourceIndex, 1);
+    destTasks.splice(destIndex, 0, { ...movedTask, type: destId });
+
+    setTasks(updatedTasks);
+  };
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
