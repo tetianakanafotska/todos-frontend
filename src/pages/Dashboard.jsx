@@ -9,34 +9,59 @@ import tasksService from "../services/task.service";
 import { DragDropContext } from "react-beautiful-dnd";
 
 function Dashboard({ withAddTask }) {
-  const [allTasks, setAllTasks] = useState([]);
+  const [tasks, setTasks] = useState({
+    toDo: [],
+    inProgress: [],
+    done: [],
+  });
   const [openEditor, setOpenEditor] = useState(null);
   const [addTask, setAddTask] = useState(null);
   const { taskId } = useParams();
   const navigate = useNavigate();
 
   const handleDragEnd = (result) => {
-    const {
-      source: { index: sourceIndex, droppableId: sourceId },
-      destination: { index: destIndex, droppableId: destId },
-    } = result;
+    const { source, destination } = result;
 
+    const { index: sourceIndex, droppableId: sourceId } = source;
+    const { index: destIndex, droppableId: destId } = destination;
     console.log("source", sourceIndex, sourceId, "desti", destIndex, destId);
 
-    if (!destination) return;
+    if (!destId) return;
+    console.log("sourceId", sourceId);
+    console.log("the one which is moved", tasks[sourceId][sourceIndex]);
+    const movedTask = tasks[sourceId][sourceIndex];
+    console.log("new type", movedTask);
 
-    const reorderedTasks = Array.from(allTasks);
-    const [movedTask] = reorderedTasks.splice(source.index, 1);
-    reorderedTasks.splice(destination.index, 0, movedTask);
+    const newSourceTasks = [...tasks[sourceId]];
+    const newDestTasks = [...tasks[destId]];
+    newSourceTasks.splice(sourceIndex, 1);
+    newDestTasks.splice(destIndex, 0, { ...movedTask, type: destId });
 
-    setAllTasks(reorderedTasks);
+    console.log("reordered source task", newSourceTasks);
+    console.log("reordered dest tasks", newDestTasks);
+    setTasks((prevTasks) => ({
+      ...prevTasks,
+      [sourceId]: newSourceTasks,
+      [destId]: newDestTasks,
+    }));
   };
 
   useEffect(() => {
     tasksService
       .get({})
       .then((response) => {
-        setAllTasks(response.data);
+        const tasksData = response.data || [];
+        const toDoTasks = tasksData.filter((task) => task.type === "To Do");
+        const inProgressTasks = tasksData.filter(
+          (task) => task.type === "In Progress"
+        );
+        const doneTasks = tasksData.filter((task) => task.type === "Done");
+
+        setTasks({
+          toDo: toDoTasks,
+          inProgress: inProgressTasks,
+          done: doneTasks,
+        });
       })
       .catch((err) => {
         console.error("Failed to fetch all tasks", err);
@@ -44,7 +69,12 @@ function Dashboard({ withAddTask }) {
   }, []);
 
   useEffect(() => {
-    if (taskId && allTasks.some((task) => task._id === taskId)) {
+    if (
+      taskId &&
+      [...tasks.toDo, ...tasks.inProgress, ...tasks.done].some(
+        (task) => task._id === taskId
+      )
+    ) {
       setOpenEditor(true);
     } else if (typeof taskId !== "undefined") {
       navigate("*");
@@ -55,7 +85,7 @@ function Dashboard({ withAddTask }) {
     setAddTask(withAddTask);
   }, [withAddTask]);
 
-  console.log(allTasks);
+  console.log(tasks);
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
@@ -84,25 +114,25 @@ function Dashboard({ withAddTask }) {
       >
         <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
-            listType="To Do"
+            listType="toDo"
             setOpenEditor={setOpenEditor}
-            allTasks={allTasks}
+            tasks={tasks.toDo}
           />
         </Grid>
 
         <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
-            listType="In Progress"
+            listType="inProgress"
             setOpenEditor={setOpenEditor}
-            allTasks={allTasks}
+            tasks={tasks.inProgress}
           />
         </Grid>
 
         <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
-            listType="Done"
+            listType="done"
             setOpenEditor={setOpenEditor}
-            allTasks={allTasks}
+            tasks={tasks.done}
           />
         </Grid>
         <Button

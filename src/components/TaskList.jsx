@@ -3,7 +3,7 @@ import { Card } from "@mui/material";
 import TaskCard from "./TaskCard";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
-function TaskList({ listType, allTasks, setOpenEditor }) {
+function TaskList({ listType, tasks, setOpenEditor }) {
   return (
     <Droppable droppableId={listType}>
       {(provided) => (
@@ -17,21 +17,19 @@ function TaskList({ listType, allTasks, setOpenEditor }) {
         >
           <h3>{listType}</h3>
           <div className="task-list-content">
-            {allTasks
-              .filter((task) => task.type === listType)
-              .map((task, index) => (
-                <Draggable key={task._id} draggableId={task._id} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <TaskCard setOpenEditor={setOpenEditor} task={task} />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
+            {tasks.map((task, index) => (
+              <Draggable key={task._id} draggableId={task._id} index={index}>
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                    <TaskCard setOpenEditor={setOpenEditor} task={task} />
+                  </div>
+                )}
+              </Draggable>
+            ))}
           </div>
           {provided.placeholder}
         </Card>
