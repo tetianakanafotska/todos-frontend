@@ -5,28 +5,46 @@ import { Grid, Button } from "@mui/material";
 import TaskList from "../components/TaskList";
 import TaskEditor from "./TaskEditor";
 import AddTask from "./AddTask";
-import kanbanJson from "../kanban.json";
 import tasksService from "../services/task.service";
+import { DragDropContext } from "react-beautiful-dnd";
 
 function Dashboard({ withAddTask }) {
-  const [kanbanDb, setKanbanDb] = useState([]);
-  const initialKanbanDb = kanbanJson;
-
-  useEffect(() => {
-    tasksService.get({}).then((allTasks) => {
-      console.log("fetched tasks", allTasks.data);
-      allTasks.data ? setKanbanDb(allTasks.data) : setKanbanDb(initialKanbanDb);
-    });
-  }, []);
-
+  const [allTasks, setAllTasks] = useState([]);
   const [openEditor, setOpenEditor] = useState(null);
   const [addTask, setAddTask] = useState(null);
+  const { taskId } = useParams();
   const navigate = useNavigate();
 
-  const { taskId } = useParams();
+  const handleDragEnd = (result) => {
+    const {
+      source: { index: sourceIndex, droppableId: sourceId },
+      destination: { index: destIndex, droppableId: destId },
+    } = result;
+
+    console.log("source", sourceIndex, sourceId, "desti", destIndex, destId);
+
+    if (!destination) return;
+
+    const reorderedTasks = Array.from(allTasks);
+    const [movedTask] = reorderedTasks.splice(source.index, 1);
+    reorderedTasks.splice(destination.index, 0, movedTask);
+
+    setAllTasks(reorderedTasks);
+  };
 
   useEffect(() => {
-    if (taskId && kanbanDb.some((task) => task._id === taskId)) {
+    tasksService
+      .get({})
+      .then((response) => {
+        setAllTasks(response.data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch all tasks", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (taskId && allTasks.some((task) => task._id === taskId)) {
       setOpenEditor(true);
     } else if (typeof taskId !== "undefined") {
       navigate("*");
@@ -37,20 +55,22 @@ function Dashboard({ withAddTask }) {
     setAddTask(withAddTask);
   }, [withAddTask]);
 
+  console.log(allTasks);
+
   return (
-    <>
+    <DragDropContext onDragEnd={handleDragEnd}>
       {openEditor && (
         <TaskEditor
           setOpenEditor={setOpenEditor}
-          kanbanDb={kanbanDb}
-          setKanbanDb={setKanbanDb}
+          allTasks={allTasks}
+          setAllTasks={setAllTasks}
         />
       )}
       {addTask && (
         <AddTask
           setAddTask={setAddTask}
-          kanbanDb={kanbanDb}
-          setKanbanDb={setKanbanDb}
+          allTasks={allTasks}
+          setAllTasks={setAllTasks}
         />
       )}
       <Grid
@@ -66,7 +86,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="To Do"
             setOpenEditor={setOpenEditor}
-            kanbanDb={kanbanDb}
+            allTasks={allTasks}
           />
         </Grid>
 
@@ -74,7 +94,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="In Progress"
             setOpenEditor={setOpenEditor}
-            kanbanDb={kanbanDb}
+            allTasks={allTasks}
           />
         </Grid>
 
@@ -82,7 +102,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="Done"
             setOpenEditor={setOpenEditor}
-            kanbanDb={kanbanDb}
+            allTasks={allTasks}
           />
         </Grid>
         <Button
@@ -98,7 +118,7 @@ function Dashboard({ withAddTask }) {
           Add a task
         </Button>
       </Grid>
-    </>
+    </DragDropContext>
   );
 }
 

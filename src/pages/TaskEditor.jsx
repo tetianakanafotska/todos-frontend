@@ -5,10 +5,10 @@ import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "../services/task.service";
 
-function TaskEditor({ kanbanDb, setKanbanDb, setOpenEditor }) {
+function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
   const navigate = useNavigate();
   const { taskId } = useParams();
-  const currentTask = kanbanDb.find((task) => {
+  const currentTask = allTasks.find((task) => {
     return task._id == taskId;
   });
 
@@ -16,10 +16,10 @@ function TaskEditor({ kanbanDb, setKanbanDb, setOpenEditor }) {
     tasksService
       .put(taskId, formInputs)
       .then((updatedTask) => {
-        const updatedDb = kanbanDb.map((task) => {
-          return task.id === taskId ? updatedTask : task;
+        const updatedTasks = allTasks.map((task) => {
+          return task._id === taskId ? updatedTask.data : task;
         });
-        setKanbanDb(updatedDb);
+        setAllTasks(updatedTasks);
         setOpenEditor(false);
         navigate("/");
       })
@@ -32,10 +32,10 @@ function TaskEditor({ kanbanDb, setKanbanDb, setOpenEditor }) {
     tasksService
       .delete(taskId)
       .then((deletedTask) => {
-        const updatedKanbanDb = kanbanDb.filter((task) => {
+        const updatedTasks = allTasks.filter((task) => {
           return task._id != taskId;
         });
-        setKanbanDb(updatedKanbanDb);
+        setAllTasks(updatedTasks);
         setOpenEditor(false);
         navigate("/");
       })

@@ -6,7 +6,6 @@ import Dashboard from "./pages/Dashboard.jsx";
 import About from "./pages/About.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import Sidebar from "./components/Sidebar.jsx";
-
 function App() {
   return (
     <>

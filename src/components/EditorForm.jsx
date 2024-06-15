@@ -16,7 +16,6 @@ function EditorForm({
 }) {
   const task = currentTask ? currentTask : newTask;
   const [formInputs, setFormInputs] = useState({
-    _id: currentTask ? currentTask._id : null,
     title: task.title,
     type: task.type,
     priority: task.priority,

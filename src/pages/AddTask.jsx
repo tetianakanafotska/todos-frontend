@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "../services/task.service";
 
-function AddTask({ kanbanDb, setKanbanDb, setAddTask }) {
+function AddTask({ setAllTasks, setAddTask }) {
   const navigate = useNavigate();
 
   const newTask = {
@@ -19,8 +19,7 @@ function AddTask({ kanbanDb, setKanbanDb, setAddTask }) {
 
   const saveTask = (formInputs) => {
     tasksService.post(formInputs).then((savedTask) => {
-      console.log(savedTask);
-      setKanbanDb((prev) => [...prev, savedTask]);
+      setAllTasks((prev) => [...prev, savedTask.data]);
     });
     setAddTask(false);
     navigate("/");
