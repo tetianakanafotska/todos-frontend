@@ -5,21 +5,32 @@ import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "../services/task.service";
 
-function AddTask({ setAllTasks, setAddTask }) {
+function AddTask({ setTasks, tasks, setAddTask }) {
   const navigate = useNavigate();
 
   const newTask = {
-    type: "To Do",
+    type: "toDo",
     title: "",
     description: "",
     priority: "Low",
     assignee: "",
     dueDate: "",
+    orderInList: "",
   };
 
   const saveTask = (formInputs) => {
-    tasksService.post(formInputs).then((savedTask) => {
-      setAllTasks((prev) => [...prev, savedTask.data]);
+    tasksService.getByType(formInputs.type).then((tasksOfType) => {
+      const maxIndex = Math.max(
+        ...tasksOfType.data.map((task) => task.orderInList),
+        0
+      );
+      const nextIndex = maxIndex + 1;
+      tasksService
+        .post({ ...formInputs, orderInList: nextIndex })
+        .then((savedTask) => {
+          console.log("this is saved task in the list", savedTask.data);
+          setTasks(formInputs.type, savedTask.data);
+        });
     });
     setAddTask(false);
     navigate("/");

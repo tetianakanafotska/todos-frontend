@@ -97,9 +97,9 @@ function EditorForm({
             value={formInputs.type}
             onChange={handleOnChange}
           >
-            <option value="To Do">To Do</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Done">Done</option>
+            <option value="toDo">To Do</option>
+            <option value="inProgress">In Progress</option>
+            <option value="done">Done</option>
           </select>
           {/* priority */}
           <label htmlFor="priority">Set priority:</label>

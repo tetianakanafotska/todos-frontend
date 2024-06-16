@@ -11,6 +11,10 @@ class TasksService {
     return this.api.get("/tasks", requestBody);
   };
 
+  getByType = (taskType) => {
+    return this.api.get(`tasks/${taskType}`);
+  };
+
   post = (requestBody) => {
     return this.api.post("/tasks", requestBody);
   };

@@ -13,7 +13,6 @@ function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
   });
 
   const saveEdit = (formInputs) => {
-    console.log("this is forminputs and taskid", formInputs, taskId);
     tasksService
       .put(taskId, formInputs)
       .then((updatedTask) => {

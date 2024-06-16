@@ -20,20 +20,21 @@ function Dashboard({ withAddTask }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    tasksService
-      .get({})
-      .then((response) => {
-        const tasksData = response.data || [];
-        const updatedTasks = {
-          toDo: tasksData.filter((task) => task.type === "toDo"),
-          inProgress: tasksData.filter((task) => task.type === "inProgress"),
-          done: tasksData.filter((task) => task.type === "done"),
-        };
-        setTasks(updatedTasks);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch all tasks", err);
-      });
+    const fetchTasksByType = async () => {
+      try {
+        const toDoTasks = await tasksService.getByType("toDo");
+        const inProgressTasks = await tasksService.getByType("inProgress");
+        const doneTasks = await tasksService.getByType("done");
+        setTasks({
+          toDo: toDoTasks.data,
+          inProgress: inProgressTasks.data,
+          done: doneTasks.data,
+        });
+      } catch (error) {
+        console.error("Failed to fetch and set tasks:", error);
+      }
+    };
+    fetchTasksByType();
   }, []);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ function Dashboard({ withAddTask }) {
     setAddTask(withAddTask);
   }, [withAddTask]);
 
-  const handleDragEnd = (result) => {
+  const handleDragEnd = async (result) => {
     const { source, destination } = result;
     if (!destination) return;
     const { index: sourceIndex, droppableId: sourceId } = source;
@@ -64,9 +65,21 @@ function Dashboard({ withAddTask }) {
     const destTasks = updatedTasks[destId];
 
     const [movedTask] = sourceTasks.splice(sourceIndex, 1);
-    destTasks.splice(destIndex, 0, { ...movedTask, type: destId });
 
+    destTasks.splice(destIndex, 0, {
+      ...movedTask,
+      type: destId,
+      orderInList: destIndex,
+    });
+    const reorderedTask = await tasksService.put(movedTask._id, {
+      ...movedTask,
+      type: destId,
+      orderInList: destIndex,
+    });
+
+    console.log("reordered task", reorderedTask.data);
     setTasks(updatedTasks);
+    console.log("updated tasks", updatedTasks);
   };
 
   return (
@@ -74,15 +87,29 @@ function Dashboard({ withAddTask }) {
       {openEditor && (
         <TaskEditor
           setOpenEditor={setOpenEditor}
-          allTasks={allTasks}
-          setAllTasks={setAllTasks}
+          tasks={tasks}
+          setTasks={(type, newTask) =>
+            setTasks((prevTasks) => {
+              return {
+                ...prevTasks,
+                [type]: [...prevTasks[type], newTask],
+              };
+            })
+          }
         />
       )}
       {addTask && (
         <AddTask
           setAddTask={setAddTask}
-          allTasks={allTasks}
-          setAllTasks={setAllTasks}
+          tasks={tasks}
+          setTasks={(type, newTask) =>
+            setTasks((prevTasks) => {
+              return {
+                ...prevTasks,
+                [type]: [...prevTasks[type], newTask],
+              };
+            })
+          }
         />
       )}
       <Grid
