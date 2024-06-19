@@ -5,21 +5,20 @@ import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "../services/task.service";
 
-function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
+function TaskEditor({ tasks, setTasks, setOpenEditor }) {
   const navigate = useNavigate();
   const { taskId } = useParams();
-  const currentTask = allTasks.find((task) => {
-    return task._id == taskId;
-  });
+  const currentTask = [...tasks.toDo, ...tasks.inProgress, ...tasks.done].find(
+    (task) => {
+      return task._id == taskId;
+    }
+  );
 
   const saveEdit = (formInputs) => {
     tasksService
       .put(taskId, formInputs)
       .then((updatedTask) => {
-        const updatedTasks = allTasks.map((task) => {
-          return task._id === taskId ? updatedTask.data : task;
-        });
-        setAllTasks(updatedTasks);
+        setTasks(updatedTask.data.type, updatedTask.data);
         setOpenEditor(false);
         navigate("/");
       })
@@ -32,10 +31,10 @@ function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
     tasksService
       .delete(taskId)
       .then((deletedTask) => {
-        const updatedTasks = allTasks.filter((task) => {
+        const updatedTasks = tasks.filter((task) => {
           return task._id != taskId;
         });
-        setAllTasks(updatedTasks);
+        setTasks(updatedTasks);
         setOpenEditor(false);
         navigate("/");
       })

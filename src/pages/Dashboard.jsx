@@ -14,6 +14,7 @@ function Dashboard({ withAddTask }) {
     inProgress: [],
     done: [],
   });
+
   const [openEditor, setOpenEditor] = useState(null);
   const [addTask, setAddTask] = useState(null);
   const { taskId } = useParams();
@@ -60,26 +61,46 @@ function Dashboard({ withAddTask }) {
     const { index: sourceIndex, droppableId: sourceId } = source;
     const { index: destIndex, droppableId: destId } = destination;
 
+    console.log(sourceIndex, sourceId, "-->", destIndex, destId);
+
     const updatedTasks = { ...tasks };
     const sourceTasks = updatedTasks[sourceId];
     const destTasks = updatedTasks[destId];
 
-    const [movedTask] = sourceTasks.splice(sourceIndex, 1);
+    console.log("dest tasks", updatedTasks[destId]);
 
-    destTasks.splice(destIndex, 0, {
-      ...movedTask,
-      type: destId,
-      orderInList: destIndex,
-    });
-    const reorderedTask = await tasksService.put(movedTask._id, {
-      ...movedTask,
-      type: destId,
-      orderInList: destIndex,
-    });
+    const [movedTask] = sourceTasks.splice(sourceIndex, 1);
+    console.log("movedTask", movedTask);
+
+    const neighTaskLeft = destTasks[destIndex - 1];
+    const neighTaskRight = destTasks[destIndex];
+
+    const leftOrder = neighTaskLeft ? neighTaskLeft.orderInList : 0;
+    const rightOrder = neighTaskRight
+      ? neighTaskRight.orderInList
+      : leftOrder + 2;
+
+    const newOrder = (leftOrder + rightOrder) / 2;
+
+    console.log(
+      "neworder",
+      newOrder,
+      "calculations:",
+      "neighTaskLeft:",
+      neighTaskLeft,
+      "neighTaskRight:",
+      neighTaskRight
+    );
+
+    const updatedTask = { ...movedTask, type: destId, orderInList: newOrder };
+
+    destTasks.splice(destIndex, 0, updatedTask);
+
+    const reorderedTask = await tasksService.put(movedTask._id, updatedTask);
 
     console.log("reordered task", reorderedTask.data);
     setTasks(updatedTasks);
-    console.log("updated tasks", updatedTasks);
+    console.log("updated alltasks", updatedTasks);
   };
 
   return (
@@ -88,7 +109,7 @@ function Dashboard({ withAddTask }) {
         <TaskEditor
           setOpenEditor={setOpenEditor}
           tasks={tasks}
-          setTasks={(type, newTask) =>
+          setTasks={(updatedTasks) =>
             setTasks((prevTasks) => {
               return {
                 ...prevTasks,

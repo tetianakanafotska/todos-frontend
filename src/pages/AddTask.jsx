@@ -24,12 +24,14 @@ function AddTask({ setTasks, tasks, setAddTask }) {
         ...tasksOfType.data.map((task) => task.orderInList),
         0
       );
-      const nextIndex = maxIndex + 1;
+
+      console.log("maxindex", maxIndex);
+      const nextIndex = tasksOfType.data.length === 0 ? 1 : maxIndex + 1;
       tasksService
         .post({ ...formInputs, orderInList: nextIndex })
         .then((savedTask) => {
           console.log("this is saved task in the list", savedTask.data);
-          setTasks(formInputs.type, savedTask.data);
+          setTasks(savedTask.data.type, savedTask.data);
         });
     });
     setAddTask(false);
