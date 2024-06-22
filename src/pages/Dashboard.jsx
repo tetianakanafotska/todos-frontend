@@ -9,11 +9,10 @@ import tasksService from "../services/task.service";
 import { DragDropContext } from "react-beautiful-dnd";
 
 function Dashboard({ withAddTask }) {
-  const [tasks, setTasks] = useState({
-    toDo: [],
-    inProgress: [],
-    done: [],
-  });
+  const [toDoTasks, setToDoTasks] = useState([]);
+  const [inProgressTasks, setInProgressTasks] = useState([]);
+  const [doneTasks, setDoneTasks] = useState([]);
+  const [allTasks, setAllTasks] = useState([]);
 
   const [openEditor, setOpenEditor] = useState(null);
   const [addTask, setAddTask] = useState(null);
@@ -23,14 +22,12 @@ function Dashboard({ withAddTask }) {
   useEffect(() => {
     const fetchTasksByType = async () => {
       try {
-        const toDoTasks = await tasksService.getByType("toDo");
-        const inProgressTasks = await tasksService.getByType("inProgress");
-        const doneTasks = await tasksService.getByType("done");
-        setTasks({
-          toDo: toDoTasks.data,
-          inProgress: inProgressTasks.data,
-          done: doneTasks.data,
-        });
+        const toDo = await tasksService.getByType("toDo");
+        const inProgress = await tasksService.getByType("inProgress");
+        const done = await tasksService.getByType("done");
+        setToDoTasks(toDo.data);
+        setInProgressTasks(inProgress.data);
+        setDoneTasks(done.data);
       } catch (error) {
         console.error("Failed to fetch and set tasks:", error);
       }
@@ -39,12 +36,11 @@ function Dashboard({ withAddTask }) {
   }, []);
 
   useEffect(() => {
-    if (
-      taskId &&
-      [...tasks.toDo, ...tasks.inProgress, ...tasks.done].some(
-        (task) => task._id === taskId
-      )
-    ) {
+    setAllTasks([...toDoTasks, ...inProgressTasks, ...doneTasks]);
+  }, [toDoTasks, inProgressTasks, doneTasks]);
+
+  useEffect(() => {
+    if (taskId && allTasks.some((task) => task._id === taskId)) {
       setOpenEditor(true);
     } else if (typeof taskId !== "undefined") {
       navigate("*");
@@ -61,46 +57,61 @@ function Dashboard({ withAddTask }) {
     const { index: sourceIndex, droppableId: sourceId } = source;
     const { index: destIndex, droppableId: destId } = destination;
 
+    if (sourceId === destId && sourceIndex === destIndex) return;
+
     console.log(sourceIndex, sourceId, "-->", destIndex, destId);
 
-    const updatedTasks = { ...tasks };
-    const sourceTasks = updatedTasks[sourceId];
-    const destTasks = updatedTasks[destId];
+    const taskMap = {
+      toDo: toDoTasks,
+      inProgress: inProgressTasks,
+      done: doneTasks,
+    };
 
-    console.log("dest tasks", updatedTasks[destId]);
+    const sourceTasks = [...taskMap[sourceId]];
+    const destTasks = sourceId === destId ? sourceTasks : [...taskMap[destId]];
 
     const [movedTask] = sourceTasks.splice(sourceIndex, 1);
     console.log("movedTask", movedTask);
 
-    const neighTaskLeft = destTasks[destIndex - 1];
-    const neighTaskRight = destTasks[destIndex];
+    const taskLeft = destTasks[destIndex - 1];
+    const taskRight = destTasks[destIndex];
+    const leftPosition = taskLeft ? taskLeft.position : 0;
+    const rightPosition = taskRight ? taskRight.position : leftPosition + 2;
+    const newPosition = (leftPosition + rightPosition) / 2;
 
-    const leftOrder = neighTaskLeft ? neighTaskLeft.orderInList : 0;
-    const rightOrder = neighTaskRight
-      ? neighTaskRight.orderInList
-      : leftOrder + 2;
-
-    const newOrder = (leftOrder + rightOrder) / 2;
-
-    console.log(
-      "neworder",
-      newOrder,
-      "calculations:",
-      "neighTaskLeft:",
-      neighTaskLeft,
-      "neighTaskRight:",
-      neighTaskRight
-    );
-
-    const updatedTask = { ...movedTask, type: destId, orderInList: newOrder };
-
+    const updatedTask = { ...movedTask, type: destId, position: newPosition };
     destTasks.splice(destIndex, 0, updatedTask);
-
     const reorderedTask = await tasksService.put(movedTask._id, updatedTask);
 
     console.log("reordered task", reorderedTask.data);
-    setTasks(updatedTasks);
-    console.log("updated alltasks", updatedTasks);
+
+    switch (sourceId) {
+      case "toDo":
+        setToDoTasks(sourceTasks);
+        break;
+      case "inProgress":
+        setInProgressTasks(sourceTasks);
+        break;
+      case "done":
+        setDoneTasks(sourceTasks);
+        break;
+      default:
+        break;
+    }
+
+    switch (destId) {
+      case "toDo":
+        setToDoTasks(destTasks);
+        break;
+      case "inProgress":
+        setInProgressTasks(destTasks);
+        break;
+      case "done":
+        setDoneTasks(destTasks);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -108,29 +119,15 @@ function Dashboard({ withAddTask }) {
       {openEditor && (
         <TaskEditor
           setOpenEditor={setOpenEditor}
-          tasks={tasks}
-          setTasks={(updatedTasks) =>
-            setTasks((prevTasks) => {
-              return {
-                ...prevTasks,
-                [type]: [...prevTasks[type], newTask],
-              };
-            })
-          }
+          allTasks={allTasks}
+          setAllTasks={setAllTasks}
         />
       )}
       {addTask && (
         <AddTask
           setAddTask={setAddTask}
-          tasks={tasks}
-          setTasks={(type, newTask) =>
-            setTasks((prevTasks) => {
-              return {
-                ...prevTasks,
-                [type]: [...prevTasks[type], newTask],
-              };
-            })
-          }
+          allTasks={allTasks}
+          setAllTasks={setAllTasks}
         />
       )}
       <Grid
@@ -146,7 +143,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="toDo"
             setOpenEditor={setOpenEditor}
-            tasks={tasks.toDo}
+            tasks={allTasks.filter((task) => task.type === "toDo")}
           />
         </Grid>
 
@@ -154,7 +151,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="inProgress"
             setOpenEditor={setOpenEditor}
-            tasks={tasks.inProgress}
+            tasks={allTasks.filter((task) => task.type === "inProgress")}
           />
         </Grid>
 
@@ -162,7 +159,7 @@ function Dashboard({ withAddTask }) {
           <TaskList
             listType="done"
             setOpenEditor={setOpenEditor}
-            tasks={tasks.done}
+            tasks={allTasks.filter((task) => task.type === "done")}
           />
         </Grid>
         <Button

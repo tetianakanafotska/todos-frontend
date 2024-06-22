@@ -5,33 +5,34 @@ import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "../services/task.service";
 
-function AddTask({ setTasks, tasks, setAddTask }) {
+function AddTask({ setAllTasks, allTasks, setAddTask }) {
   const navigate = useNavigate();
+  console.log("allTasks passed from dahsboard", allTasks);
 
   const newTask = {
     type: "toDo",
     title: "",
     description: "",
-    priority: "Low",
+    priority: "High",
     assignee: "",
     dueDate: "",
-    orderInList: "",
+    position: "",
   };
 
   const saveTask = (formInputs) => {
     tasksService.getByType(formInputs.type).then((tasksOfType) => {
       const maxIndex = Math.max(
-        ...tasksOfType.data.map((task) => task.orderInList),
+        ...tasksOfType.data.map((task) => task.position),
         0
       );
 
       console.log("maxindex", maxIndex);
       const nextIndex = tasksOfType.data.length === 0 ? 1 : maxIndex + 1;
       tasksService
-        .post({ ...formInputs, orderInList: nextIndex })
+        .post({ ...formInputs, position: nextIndex })
         .then((savedTask) => {
           console.log("this is saved task in the list", savedTask.data);
-          setTasks(savedTask.data.type, savedTask.data);
+          setAllTasks((prev) => [...prev, savedTask.data]);
         });
     });
     setAddTask(false);
