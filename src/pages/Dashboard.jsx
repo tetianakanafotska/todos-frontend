@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Grid, Button } from "@mui/material";
@@ -18,6 +18,9 @@ function Dashboard({ withAddTask }) {
   const [addTask, setAddTask] = useState(null);
   const { taskId } = useParams();
   const navigate = useNavigate();
+
+  const ref = useRef();
+  console.log("this is ref", ref);
 
   useEffect(() => {
     const fetchTasksByType = async () => {
@@ -81,37 +84,20 @@ function Dashboard({ withAddTask }) {
 
     const updatedTask = { ...movedTask, type: destId, position: newPosition };
     destTasks.splice(destIndex, 0, updatedTask);
-    const reorderedTask = await tasksService.put(movedTask._id, updatedTask);
+    await tasksService.put(movedTask._id, updatedTask);
 
-    console.log("reordered task", reorderedTask.data);
+    const updateState = (sourceId, destId, sourceTasks, destTasks) => {
+      const setters = {
+        toDo: setToDoTasks,
+        inProgress: setInProgressTasks,
+        done: setDoneTasks,
+      };
 
-    switch (sourceId) {
-      case "toDo":
-        setToDoTasks(sourceTasks);
-        break;
-      case "inProgress":
-        setInProgressTasks(sourceTasks);
-        break;
-      case "done":
-        setDoneTasks(sourceTasks);
-        break;
-      default:
-        break;
-    }
+      setters[sourceId](sourceTasks);
+      setters[destId](destTasks);
+    };
 
-    switch (destId) {
-      case "toDo":
-        setToDoTasks(destTasks);
-        break;
-      case "inProgress":
-        setInProgressTasks(destTasks);
-        break;
-      case "done":
-        setDoneTasks(destTasks);
-        break;
-      default:
-        break;
-    }
+    updateState(sourceId, destId, sourceTasks, destTasks);
   };
 
   return (
