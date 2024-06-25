@@ -7,7 +7,6 @@ import tasksService from "../services/task.service";
 
 function AddTask({ setAllTasks, allTasks, setAddTask }) {
   const navigate = useNavigate();
-  console.log("allTasks passed from dahsboard", allTasks);
 
   const newTask = {
     type: "toDo",
@@ -15,7 +14,7 @@ function AddTask({ setAllTasks, allTasks, setAddTask }) {
     description: "",
     priority: "High",
     assignee: "",
-    dueDate: "",
+    dueAt: "",
     position: "",
   };
 
@@ -25,8 +24,6 @@ function AddTask({ setAllTasks, allTasks, setAddTask }) {
         ...tasksOfType.data.map((task) => task.position),
         0
       );
-
-      console.log("maxindex", maxIndex);
       const nextIndex = tasksOfType.data.length === 0 ? 1 : maxIndex + 1;
       tasksService
         .post({ ...formInputs, position: nextIndex })

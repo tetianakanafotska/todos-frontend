@@ -19,8 +19,7 @@ function Dashboard({ withAddTask }) {
   const { taskId } = useParams();
   const navigate = useNavigate();
 
-  const ref = useRef();
-  console.log("this is ref", ref);
+  console.log("dashboard updated", allTasks);
 
   useEffect(() => {
     const fetchTasksByType = async () => {
@@ -65,17 +64,14 @@ function Dashboard({ withAddTask }) {
     console.log(sourceIndex, sourceId, "-->", destIndex, destId);
 
     const taskMap = {
-      toDo: toDoTasks,
-      inProgress: inProgressTasks,
-      done: doneTasks,
+      toDo: allTasks.filter((task) => task.type === "toDo"),
+      inProgress: allTasks.filter((task) => task.type === "inProgress"),
+      done: allTasks.filter((task) => task.type === "done"),
     };
 
     const sourceTasks = [...taskMap[sourceId]];
     const destTasks = sourceId === destId ? sourceTasks : [...taskMap[destId]];
-
     const [movedTask] = sourceTasks.splice(sourceIndex, 1);
-    console.log("movedTask", movedTask);
-
     const taskLeft = destTasks[destIndex - 1];
     const taskRight = destTasks[destIndex];
     const leftPosition = taskLeft ? taskLeft.position : 0;
@@ -84,7 +80,6 @@ function Dashboard({ withAddTask }) {
 
     const updatedTask = { ...movedTask, type: destId, position: newPosition };
     destTasks.splice(destIndex, 0, updatedTask);
-    await tasksService.put(movedTask._id, updatedTask);
 
     const updateState = (sourceId, destId, sourceTasks, destTasks) => {
       const setters = {
@@ -92,12 +87,11 @@ function Dashboard({ withAddTask }) {
         inProgress: setInProgressTasks,
         done: setDoneTasks,
       };
-
-      setters[sourceId](sourceTasks);
       setters[destId](destTasks);
+      setters[sourceId](sourceTasks);
     };
-
     updateState(sourceId, destId, sourceTasks, destTasks);
+    await tasksService.put(movedTask._id, updatedTask);
   };
 
   return (

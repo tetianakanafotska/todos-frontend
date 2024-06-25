@@ -17,18 +17,18 @@ function TaskCard({ task }) {
     else setTagColor("#579DFF");
   }, [task]);
 
-  const convertDates = (createdDate, dueDate) => {
+  const convertDates = (createdAt, dueAt) => {
     const formatDate = (date) => {
       return new Date(date).toLocaleDateString("en-US", {
         day: "numeric",
         month: "short",
       });
     };
-    const createdDateFormatted = formatDate(createdDate);
-    const dueDateFormatted = formatDate(dueDate);
-    if (dueDate) {
-      return `${createdDateFormatted} - ${dueDateFormatted}`;
-    } else return createdDateFormatted;
+    const createdAtFormatted = formatDate(createdAt);
+    const dueAtFormatted = formatDate(dueAt);
+    if (dueAt) {
+      return `${createdAtFormatted} - ${dueAtFormatted}`;
+    } else return createdAtFormatted;
   };
 
   const convertName = (name) => {
@@ -51,7 +51,7 @@ function TaskCard({ task }) {
       <p>{task.description}</p>
       <p id="task-dates">
         <AccessTimeIcon sx={{ width: "15px" }} />
-        {convertDates(task.createdDate, task.dueDate)}
+        {convertDates(task.createdAt, task.dueAt)}
       </p>
       <IconButton
         id="btn-edit-task"

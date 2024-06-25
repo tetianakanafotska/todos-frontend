@@ -6,8 +6,8 @@
     "assignee": "Mary Davis",
     "type": "To Do",
     "priority": "High",
-    "createdDate": "2023-09-15",
-    "dueDate": "2023-09-30"
+    "createdAt": "2023-09-15",
+    "dueAt": "2023-09-30"
   },
   {
     "id": "2",
@@ -16,8 +16,8 @@
     "assignee": "Jane Smith",
     "type": "In Progress",
     "priority": "Medium",
-    "createdDate": "2023-09-16",
-    "dueDate": "2023-10-10"
+    "createdAt": "2023-09-16",
+    "dueAt": "2023-10-10"
   },
   {
     "id": "3",
@@ -26,8 +26,8 @@
     "assignee": "Mark Johnson",
     "type": "In Progress",
     "priority": "High",
-    "createdDate": "2023-09-17",
-    "dueDate": "2023-09-25"
+    "createdAt": "2023-09-17",
+    "dueAt": "2023-09-25"
   },
   {
     "id": "4",
@@ -36,8 +36,8 @@
     "assignee": "Sarah Brown",
     "type": "To Do",
     "priority": "High",
-    "createdDate": "2023-09-18",
-    "dueDate": "2023-10-05"
+    "createdAt": "2023-09-18",
+    "dueAt": "2023-10-05"
   },
   {
     "id": "5",
@@ -46,7 +46,7 @@
     "assignee": "David Wilson",
     "type": "Done",
     "priority": "Low",
-    "createdDate": "2023-09-19",
-    "dueDate": "2023-09-30"
+    "createdAt": "2023-09-19",
+    "dueAt": "2023-09-30"
   }
 ]

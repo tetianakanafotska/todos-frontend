@@ -21,8 +21,8 @@ function EditorForm({
     priority: task.priority,
     description: task.description,
     assignee: task.assignee,
-    createdDate: task.createdDate,
-    dueDate: task.dueDate,
+    createdAt: task.createdAt,
+    dueAt: task.dueAt,
   });
 
   const handleOnChange = (e) => {
@@ -77,13 +77,13 @@ function EditorForm({
             />
           </div>
           {/* due*/}
-          <label htmlFor="dueDate">Due:</label>
-          <div className="dueDate-div">
-            <AccessTimeIcon id="dueDate-icon" sx={{ width: 23, height: 23 }} />
+          <label htmlFor="dueAt">Due:</label>
+          <div className="dueAt-div">
+            <AccessTimeIcon id="dueAt-icon" sx={{ width: 23, height: 23 }} />
             <input
-              id="dueDate"
+              id="dueAt"
               type="date"
-              value={formInputs.dueDate}
+              value={formInputs.dueAt}
               onChange={handleOnChange}
             />
           </div>
@@ -114,13 +114,11 @@ function EditorForm({
             <option value="Low">Low</option>
           </select>
           {/* created*/}
-          <label htmlFor="createdDate">Created:</label>
-          <input
-            id="createdDate"
-            type="date"
-            value={formInputs.createdDate}
-            onChange={handleOnChange}
-          />
+          <label>Created at:</label>
+          <p id="createdAt">
+            {(formInputs.createdAt && formInputs.createdAt.slice(0, 10)) ||
+              new Date().toISOString().slice(0, 10)}
+          </p>
         </div>
       </div>
 
