@@ -21,29 +21,16 @@ body {
   color: #fff;
 }
 
-.bx.bx-calendar-check {
-  font-size: 1.4rem;
-  margin: auto 10px auto 20px;
-  line-height: 45px;
-}
-
 .topNavBar h1 {
   font-size: 1.1rem;
   margin: auto 0;
   font-weight: 100;
 }
 
-main {
-  margin-left: 80px;
-  padding: 30px 5vw;
-  transition: all 0.5s ease;
-  width: calc(100vw - 80px);
-  height: 100%;
-}
-
-aside.opened ~ main {
-  margin-left: 250px;
-  width: calc(100% - 250px);
+.bx.bx-calendar-check {
+  font-size: 1.4rem;
+  margin: auto 10px auto 20px;
+  line-height: 45px;
 }
 
 footer {
@@ -88,19 +75,6 @@ aside p {
 
 aside a span {
   opacity: 0;
-}
-
-aside.opened {
-  width: 250px;
-}
-
-aside.opened a span {
-  opacity: 1;
-}
-
-aside.opened p {
-  opacity: 1;
-  font-weight: 600;
 }
 
 /* navlinks */
@@ -156,6 +130,34 @@ aside .userInfo {
   margin-bottom: 20px;
   margin-left: 3px;
 }
+
+main {
+  margin-left: 80px;
+  padding: 30px 5vw;
+  transition: all 0.5s ease;
+  width: calc(100vw - 80px);
+  height: 100%;
+}
+
+/* opened sidebar */
+aside.opened {
+  width: 250px;
+}
+
+aside.opened a span {
+  opacity: 1;
+}
+
+aside.opened p {
+  opacity: 1;
+  font-weight: 600;
+}
+
+aside.opened ~ main {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}
+/* opened sidebar */
 
 main.about {
   color: #fff;

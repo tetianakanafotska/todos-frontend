@@ -14,7 +14,7 @@ function TaskCard({ task }) {
     if (task.priority === "High") {
       setTagColor("#F87168");
     } else if (task.priority === "Medium") setTagColor("#F6CC47");
-    else setTagColor("#579DFF");
+    else setTagColor("#76B947");
   }, [task]);
 
   const convertDates = (createdAt, dueAt) => {
@@ -55,7 +55,7 @@ function TaskCard({ task }) {
       </p>
       <IconButton
         id="btn-edit-task"
-        onClick={() => {
+        onClick={(e) => {
           navigate(`tasks/${task._id}`);
         }}
         aria-label="edit the task"
