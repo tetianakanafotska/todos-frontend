@@ -1,11 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import About from "./pages/About.jsx";
-import ErrorPage from "./pages/ErrorPage.jsx";
-import Sidebar from "./components/Sidebar.jsx";
+import { Navbar, Footer, Sidebar } from "./components";
+import {
+  Dashboard,
+  About,
+  ErrorPage,
+  LoginPage,
+  SignupPage,
+  UserPage,
+} from "./pages";
+
 function App() {
   return (
     <>
@@ -16,6 +20,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="tasks/:taskId" element={<Dashboard />} />
         <Route path="/addTask" element={<Dashboard withAddTask={true} />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        {/* change later to user name */}
+        <Route path="/user" element={<UserPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
