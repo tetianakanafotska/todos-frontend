@@ -64,7 +64,7 @@ function TaskCard({ task }) {
       </IconButton>
       <Avatar
         id="task-card-avatar"
-        sx={{ width: 28, height: 28, fontSize: 12.5 }}
+        sx={{ width: 25, height: 25, fontSize: 12 }}
       >
         {convertName(task.assignee)}
       </Avatar>
