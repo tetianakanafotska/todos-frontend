@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import EditorForm from "../components/EditorForm";
+import EditorForm from "@components/EditorForm";
 import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import tasksService from "../services/task.service";
+import tasksService from "@services/task.service";
 
 function AddTask({ setAllTasks, allTasks, setAddTask }) {
   const navigate = useNavigate();

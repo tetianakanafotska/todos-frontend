@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class TasksService {
+class TaskService {
   constructor() {
     this.api = axios.create({
       baseURL: import.meta.env.VITE_API_URL || "http://localhost:5005",
@@ -27,6 +27,6 @@ class TasksService {
     return this.api.delete(`/tasks/${id}`);
   };
 }
-const tasksService = new TasksService();
+const taskService = new TaskService();
 
-export default tasksService;
+export default taskService;

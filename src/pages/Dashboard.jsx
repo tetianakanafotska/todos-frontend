@@ -2,10 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Grid, Button } from "@mui/material";
-import TaskList from "../components/TaskList";
+import TaskList from "@components/TaskList";
 import TaskEditor from "./TaskEditor";
 import AddTask from "./AddTask";
-import tasksService from "../services/task.service";
+import tasksService from "@services/task.service";
 import { DragDropContext } from "react-beautiful-dnd";
 
 function Dashboard({ withAddTask }) {
@@ -18,8 +18,6 @@ function Dashboard({ withAddTask }) {
   const [addTask, setAddTask] = useState(null);
   const { taskId } = useParams();
   const navigate = useNavigate();
-
-  console.log("dashboard updated", allTasks);
 
   useEffect(() => {
     const fetchTasksByType = async () => {

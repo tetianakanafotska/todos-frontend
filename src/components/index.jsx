@@ -4,5 +4,18 @@ import EditorForm from "./EditorForm.jsx";
 import Sidebar from "./Sidebar.jsx";
 import TaskCard from "./TaskCard.jsx";
 import TaskList from "./TaskList.jsx";
+import IsAnon from "./IsAnon.jsx";
+import IsPrivate from "./IsPrivate.jsx";
+import Loading from "./Loading.jsx";
 
-export { Footer, Navbar, EditorForm, Sidebar, TaskCard, TaskList };
+export {
+  Footer,
+  Navbar,
+  EditorForm,
+  Sidebar,
+  TaskCard,
+  TaskList,
+  IsPrivate,
+  IsAnon,
+  Loading,
+};
