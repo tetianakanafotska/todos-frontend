@@ -23,6 +23,7 @@ function EditorForm({
     assignee: task.assignee,
     createdAt: task.createdAt,
     dueAt: task.dueAt,
+    userId: task.userId,
   });
 
   const handleOnChange = (e) => {

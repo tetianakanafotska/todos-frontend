@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import EditorForm from "@components/EditorForm";
 import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "@services/task.service";
+import { AuthContext } from "@context/authContext";
 
-function AddTask({ setAllTasks, allTasks, setAddTask }) {
+function AddTask({ setAllTasks, setAddTask }) {
   const navigate = useNavigate();
+
+  const { user } = useContext(AuthContext);
 
   const newTask = {
     type: "toDo",
@@ -16,6 +19,7 @@ function AddTask({ setAllTasks, allTasks, setAddTask }) {
     assignee: "",
     dueAt: "",
     position: "",
+    userId: user._id,
   };
 
   const saveTask = (formInputs) => {
