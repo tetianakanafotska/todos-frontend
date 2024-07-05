@@ -5,18 +5,26 @@ class TaskService {
     this.api = axios.create({
       baseURL: import.meta.env.VITE_API_URL || "http://localhost:5005",
     });
+
+    this.api.interceptors.request.use((config) => {
+      const storedToken = localStorage.getItem("authToken");
+      if (storedToken) {
+        config.headers = { Authorization: `Bearer ${storedToken}` };
+      }
+      return config;
+    });
   }
 
   get = (requestBody) => {
-    return this.api.get("/tasks", requestBody);
+    return this.api.get(`/tasks`, requestBody);
   };
 
   getByType = (taskType) => {
-    return this.api.get(`tasks/${taskType}`);
+    return this.api.get(`/tasks/${taskType}`);
   };
 
   post = (requestBody) => {
-    return this.api.post("/tasks", requestBody);
+    return this.api.post(`/tasks`, requestBody);
   };
 
   put = (id, requestBody) => {
