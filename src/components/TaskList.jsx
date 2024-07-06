@@ -3,7 +3,7 @@ import { Card } from "@mui/material";
 import TaskCard from "./TaskCard";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
-function TaskList({ listType, tasks, setOpenEditor }) {
+function TaskList({ listType, tasks }) {
   const getName = (name) => {
     const nameMap = {
       toDo: "To Do",
@@ -40,7 +40,7 @@ function TaskList({ listType, tasks, setOpenEditor }) {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
-                    <TaskCard setOpenEditor={setOpenEditor} task={task} />
+                    <TaskCard task={task} />
                   </div>
                 )}
               </Draggable>

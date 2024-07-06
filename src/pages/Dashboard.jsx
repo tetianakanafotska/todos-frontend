@@ -8,14 +8,11 @@ import AddTask from "./AddTask";
 import tasksService from "@services/task.service";
 import { DragDropContext } from "react-beautiful-dnd";
 
-function Dashboard({ withAddTask }) {
+function Dashboard({ withOpenEditor, withAddTask }) {
   const [toDoTasks, setToDoTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
-
-  const [openEditor, setOpenEditor] = useState(null);
-  const [addTask, setAddTask] = useState(null);
   const { taskId } = useParams();
   const navigate = useNavigate();
 
@@ -40,16 +37,10 @@ function Dashboard({ withAddTask }) {
   }, [toDoTasks, inProgressTasks, doneTasks]);
 
   useEffect(() => {
-    if (taskId && allTasks.some((task) => task._id === taskId)) {
-      setOpenEditor(true);
-    } else if (typeof taskId !== "undefined") {
+    if (taskId && !allTasks.some((task) => task._id === taskId)) {
       navigate("*");
     }
   }, [taskId]);
-
-  useEffect(() => {
-    setAddTask(withAddTask);
-  }, [withAddTask]);
 
   const handleDragEnd = async (result) => {
     const { source, destination } = result;
@@ -94,20 +85,10 @@ function Dashboard({ withAddTask }) {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      {openEditor && (
-        <TaskEditor
-          setOpenEditor={setOpenEditor}
-          allTasks={allTasks}
-          setAllTasks={setAllTasks}
-        />
+      {withOpenEditor && (
+        <TaskEditor allTasks={allTasks} setAllTasks={setAllTasks} />
       )}
-      {addTask && (
-        <AddTask
-          setAddTask={setAddTask}
-          allTasks={allTasks}
-          setAllTasks={setAllTasks}
-        />
-      )}
+      {withAddTask && <AddTask allTasks={allTasks} setAllTasks={setAllTasks} />}
       <Grid
         container
         direction="row"
@@ -120,7 +101,6 @@ function Dashboard({ withAddTask }) {
         <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
             listType="toDo"
-            setOpenEditor={setOpenEditor}
             tasks={allTasks.filter((task) => task.type === "toDo")}
           />
         </Grid>
@@ -128,7 +108,6 @@ function Dashboard({ withAddTask }) {
         <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
             listType="inProgress"
-            setOpenEditor={setOpenEditor}
             tasks={allTasks.filter((task) => task.type === "inProgress")}
           />
         </Grid>
@@ -136,7 +115,6 @@ function Dashboard({ withAddTask }) {
         <Grid item lg={4} md={4} sm={12} xs={12}>
           <TaskList
             listType="done"
-            setOpenEditor={setOpenEditor}
             tasks={allTasks.filter((task) => task.type === "done")}
           />
         </Grid>

@@ -1,30 +1,26 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button } from "@mui/material";
-import { useState } from "react";
 import SubjectIcon from "@mui/icons-material/Subject";
 import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
+import { AuthContext } from "@context/authContext";
 
-function EditorForm({
-  saveEdit,
-  deleteTask,
-  currentTask,
-  newTask,
-  saveTask,
-  cancel,
-}) {
-  const task = currentTask ? currentTask : newTask;
+function EditorForm({ saveEdit, deleteTask, currentTask, saveTask, cancel }) {
+  const { user } = useContext(AuthContext);
   const [formInputs, setFormInputs] = useState({
-    title: task.title,
-    type: task.type,
-    priority: task.priority,
-    description: task.description,
-    assignee: task.assignee,
-    createdAt: task.createdAt,
-    dueAt: task.dueAt,
-    userId: task.userId,
+    title: currentTask?.title || "",
+    type: currentTask?.type || "toDo",
+    priority: currentTask?.priority || "Low",
+    description: currentTask?.description || "",
+    assignee: currentTask?.assignee || "",
+    createdAt: currentTask?.createdAt || "",
+    dueAt: currentTask?.dueAt || "",
   });
+
+  useEffect(() => {
+    if (user) formInputs.userId = user._id;
+  }, [user]);
 
   const handleOnChange = (e) => {
     const { id, value } = e.target;

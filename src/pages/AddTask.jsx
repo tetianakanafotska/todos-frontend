@@ -1,26 +1,11 @@
-import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import EditorForm from "@components/EditorForm";
 import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "@services/task.service";
-import { AuthContext } from "@context/authContext";
 
-function AddTask({ setAllTasks, setAddTask }) {
+function AddTask({ setAllTasks }) {
   const navigate = useNavigate();
-
-  const { user } = useContext(AuthContext);
-
-  const newTask = {
-    type: "toDo",
-    title: "",
-    description: "",
-    priority: "High",
-    assignee: "",
-    dueAt: "",
-    position: "",
-    userId: user._id,
-  };
 
   const saveTask = (formInputs) => {
     tasksService.getByType(formInputs.type).then((tasksOfType) => {
@@ -36,12 +21,10 @@ function AddTask({ setAllTasks, setAddTask }) {
           setAllTasks((prev) => [...prev, savedTask.data]);
         });
     });
-    setAddTask(false);
     navigate("/");
   };
 
   const cancel = () => {
-    setAddTask(false);
     navigate("/");
   };
 
@@ -55,14 +38,13 @@ function AddTask({ setAllTasks, setAddTask }) {
             className="btn-close-editor"
             onClick={() => {
               navigate("/");
-              setAddTask(false);
             }}
           >
             <CloseIcon />
           </Button>
         </div>
 
-        <EditorForm newTask={newTask} saveTask={saveTask} cancel={cancel} />
+        <EditorForm saveTask={saveTask} cancel={cancel} />
       </form>
     </article>
   );

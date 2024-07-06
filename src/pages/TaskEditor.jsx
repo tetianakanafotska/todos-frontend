@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "@services/task.service";
 import { AuthContext } from "@context/authContext";
 
-function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
+function TaskEditor({ allTasks, setAllTasks }) {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const { taskId } = useParams();
@@ -22,7 +22,6 @@ function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
           task._id === taskId ? updatedTask.data : task
         );
         setAllTasks(updatedTasks);
-        setOpenEditor(false);
         navigate("/");
       })
       .catch((err) => {
@@ -36,7 +35,6 @@ function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
       .then(() => {
         const updatedTasks = allTasks.filter((task) => task._id != taskId);
         setAllTasks(updatedTasks);
-        setOpenEditor(false);
         navigate("/");
       })
       .catch((err) => {
@@ -53,7 +51,6 @@ function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
           className="btn-close-editor"
           onClick={() => {
             navigate("/");
-            setOpenEditor(false);
           }}
         >
           <CloseIcon />
@@ -62,7 +59,6 @@ function TaskEditor({ allTasks, setAllTasks, setOpenEditor }) {
           currentTask={currentTask}
           saveEdit={saveEdit}
           deleteTask={deleteTask}
-          setOpenEditor={setOpenEditor}
         />
       </form>
     </article>

@@ -15,10 +15,10 @@ class AuthService {
   }
 
   signup = (requestBody) => {
-    return this.api.post("auth/signup", requestBody);
+    return this.api.post("/auth/signup", requestBody);
   };
   login = (requestBody) => {
-    return this.api.post("auth/login", requestBody);
+    return this.api.post("/auth/login", requestBody);
   };
   verify = () => {
     return this.api.get("/auth/verify");
