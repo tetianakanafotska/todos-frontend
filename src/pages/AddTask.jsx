@@ -17,11 +17,10 @@ function AddTask({ setAllTasks }) {
       tasksService
         .post({ ...formInputs, position: nextIndex })
         .then((savedTask) => {
-          console.log("this is saved task in the list", savedTask.data);
           setAllTasks((prev) => [...prev, savedTask.data]);
+          navigate("/");
         });
     });
-    navigate("/");
   };
 
   const cancel = () => {
