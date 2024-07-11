@@ -14,7 +14,7 @@ function EditorForm({ saveEdit, deleteTask, currentTask, saveTask, cancel }) {
     priority: currentTask?.priority || "Low",
     description: currentTask?.description || "",
     assignee: currentTask?.assignee || "",
-    createdAt: currentTask?.createdAt || "",
+    createdAt: currentTask?.createdAt || new Date().toISOString().slice(0, 10),
     dueAt: currentTask?.dueAt || "",
   });
 
@@ -113,8 +113,7 @@ function EditorForm({ saveEdit, deleteTask, currentTask, saveTask, cancel }) {
           {/* created*/}
           <label>Created at:</label>
           <p id="createdAt">
-            {(formInputs.createdAt && formInputs.createdAt.slice(0, 10)) ||
-              new Date().toISOString().slice(0, 10)}
+            {formInputs.createdAt && formInputs.createdAt.slice(0, 10)}
           </p>
         </div>
       </div>

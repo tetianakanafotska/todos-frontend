@@ -402,14 +402,20 @@ main.about {
   margin: 0 auto;
 }
 
-.login {
+main.login {
   color: #fff;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 
 .login button {
   width: 50px;
+}
+
+.login img {
+  border-radius: 50%;
 }
 
 .login form {
