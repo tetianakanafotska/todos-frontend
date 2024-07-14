@@ -4,7 +4,8 @@ import profilePic from "@/assets/pic.jpeg";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import userService from "@services/user.service.js";
-import { flushSync } from "react-dom";
+import uploadService from "@services/upload.service";
+import isEqual from "lodash/isEqual";
 
 function UserPage() {
   const { user } = useContext(UserContext);
@@ -28,6 +29,7 @@ function UserPage() {
 
   const handleOnChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log("thsi is userData", userData);
   };
 
   const handleChangeAvatar = () => {
@@ -35,14 +37,12 @@ function UserPage() {
   };
 
   const handleUpload = (e) => {
-    console.log("this is file", e.target.files[0]);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-    axios
-      .post("http://localhost:5005/upload", formData)
+    uploadService
+      .uploadImage(formData)
       .then((res) => {
-        console.log("this is response from upload", res.data);
         setUserData((prev) => ({ ...prev, profileImg: res.data.fileUrl }));
       })
       .catch((err) => {
@@ -53,6 +53,15 @@ function UserPage() {
   const handleSave = async () => {
     await userService.put(user._id, userData);
   };
+
+  const isUserDataChanged = !isEqual(
+    {
+      name: userData.name,
+      email: userData.email,
+      profileImg: userData.profileImg,
+    },
+    { name: user.name, email: user.email, profileImg: user.profileImg }
+  );
 
   return (
     <main className="login">
@@ -87,15 +96,7 @@ function UserPage() {
           onChange={handleOnChange}
         />
       </label>
-      <button
-        disabled={
-          // userData.name === user.name ||
-          // userData.profileImg === user.profileImg ||
-          // userData.email === user.email
-          userData.profileImg === user.profileImg
-        }
-        onClick={handleSave}
-      >
+      <button disabled={!isUserDataChanged} onClick={handleSave}>
         Save
       </button>
     </main>
