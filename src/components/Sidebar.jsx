@@ -21,7 +21,7 @@ function Sidebar() {
       </div>
 
       <div className="userInfo">
-        <img src={pic} onClick={() => navigate("/user")}></img>
+        <img src={pic} onClick={() => navigate("/profile")}></img>
         <p>Tetiana K.</p>
       </div>
       <NavLink to="/">

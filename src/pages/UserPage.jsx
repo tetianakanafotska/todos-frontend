@@ -1,23 +1,30 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { AuthContext } from "@context/authContext";
+import { UserContext } from "@context/userContext";
 import profilePic from "@/assets/pic.jpeg";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
-//import userService
+import userService from "@services/user.service.js";
+import { flushSync } from "react-dom";
 
 function UserPage() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
 
   const [userData, setUserData] = useState({
     name: "",
+    email: "",
     profileImg: "",
   });
 
   const uploadFileRef = useRef();
 
   useEffect(() => {
-    if (user) setUserData({ name: user.name, profileImg: user.profileImg });
-  }, []);
+    if (user) console.log("this is user", user);
+    setUserData({
+      name: user.name,
+      email: user.email,
+      profileImg: user.profileImg,
+    });
+  }, [user]);
 
   const handleOnChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -35,13 +42,16 @@ function UserPage() {
     axios
       .post("http://localhost:5005/upload", formData)
       .then((res) => {
-        console.log("this is response from upload", res);
-        //userService.put -- update image
+        console.log("this is response from upload", res.data);
         setUserData((prev) => ({ ...prev, profileImg: res.data.fileUrl }));
       })
       .catch((err) => {
         console.log("error", err);
       });
+  };
+
+  const handleSave = async () => {
+    await userService.put(user._id, userData);
   };
 
   return (
@@ -68,7 +78,26 @@ function UserPage() {
           onChange={handleOnChange}
         />
       </label>
-      <button disabled={userData.name === user.name}>Save</button>
+      <label>
+        Email:
+        <input
+          name="email"
+          type="text"
+          value={userData.email}
+          onChange={handleOnChange}
+        />
+      </label>
+      <button
+        disabled={
+          // userData.name === user.name ||
+          // userData.profileImg === user.profileImg ||
+          // userData.email === user.email
+          userData.profileImg === user.profileImg
+        }
+        onClick={handleSave}
+      >
+        Save
+      </button>
     </main>
   );
 }

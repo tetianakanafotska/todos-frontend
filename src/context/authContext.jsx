@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import authService from "@services/auth.service";
-//import usersService from "@services/user.service.js";
-import taskService from "@services/task.service.js";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext();
@@ -9,7 +7,7 @@ const AuthContext = React.createContext();
 function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [tokenPayload, setTokenPayload] = useState(null);
   const [authError, setAuthError] = useState(null);
   const navigate = useNavigate();
 
@@ -26,7 +24,7 @@ function AuthProviderWrapper(props) {
         .then((res) => {
           setIsLoggedIn(true);
           setIsLoading(false);
-          setUser(res.data);
+          setTokenPayload(res.data);
         })
         .catch((error) => {
           if (error) {
@@ -36,12 +34,12 @@ function AuthProviderWrapper(props) {
           }
           setIsLoggedIn(false);
           setIsLoading(false);
-          setUser(null);
+          setUserId(null);
         });
     } else {
       setIsLoggedIn(false);
       setIsLoading(false);
-      setUser(null);
+      setUserId(null);
     }
   };
 
@@ -54,29 +52,6 @@ function AuthProviderWrapper(props) {
     authenticateUser();
   };
 
-  // const handleDeleteAccount = async () => {
-  //   try {
-  //     const userResponse = await usersService.get(user._id);
-  //     const tasks = userResponse.data.tasks;
-
-  //     for (const taskId of tasks) {
-  //       const taskResponse = await taskService.get(taskId);
-  //       await taskService.delete(taskId);
-  //     }
-  //     const deleteResponse = await usersService.delete(user._id);
-
-  //     if (deleteResponse.status === 200) {
-  //       removeToken();
-  //       setIsLoggedIn(false);
-  //       setIsLoading(false);
-  //       setUser(null);
-  //       navigate("/login");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error deleting account:", error);
-  //   }
-  // };
-
   useEffect(() => {
     authenticateUser();
   }, []);
@@ -86,12 +61,11 @@ function AuthProviderWrapper(props) {
       value={{
         isLoggedIn,
         isLoading,
-        user,
+        tokenPayload,
         storeToken,
         authenticateUser,
         logOutUser,
         authError,
-        //handleDeleteAccount,
       }}
     >
       {props.children}

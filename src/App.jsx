@@ -52,7 +52,7 @@ function App() {
         />
         {/* change later to user name */}
         <Route
-          path="/user"
+          path="/profile"
           element={
             <IsPrivate>
               <UserPage />
