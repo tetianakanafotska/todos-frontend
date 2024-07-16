@@ -415,8 +415,12 @@ main.login {
 }
 
 .login img {
-  border-radius: 50%;
+  object-fit: cover;
 }
+
+/*height: 200px;
+  width: 200px;
+  border-radius: 50%;*/
 
 .login form {
   display: flex;
@@ -445,8 +449,8 @@ main.login {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 110px;
-  left: 110px;
+  top: 150px;
+  left: 150px;
   background-color: green;
   border-radius: 50%;
   opacity: 0;

@@ -34,12 +34,12 @@ function AuthProviderWrapper(props) {
           }
           setIsLoggedIn(false);
           setIsLoading(false);
-          setUserId(null);
+          setTokenPayload(null);
         });
     } else {
       setIsLoggedIn(false);
       setIsLoading(false);
-      setUserId(null);
+      setTokenPayload(null);
     }
   };
 

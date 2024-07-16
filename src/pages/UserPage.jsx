@@ -2,9 +2,8 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "@context/userContext";
 import profilePic from "@/assets/pic.jpeg";
 import EditIcon from "@mui/icons-material/Edit";
-import axios from "axios";
 import userService from "@services/user.service.js";
-import uploadService from "@services/upload.service";
+import imageService from "@services/image.service";
 import isEqual from "lodash/isEqual";
 
 function UserPage() {
@@ -40,10 +39,21 @@ function UserPage() {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-    uploadService
-      .uploadImage(formData)
+    imageService
+      .upload(formData)
       .then((res) => {
-        setUserData((prev) => ({ ...prev, profileImg: res.data.fileUrl }));
+        console.log("thus is responde", res.data.image);
+        const imgUrl =
+          "https://res.cloudinary.com/ddwyhsepj/image/upload/ar_1.0,c_fill,h_250/bo_5px_solid_lightblue/v1721051355/flowBoard-userPics/lgwgrlpsnxa7eprlmrbk.jpg";
+
+        // imageService
+        //   .getURL("flowBoard-userPics/lgwgrlpsnxa7eprlmrbk")
+        //   .then((res) => {
+        //     console.log(res);
+        //   })
+        //   .catch((err) => console.error("this error", err));
+
+        setUserData((prev) => ({ ...prev, profileImg: imgUrl }));
       })
       .catch((err) => {
         console.log("error", err);

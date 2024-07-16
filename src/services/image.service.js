@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class UploadService {
+class ImageService {
   constructor() {
     this.api = axios.create({
       baseURL: import.meta.env.VITE_API_URL || "http://localhost:5005",
@@ -15,10 +15,18 @@ class UploadService {
     });
   }
 
-  uploadImage = (formData) => {
-    return this.api.post("/images/upload", formData);
+  getURL = (publicId) => {
+    return this.api.get(`/image/${publicId}`);
+  };
+
+  upload = (formData) => {
+    return this.api.post("/image/upload", formData);
+  };
+
+  resize = (publicId) => {
+    return this.api.get(`/image/resize/${publicId}`);
   };
 }
-const uploadService = new UploadService();
+const imageService = new ImageService();
 
-export default uploadService;
+export default imageService;
