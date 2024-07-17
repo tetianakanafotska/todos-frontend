@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import userService from "@services/user.service.js";
 import imageService from "@services/image.service";
 import isEqual from "lodash/isEqual";
+import Modal from "../components/Modal";
 
 function UserPage() {
   const { user } = useContext(UserContext);
@@ -14,16 +15,18 @@ function UserPage() {
     email: "",
     profileImg: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const uploadFileRef = useRef();
 
   useEffect(() => {
-    if (user) console.log("this is user", user);
-    setUserData({
-      name: user.name,
-      email: user.email,
-      profileImg: user.profileImg,
-    });
+    if (user)
+      setUserData({
+        name: user.name,
+        email: user.email,
+        profileImg: user.profileImg,
+      });
   }, [user]);
 
   const handleOnChange = (e) => {
@@ -31,38 +34,31 @@ function UserPage() {
     console.log("thsi is userData", userData);
   };
 
-  const handleChangeAvatar = () => {
-    uploadFileRef.current.click();
-  };
-
   const handleUpload = (e) => {
+    setLoading(true);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
     imageService
       .upload(formData)
       .then((res) => {
-        console.log("thus is responde", res.data.image);
-        const imgUrl =
-          "https://res.cloudinary.com/ddwyhsepj/image/upload/ar_1.0,c_fill,h_250/bo_5px_solid_lightblue/v1721051355/flowBoard-userPics/lgwgrlpsnxa7eprlmrbk.jpg";
-
-        // imageService
-        //   .getURL("flowBoard-userPics/lgwgrlpsnxa7eprlmrbk")
-        //   .then((res) => {
-        //     console.log(res);
-        //   })
-        //   .catch((err) => console.error("this error", err));
-
-        setUserData((prev) => ({ ...prev, profileImg: imgUrl }));
+        const originalUrl = res.data.image.path;
+        const resizing = "w_400,c_fill,g_auto";
+        const parts = originalUrl.split("/upload/");
+        const newUrl = parts[0] + "/upload/" + resizing + "/" + parts[1];
+        setUserData((prev) => ({ ...prev, profileImg: newUrl }));
       })
       .catch((err) => {
         console.log("error", err);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleSave = async () => {
     await userService.put(user._id, userData);
   };
+
+  const handleDeletePic = () => {};
 
   const isUserDataChanged = !isEqual(
     {
@@ -74,9 +70,15 @@ function UserPage() {
   );
 
   return (
-    <main className="login">
-      <div className="login-pic" onClick={handleChangeAvatar}>
-        <img src={userData.profileImg} alt="profile picture" width="150" />
+    <main className="user">
+      {loading && <div className="loader"></div>}
+      <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
+        <img src={userData.profileImg} alt="profile picture" />
+        <button onClick={() => uploadFileRef.current.click()}>Change</button>
+        <button onClick={handleDeletePic}>Remove</button>
+      </Modal>
+      <div className="user-pic" onClick={() => setOpenModal(true)}>
+        <img src={userData.profileImg} alt="profile picture" />
         <div className="edit-icon-container">
           <EditIcon fontSize="small" />
         </div>

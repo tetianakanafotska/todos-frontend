@@ -402,7 +402,8 @@ main.about {
   margin: 0 auto;
 }
 
-main.login {
+main.login,
+main.user {
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -414,13 +415,13 @@ main.login {
   width: 50px;
 }
 
-.login img {
-  object-fit: cover;
-}
-
-/*height: 200px;
+.user img {
+  height: 200px;
   width: 200px;
-  border-radius: 50%;*/
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 16px;
+}
 
 .login form {
   display: flex;
@@ -431,7 +432,8 @@ main.login {
   width: 100%;
 }
 
-.login input {
+.login input,
+.user input {
   margin-left: 10px;
 }
 
@@ -439,8 +441,32 @@ main.login {
   color: #fff;
 }
 
-.login-pic {
+.user-pic {
   position: relative;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  animation: spin 1s infinite linear;
+  border-radius: 100%;
+  box-shadow: inset -2px 0 white;
+  height: 250px;
+  position: absolute;
+  width: 250px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .edit-icon-container {
@@ -449,14 +475,18 @@ main.login {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 150px;
-  left: 150px;
+  top: 170px;
+  left: 155px;
   background-color: green;
   border-radius: 50%;
   opacity: 0;
   transition: 0.3s;
 }
 
-.login-pic:hover .edit-icon-container {
+.user-pic:hover .edit-icon-container {
   opacity: 1;
+}
+
+.login button:enabled {
+  background-color: #0000ff;
 }
