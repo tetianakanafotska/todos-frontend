@@ -454,10 +454,10 @@ main.user {
 .loader {
   animation: spin 1s infinite linear;
   border-radius: 100%;
-  box-shadow: inset -2px 0 white;
-  height: 250px;
+  box-shadow: inset -2px 0 blue;
+  height: 260px;
   position: absolute;
-  width: 250px;
+  width: 260px;
 }
 
 @keyframes spin {

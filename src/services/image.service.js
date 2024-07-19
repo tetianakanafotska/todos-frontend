@@ -15,16 +15,13 @@ class ImageService {
     });
   }
 
-  getURL = (publicId) => {
-    return this.api.get(`/image/${publicId}`);
-  };
-
   upload = (formData) => {
     return this.api.post("/image/upload", formData);
   };
 
-  resize = (publicId) => {
-    return this.api.get(`/image/resize/${publicId}`);
+  delete = (publicId) => {
+    const name = publicId.split("/").pop();
+    return this.api.delete(`/image/${name}`);
   };
 }
 const imageService = new ImageService();

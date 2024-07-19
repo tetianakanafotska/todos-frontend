@@ -13,7 +13,7 @@ function UserPage() {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
-    profileImg: "",
+    profileImg: { url: "", publicId: "", name: "" },
   });
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -21,12 +21,17 @@ function UserPage() {
   const uploadFileRef = useRef();
 
   useEffect(() => {
-    if (user)
+    if (user) {
+      const { name, email, profileImg } = user;
       setUserData({
-        name: user.name,
-        email: user.email,
-        profileImg: user.profileImg,
+        name,
+        email,
+        profileImg: {
+          url: profileImg?.url ?? "",
+          publicId: profileImg?.publicId ?? "",
+        },
       });
+    }
   }, [user]);
 
   const handleOnChange = (e) => {
@@ -46,7 +51,14 @@ function UserPage() {
         const resizing = "w_400,c_fill,g_auto";
         const parts = originalUrl.split("/upload/");
         const newUrl = parts[0] + "/upload/" + resizing + "/" + parts[1];
-        setUserData((prev) => ({ ...prev, profileImg: newUrl }));
+        setUserData((prev) => ({
+          ...prev,
+          profileImg: {
+            ...prev.profileImg,
+            url: newUrl,
+            publicId: res.data.image.filename,
+          },
+        }));
       })
       .catch((err) => {
         console.log("error", err);
@@ -58,7 +70,20 @@ function UserPage() {
     await userService.put(user._id, userData);
   };
 
-  const handleDeletePic = () => {};
+  const handleDeletePic = async () => {
+    try {
+      await imageService.delete(userData.profileImg.publicId);
+      const updatedInfo = {
+        ...userData,
+        profileImg: { url: "", publicId: "" },
+      };
+      const updatedUser = await userService.put(user._id, updatedInfo);
+      const { name, email, profileImg } = updatedUser.data;
+      setUserData({ name, email, profileImg });
+    } catch (err) {
+      console.error("Error deleting image", err);
+    }
+  };
 
   const isUserDataChanged = !isEqual(
     {
@@ -71,14 +96,21 @@ function UserPage() {
 
   return (
     <main className="user">
-      {loading && <div className="loader"></div>}
       <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
-        <img src={userData.profileImg} alt="profile picture" />
+        {loading && <div className="loader"></div>}
+        <img
+          src={userData.profileImg.url || profilePic}
+          alt="profile picture"
+        />
         <button onClick={() => uploadFileRef.current.click()}>Change</button>
         <button onClick={handleDeletePic}>Remove</button>
+        <button onClick={handleSave}>Save</button>
       </Modal>
       <div className="user-pic" onClick={() => setOpenModal(true)}>
-        <img src={userData.profileImg} alt="profile picture" />
+        <img
+          src={userData.profileImg.url || profilePic}
+          alt="profile picture"
+        />
         <div className="edit-icon-container">
           <EditIcon fontSize="small" />
         </div>
