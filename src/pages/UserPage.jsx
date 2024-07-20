@@ -1,11 +1,15 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "@context/userContext";
-import profilePic from "@/assets/pic.jpeg";
+import placeholder from "@/assets/placeholder.jpg";
 import EditIcon from "@mui/icons-material/Edit";
 import userService from "@services/user.service.js";
 import imageService from "@services/image.service";
 import isEqual from "lodash/isEqual";
 import Modal from "../components/Modal";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import Button from "@mui/material/Button";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 
 function UserPage() {
   const { user } = useContext(UserContext);
@@ -15,7 +19,7 @@ function UserPage() {
     email: "",
     profileImg: { url: "", publicId: "", name: "" },
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState("idle");
   const [openModal, setOpenModal] = useState(false);
 
   const uploadFileRef = useRef();
@@ -36,11 +40,10 @@ function UserPage() {
 
   const handleOnChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log("thsi is userData", userData);
   };
 
   const handleUpload = (e) => {
-    setLoading(true);
+    setLoading("started");
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
@@ -63,11 +66,15 @@ function UserPage() {
       .catch((err) => {
         console.log("error", err);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        console.log("user after uploadinf", user);
+        setLoading("complete");
+      });
   };
 
   const handleSave = async () => {
     await userService.put(user._id, userData);
+    setOpenModal(false);
   };
 
   const handleDeletePic = async () => {
@@ -80,6 +87,7 @@ function UserPage() {
       const updatedUser = await userService.put(user._id, updatedInfo);
       const { name, email, profileImg } = updatedUser.data;
       setUserData({ name, email, profileImg });
+      setOpenModal(false);
     } catch (err) {
       console.error("Error deleting image", err);
     }
@@ -94,21 +102,69 @@ function UserPage() {
     { name: user.name, email: user.email, profileImg: user.profileImg }
   );
 
+  const renderButtons = () => {
+    switch (loading) {
+      case "idle":
+        return (
+          <>
+            {!user.profileImg.url && (
+              <Button
+                variant="contained"
+                onClick={() => uploadFileRef.current.click()}
+                startIcon={<AddAPhotoOutlinedIcon />}
+              >
+                Add profile picture
+              </Button>
+            )}
+            {user.profileImg.url && (
+              <Button
+                variant="contained"
+                startIcon={<ModeEditOutlineOutlinedIcon />}
+                onClick={() => uploadFileRef.current.click()}
+              >
+                Change
+              </Button>
+            )}
+            {user.profileImg.url && (
+              <Button
+                variant="contained"
+                startIcon={<DeleteOutlineOutlinedIcon />}
+                onClick={handleDeletePic}
+              >
+                Remove
+              </Button>
+            )}
+          </>
+        );
+      case "complete":
+        return (
+          <>
+            <Button variant="contained" onClick={handleSave}>
+              Save as profile picture
+            </Button>
+            <Button variant="outlined" onClick={handleDeletePic}>
+              Cancel
+            </Button>
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <main className="user">
       <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
-        {loading && <div className="loader"></div>}
+        {loading === "started" && <div className="loader"></div>}
         <img
-          src={userData.profileImg.url || profilePic}
+          src={userData.profileImg.url || placeholder}
           alt="profile picture"
         />
-        <button onClick={() => uploadFileRef.current.click()}>Change</button>
-        <button onClick={handleDeletePic}>Remove</button>
-        <button onClick={handleSave}>Save</button>
+        <div className="buttons">{renderButtons()}</div>
       </Modal>
       <div className="user-pic" onClick={() => setOpenModal(true)}>
         <img
-          src={userData.profileImg.url || profilePic}
+          src={userData.profileImg.url || placeholder}
           alt="profile picture"
         />
         <div className="edit-icon-container">

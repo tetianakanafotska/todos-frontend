@@ -411,6 +411,22 @@ main.user {
   align-items: center;
 }
 
+main.user dialog[open] {
+  flex-direction: column;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 50px;
+  border: 0px;
+  border-radius: 2%;
+}
+
+main.user dialog .close-icon {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+}
+
 .login button {
   width: 50px;
 }

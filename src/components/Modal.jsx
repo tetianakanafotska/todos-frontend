@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Modal({ openModal, closeModal, children }) {
   const ref = useRef();
 
   useEffect(() => {
-    console.log(openModal);
     if (openModal) {
       ref.current.showModal();
     } else {
@@ -14,7 +14,7 @@ function Modal({ openModal, closeModal, children }) {
 
   return (
     <dialog ref={ref} onCancel={closeModal}>
-      <h1>Profile picture</h1>
+      <CloseIcon className="close-icon" onClick={closeModal} />
       {children}
     </dialog>
   );

@@ -1,18 +1,26 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import pic from "../assets/pic.jpeg";
+import placeholder from "@/assets/placeholder.jpg";
 import useOutsideClick from "../hooks/useOutsideClick";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "@context/userContext";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   useOutsideClick(ref, () => setIsOpen(false));
+
+  const [userPic, setUserPic] = useState(placeholder);
+
+  useEffect(() => {
+    if (user.profileImg.url) setUserPic(user.profileImg.url);
+  }, [user.profileImg.url]);
 
   return (
     <aside id="sidebar" className={isOpen ? "opened" : ""}>
@@ -21,7 +29,7 @@ function Sidebar() {
       </div>
 
       <div className="userInfo">
-        <img src={pic} onClick={() => navigate("/profile")}></img>
+        <img src={userPic} onClick={() => navigate("/profile")}></img>
         <p>Tetiana K.</p>
       </div>
       <NavLink to="/">

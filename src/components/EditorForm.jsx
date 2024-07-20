@@ -4,10 +4,10 @@ import SubjectIcon from "@mui/icons-material/Subject";
 import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
-import { AuthContext } from "@context/authContext";
+import { UserContext } from "@context/userContext";
 
 function EditorForm({ saveEdit, deleteTask, currentTask, saveTask, cancel }) {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
   const [formInputs, setFormInputs] = useState({
     title: currentTask?.title || "",
     type: currentTask?.type || "toDo",
