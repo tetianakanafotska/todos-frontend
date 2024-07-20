@@ -23,10 +23,13 @@ function Sidebar() {
       </div>
 
       <div className="userInfo">
-        <img
-          src={user.profileImg.url || placeholder}
-          onClick={() => navigate("/profile")}
-        ></img>
+        <div>
+          <img
+            src={user.profileImg.url || placeholder}
+            onClick={() => navigate("/profile")}
+          ></img>
+        </div>
+
         <p>Tetiana K.</p>
       </div>
       <NavLink to="/">

@@ -67,7 +67,7 @@ function UserPage() {
         console.log("error", err);
       })
       .finally(() => {
-        setLoading("complete");
+        setLoading("completed");
       });
   };
 
@@ -76,9 +76,11 @@ function UserPage() {
     const { _id, name, email, profileImg } = updatedUser.data;
     setUser({ _id, name, email, profileImg });
     setOpenModal(false);
+    setLoading("idle");
   };
 
   const handleDeletePic = async () => {
+    setLoading("started");
     try {
       await imageService.delete(userData.profileImg.publicId);
       const updatedInfo = {
@@ -89,6 +91,7 @@ function UserPage() {
       const { _id, name, email, profileImg } = updatedUser.data;
       setUser({ _id, name, email, profileImg });
       setOpenModal(false);
+      setLoading("idle");
     } catch (err) {
       console.error("Error deleting image", err);
     }
@@ -137,7 +140,7 @@ function UserPage() {
             )}
           </>
         );
-      case "complete":
+      case "completed":
         return (
           <>
             <Button variant="contained" onClick={handleSave}>

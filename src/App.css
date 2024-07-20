@@ -81,6 +81,15 @@ aside p {
   white-space: nowrap;
 }
 
+aside .userInfo {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  margin-left: 3px;
+}
+
 aside a span {
   opacity: 0;
 }
@@ -127,15 +136,6 @@ aside img {
   border-radius: 25px;
   filter: contrast(1.2);
   border: 1px solid #eee;
-}
-
-aside .userInfo {
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  margin-left: 3px;
 }
 
 main {
