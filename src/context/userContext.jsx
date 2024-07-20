@@ -56,6 +56,7 @@ function UserProviderWrapper(props) {
     <UserContext.Provider
       value={{
         user,
+        setUser,
         //handleDeleteAccount,
       }}
     >

@@ -12,7 +12,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 
 function UserPage() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -67,13 +67,14 @@ function UserPage() {
         console.log("error", err);
       })
       .finally(() => {
-        console.log("user after uploadinf", user);
         setLoading("complete");
       });
   };
 
   const handleSave = async () => {
-    await userService.put(user._id, userData);
+    const updatedUser = await userService.put(user._id, userData);
+    const { _id, name, email, profileImg } = updatedUser.data;
+    setUser({ _id, name, email, profileImg });
     setOpenModal(false);
   };
 
@@ -85,8 +86,8 @@ function UserPage() {
         profileImg: { url: "", publicId: "" },
       };
       const updatedUser = await userService.put(user._id, updatedInfo);
-      const { name, email, profileImg } = updatedUser.data;
-      setUserData({ name, email, profileImg });
+      const { _id, name, email, profileImg } = updatedUser.data;
+      setUser({ _id, name, email, profileImg });
       setOpenModal(false);
     } catch (err) {
       console.error("Error deleting image", err);

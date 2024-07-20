@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import placeholder from "@/assets/placeholder.jpg";
 import useOutsideClick from "../hooks/useOutsideClick";
@@ -16,12 +16,6 @@ function Sidebar() {
 
   useOutsideClick(ref, () => setIsOpen(false));
 
-  const [userPic, setUserPic] = useState(placeholder);
-
-  useEffect(() => {
-    if (user.profileImg.url) setUserPic(user.profileImg.url);
-  }, [user.profileImg.url]);
-
   return (
     <aside id="sidebar" className={isOpen ? "opened" : ""}>
       <div className="menu-icon" ref={ref}>
@@ -29,7 +23,10 @@ function Sidebar() {
       </div>
 
       <div className="userInfo">
-        <img src={userPic} onClick={() => navigate("/profile")}></img>
+        <img
+          src={user.profileImg.url || placeholder}
+          onClick={() => navigate("/profile")}
+        ></img>
         <p>Tetiana K.</p>
       </div>
       <NavLink to="/">
