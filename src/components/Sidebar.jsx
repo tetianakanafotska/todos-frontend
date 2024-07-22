@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import placeholder from "@/assets/placeholder.jpg";
 import useOutsideClick from "../hooks/useOutsideClick";
@@ -8,14 +8,32 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "@context/userContext";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const [profileUrl, setProfileUrl] = useState(null);
 
   useOutsideClick(ref, () => setIsOpen(false));
+
+  useEffect(() => {
+    if (user.profileImg.url) {
+      setProfileUrl(user.profileImg.url);
+    } else {
+      setProfileUrl(placeholder);
+    }
+  }, [user.profileImg.url]);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+  const handleImageError = () => {
+    setIsLoading(false);
+  };
 
   return (
     <aside id="sidebar" className={isOpen ? "opened" : ""}>
@@ -32,7 +50,13 @@ function Sidebar() {
           }}
           onClick={() => navigate("/profile")}
         >
-          <img src={user.profileImg.url || placeholder}></img>
+          {isLoading && <CircularProgress />}
+          <img
+            src={profileUrl}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            style={{ display: isLoading ? "none" : "block" }}
+          />
         </IconButton>
 
         <p>Tetiana K.</p>

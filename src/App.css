@@ -435,7 +435,8 @@ main.user dialog .close-icon {
   width: 200px;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 16px;
+  margin-top: 10px;
+  position: relative;
 }
 
 .login form {
@@ -470,9 +471,9 @@ main.user dialog .close-icon {
   animation: spin 1s infinite linear;
   border-radius: 100%;
   box-shadow: inset -2px 0 blue;
-  height: 240px;
+  height: 220px;
   position: absolute;
-  width: 240px;
+  width: 220px;
 }
 
 @keyframes spin {
@@ -500,4 +501,9 @@ main.user dialog .close-icon {
 
 .user-pic:hover .edit-icon-container {
   opacity: 1;
+}
+
+.user-buttons {
+  display: flex;
+  gap: 10px;
 }

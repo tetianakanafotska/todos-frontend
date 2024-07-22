@@ -11,18 +11,17 @@ import Button from "@mui/material/Button";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import { IconButton } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 function UserPage() {
   const { user, setUser } = useContext(UserContext);
-
   const [userData, setUserData] = useState({
     name: "",
     email: "",
-    profileImg: { url: "", publicId: "", name: "" },
+    profileImg: { url: "", publicId: "" },
   });
   const [loading, setLoading] = useState("idle");
   const [openModal, setOpenModal] = useState(false);
-
   const uploadFileRef = useRef();
 
   useEffect(() => {
@@ -32,15 +31,15 @@ function UserPage() {
         name,
         email,
         profileImg: {
-          url: profileImg?.url ?? "",
-          publicId: profileImg?.publicId ?? "",
+          url: profileImg.url || placeholder,
+          publicId: profileImg.publicId || "",
         },
       });
     }
   }, [user]);
 
   const handleOnChange = (e) => {
-    setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleUpload = (e) => {
@@ -58,7 +57,6 @@ function UserPage() {
         setUserData((prev) => ({
           ...prev,
           profileImg: {
-            ...prev.profileImg,
             url: newUrl,
             publicId: res.data.image.filename,
           },
@@ -131,7 +129,7 @@ function UserPage() {
             )}
             {user.profileImg.url && (
               <Button
-                variant="contained"
+                variant="outlined"
                 startIcon={<DeleteOutlineOutlinedIcon />}
                 onClick={handleDeletePic}
               >
@@ -146,7 +144,17 @@ function UserPage() {
             <Button variant="contained" onClick={handleSave}>
               Save as profile picture
             </Button>
-            <Button variant="outlined" onClick={handleDeletePic}>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setUserData((prev) => ({
+                  ...prev,
+                  profileImg: { url: "", publicId: "" },
+                }));
+                setLoading("idle");
+                setOpenModal(false);
+              }}
+            >
               Cancel
             </Button>
           </>
@@ -161,18 +169,23 @@ function UserPage() {
       <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
         {loading === "started" && <div className="img-loader"></div>}
         <img
-          src={userData.profileImg.url || placeholder}
+          src={userData.profileImg.url}
           alt="profile picture"
-          className="user-pic"
+          // onLoad={handleImageLoad}
+          // onError={handleImageError}
+          style={{ display: loading === "started" ? "none" : "block" }}
         />
 
-        <div className="buttons">{renderButtons()}</div>
+        <div className="user-buttons">{renderButtons()}</div>
       </Modal>
       <div onClick={() => setOpenModal(true)}>
         <IconButton>
           <img
-            src={userData.profileImg.url || placeholder}
+            src={userData.profileImg.url}
             alt="profile picture"
+            // onLoad={handleImageLoad}
+            // onError={handleImageError}
+            style={{ display: loading === "started" ? "none" : "block" }}
           />
         </IconButton>
 
@@ -188,27 +201,31 @@ function UserPage() {
           style={{ display: "none" }}
         />
       </div>
-      <label>
-        Name:
-        <input
-          name="name"
-          type="text"
-          value={userData.name}
-          onChange={handleOnChange}
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          name="email"
-          type="text"
-          value={userData.email}
-          onChange={handleOnChange}
-        />
-      </label>
-      <button disabled={!isUserDataChanged} onClick={handleSave}>
+
+      <TextField
+        id="name"
+        label="Name"
+        type="text"
+        variant="outlined"
+        value={userData.name}
+        onChange={handleOnChange}
+      />
+      <TextField
+        id="email"
+        label="Email"
+        type="email"
+        variant="outlined"
+        value={userData.email}
+        onChange={handleOnChange}
+      />
+
+      <Button
+        variant="contained"
+        disabled={!isUserDataChanged}
+        onClick={handleSave}
+      >
         Save
-      </button>
+      </Button>
     </main>
   );
 }
