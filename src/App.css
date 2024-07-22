@@ -87,7 +87,6 @@ aside .userInfo {
   align-items: center;
   gap: 15px;
   margin-bottom: 20px;
-  margin-left: 3px;
 }
 
 aside a span {
@@ -126,7 +125,7 @@ aside a.active {
 aside .menu-icon {
   color: #fff;
   cursor: pointer;
-  margin-left: 15px;
+  margin-left: 5px;
   margin-bottom: 15px;
 }
 
@@ -471,9 +470,9 @@ main.user dialog .close-icon {
   animation: spin 1s infinite linear;
   border-radius: 100%;
   box-shadow: inset -2px 0 blue;
-  height: 260px;
+  height: 240px;
   position: absolute;
-  width: 260px;
+  width: 240px;
 }
 
 @keyframes spin {

@@ -5,6 +5,7 @@ import useOutsideClick from "../hooks/useOutsideClick";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "@context/userContext";
 
@@ -18,17 +19,21 @@ function Sidebar() {
 
   return (
     <aside id="sidebar" className={isOpen ? "opened" : ""}>
-      <div className="menu-icon" ref={ref}>
-        <MenuIcon onClick={() => setIsOpen(!isOpen)} />
+      <div ref={ref}>
+        <IconButton className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
+          <MenuIcon />
+        </IconButton>
       </div>
 
       <div className="userInfo">
-        <div>
-          <img
-            src={user.profileImg.url || placeholder}
-            onClick={() => navigate("/profile")}
-          ></img>
-        </div>
+        <IconButton
+          sx={{
+            padding: "2px",
+          }}
+          onClick={() => navigate("/profile")}
+        >
+          <img src={user.profileImg.url || placeholder}></img>
+        </IconButton>
 
         <p>Tetiana K.</p>
       </div>

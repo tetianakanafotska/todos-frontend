@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 
 function Modal({ openModal, closeModal, children }) {
   const ref = useRef();
@@ -14,7 +15,9 @@ function Modal({ openModal, closeModal, children }) {
 
   return (
     <dialog ref={ref} onCancel={closeModal}>
-      <CloseIcon className="close-icon" onClick={closeModal} />
+      <IconButton className="close-icon" onClick={closeModal}>
+        <CloseIcon />
+      </IconButton>
       {children}
     </dialog>
   );

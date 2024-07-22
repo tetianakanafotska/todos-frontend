@@ -101,9 +101,8 @@ function UserPage() {
     {
       name: userData.name,
       email: userData.email,
-      profileImg: userData.profileImg,
     },
-    { name: user.name, email: user.email, profileImg: user.profileImg }
+    { name: user.name, email: user.email }
   );
 
   const renderButtons = () => {
@@ -163,10 +162,11 @@ function UserPage() {
         <img
           src={userData.profileImg.url || placeholder}
           alt="profile picture"
+          className="user-pic"
         />
         <div className="buttons">{renderButtons()}</div>
       </Modal>
-      <div className="user-pic" onClick={() => setOpenModal(true)}>
+      <div onClick={() => setOpenModal(true)}>
         <img
           src={userData.profileImg.url || placeholder}
           alt="profile picture"
@@ -179,6 +179,7 @@ function UserPage() {
           ref={uploadFileRef}
           accept="image"
           onChange={handleUpload}
+          onClick={(e) => (e.target.value = null)}
           style={{ display: "none" }}
         />
       </div>

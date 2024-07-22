@@ -4,10 +4,10 @@ import EditorForm from "@components/EditorForm";
 import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "@services/task.service";
-import { AuthContext } from "@context/authContext";
+import { UserContext } from "@context/userContext";
 
 function TaskEditor({ allTasks, setAllTasks }) {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const { taskId } = useParams();
   const currentTask = allTasks.find((task) => {
