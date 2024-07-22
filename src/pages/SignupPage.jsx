@@ -66,7 +66,9 @@ function SignupPage() {
           required
         />
         <p className="error-message">{errorMessage}</p>
-        <Button variant="contained">Sign up</Button>
+        <Button type="submit" variant="contained">
+          Sign up
+        </Button>
       </form>
     </main>
   );

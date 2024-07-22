@@ -7,6 +7,7 @@ import TaskEditor from "./TaskEditor";
 import AddTask from "./AddTask";
 import tasksService from "@services/task.service";
 import { DragDropContext } from "react-beautiful-dnd";
+import Skeleton from "@mui/material/Skeleton";
 
 function Dashboard({ withOpenEditor, withAddTask }) {
   const [toDoTasks, setToDoTasks] = useState([]);
@@ -15,6 +16,7 @@ function Dashboard({ withOpenEditor, withAddTask }) {
   const [allTasks, setAllTasks] = useState([]);
   const { taskId } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTasksByType = async () => {
@@ -25,6 +27,7 @@ function Dashboard({ withOpenEditor, withAddTask }) {
         setToDoTasks(toDo.data);
         setInProgressTasks(inProgress.data);
         setDoneTasks(done.data);
+        setLoading(false);
       } catch (error) {
         console.error("Failed to fetch and set tasks:", error);
       }
@@ -49,8 +52,6 @@ function Dashboard({ withOpenEditor, withAddTask }) {
     const { index: destIndex, droppableId: destId } = destination;
 
     if (sourceId === destId && sourceIndex === destIndex) return;
-
-    console.log(sourceIndex, sourceId, "-->", destIndex, destId);
 
     const taskMap = {
       toDo: allTasks.filter((task) => task.type === "toDo"),
@@ -99,25 +100,53 @@ function Dashboard({ withOpenEditor, withAddTask }) {
         className="dashboard-main"
       >
         <Grid item lg={4} md={4} sm={12} xs={12}>
-          <TaskList
-            listType="toDo"
-            tasks={allTasks.filter((task) => task.type === "toDo")}
-          />
+          {loading ? (
+            <Skeleton
+              animation="wave"
+              variant="rounded"
+              width={210}
+              height={60}
+            />
+          ) : (
+            <TaskList
+              listType="toDo"
+              tasks={allTasks.filter((task) => task.type === "toDo")}
+            />
+          )}
         </Grid>
 
         <Grid item lg={4} md={4} sm={12} xs={12}>
-          <TaskList
-            listType="inProgress"
-            tasks={allTasks.filter((task) => task.type === "inProgress")}
-          />
+          {loading ? (
+            <Skeleton
+              animation="wave"
+              variant="rounded"
+              width={210}
+              height={60}
+            />
+          ) : (
+            <TaskList
+              listType="inProgress"
+              tasks={allTasks.filter((task) => task.type === "inProgress")}
+            />
+          )}
         </Grid>
 
         <Grid item lg={4} md={4} sm={12} xs={12}>
-          <TaskList
-            listType="done"
-            tasks={allTasks.filter((task) => task.type === "done")}
-          />
+          {loading ? (
+            <Skeleton
+              animation="wave"
+              variant="rounded"
+              width={210}
+              height={60}
+            />
+          ) : (
+            <TaskList
+              listType="done"
+              tasks={allTasks.filter((task) => task.type === "done")}
+            />
+          )}
         </Grid>
+
         <Button
           id="btn-add-task"
           size="large"

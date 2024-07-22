@@ -159,7 +159,7 @@ function UserPage() {
   return (
     <main className="user">
       <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
-        {loading === "started" && <div className="loader"></div>}
+        {loading === "started" && <div className="img-loader"></div>}
         <img
           src={userData.profileImg.url || placeholder}
           alt="profile picture"

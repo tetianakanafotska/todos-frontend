@@ -466,7 +466,7 @@ main.user dialog .close-icon {
   }
 }
 
-.loader {
+.img-loader {
   animation: spin 1s infinite linear;
   border-radius: 100%;
   box-shadow: inset -2px 0 blue;

@@ -56,7 +56,9 @@ function LoginPage() {
           value={password}
           onChange={handlePassword}
         />
-        <Button variant="contained">Login</Button>
+        <Button type="submit" variant="contained">
+          Login
+        </Button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </main>
