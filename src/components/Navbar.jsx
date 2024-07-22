@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import UpcomingIcon from "@mui/icons-material/Upcoming";
 import { AuthContext } from "@context/authContext.jsx";
+import { IconButton } from "@mui/material";
 
 function Navbar() {
-  const { isLoggedIn, logOutUser, user } = useContext(AuthContext);
+  const { logOutUser } = useContext(AuthContext);
 
   return (
     <div className="topNavBar">
@@ -12,8 +13,9 @@ function Navbar() {
         <UpcomingIcon />
         <h1>FlowBoard</h1>
       </div>
-
-      <LogoutIcon onClick={logOutUser} />
+      <IconButton onClick={logOutUser}>
+        <LogoutIcon />
+      </IconButton>
     </div>
   );
 }

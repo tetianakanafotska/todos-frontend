@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@context/authContext.jsx";
 import authService from "@services/auth.service.js";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -38,25 +40,23 @@ function LoginPage() {
     <main className="login">
       <h1>Login</h1>
       <form onSubmit={handleLoginSubmit}>
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            value={email}
-            onChange={handleEmail}
-          />
-        </label>
-        <label>
-          Passwort
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={handlePassword}
-          />
-        </label>
-        <button>Login</button>
+        <TextField
+          id="email"
+          label="Email"
+          type="email"
+          variant="outlined"
+          value={email}
+          onChange={handleEmail}
+        />
+        <TextField
+          id="password"
+          label="Password"
+          type="password"
+          variant="outlined"
+          value={password}
+          onChange={handlePassword}
+        />
+        <Button variant="contained">Login</Button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </main>

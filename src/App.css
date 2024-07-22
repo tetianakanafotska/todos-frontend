@@ -11,7 +11,7 @@ body {
   margin: 0;
   /* background-image: url("src/assets/main-bg2.jpg");
   background-size: cover; */
-  background-color: #12171e;
+  background-color: #909090;
   height: 100%;
 }
 
@@ -24,6 +24,10 @@ body {
   color: #fff;
   padding: 5px 20px;
   border-bottom: 0.5px solid #383838;
+}
+
+.topNavBar button {
+  color: #fff;
 }
 
 .topNavBar h1 {
@@ -426,10 +430,6 @@ main.user dialog .close-icon {
   right: 13px;
 }
 
-.login button {
-  width: 50px;
-}
-
 .user img {
   height: 200px;
   width: 200px;
@@ -500,8 +500,4 @@ main.user dialog .close-icon {
 
 .user-pic:hover .edit-icon-container {
   opacity: 1;
-}
-
-.login button:enabled {
-  background-color: #0000ff;
 }

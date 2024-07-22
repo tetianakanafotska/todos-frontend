@@ -10,6 +10,7 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import Button from "@mui/material/Button";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
+import { IconButton } from "@mui/material";
 
 function UserPage() {
   const { user, setUser } = useContext(UserContext);
@@ -164,13 +165,17 @@ function UserPage() {
           alt="profile picture"
           className="user-pic"
         />
+
         <div className="buttons">{renderButtons()}</div>
       </Modal>
       <div onClick={() => setOpenModal(true)}>
-        <img
-          src={userData.profileImg.url || placeholder}
-          alt="profile picture"
-        />
+        <IconButton>
+          <img
+            src={userData.profileImg.url || placeholder}
+            alt="profile picture"
+          />
+        </IconButton>
+
         <div className="edit-icon-container">
           <EditIcon fontSize="small" />
         </div>
