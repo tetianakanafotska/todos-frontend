@@ -171,9 +171,7 @@ function UserPage() {
         <img
           src={userData.profileImg.url}
           alt="profile picture"
-          // onLoad={handleImageLoad}
-          // onError={handleImageError}
-          style={{ display: loading === "started" ? "none" : "block" }}
+          //style={{ display: loading === "started" ? "none" : "block" }}
         />
 
         <div className="user-buttons">{renderButtons()}</div>
@@ -185,7 +183,7 @@ function UserPage() {
             alt="profile picture"
             // onLoad={handleImageLoad}
             // onError={handleImageError}
-            style={{ display: loading === "started" ? "none" : "block" }}
+            //style={{ display: loading === "started" ? "none" : "block" }}
           />
         </IconButton>
 

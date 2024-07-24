@@ -4,11 +4,12 @@ import { AuthContext } from "@context/authContext.jsx";
 import authService from "@services/auth.service.js";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ function LoginPage() {
         const errorDescription = error.response
           ? error.response.data.message
           : error.message;
-        setErrorMessage("❌ " + errorDescription);
+        setErrorMessage(errorDescription);
       });
   };
 
@@ -60,7 +61,16 @@ function LoginPage() {
           Login
         </Button>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage && (
+        <Alert
+          severity="error"
+          onClose={() => {
+            setErrorMessage(null);
+          }}
+        >
+          {errorMessage}
+        </Alert>
+      )}
     </main>
   );
 }
