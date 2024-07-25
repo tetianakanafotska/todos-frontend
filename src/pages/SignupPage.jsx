@@ -31,7 +31,7 @@ function SignupPage() {
   };
 
   const handleOnChange = (e) => {
-    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   return (

@@ -20,7 +20,8 @@ function UserPage() {
     email: "",
     profileImg: { url: "", publicId: "" },
   });
-  const [loading, setLoading] = useState("idle");
+  const [apiLoading, setApiLoading] = useState("idle");
+  const [imgLoading, setImgLoading] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const uploadFileRef = useRef();
 
@@ -31,7 +32,7 @@ function UserPage() {
         name,
         email,
         profileImg: {
-          url: profileImg.url || placeholder,
+          url: profileImg.url || "",
           publicId: profileImg.publicId || "",
         },
       });
@@ -39,47 +40,55 @@ function UserPage() {
   }, [user]);
 
   const handleOnChange = (e) => {
-    setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    const { id, value } = e.target;
+    setUserData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleUpload = (e) => {
-    setLoading("started");
+  const handleUpload = async (e) => {
+    setApiLoading("started");
     const file = e.target.files[0];
+    if (!file) return;
+
     const formData = new FormData();
     formData.append("image", file);
-    imageService
-      .upload(formData)
-      .then((res) => {
-        const originalUrl = res.data.image.path;
-        const resizing = "w_400,c_fill,g_auto";
-        const parts = originalUrl.split("/upload/");
-        const newUrl = parts[0] + "/upload/" + resizing + "/" + parts[1];
-        setUserData((prev) => ({
-          ...prev,
-          profileImg: {
-            url: newUrl,
-            publicId: res.data.image.filename,
-          },
-        }));
-      })
-      .catch((err) => {
-        console.log("error", err);
-      })
-      .finally(() => {
-        setLoading("completed");
-      });
+
+    try {
+      const res = await imageService.upload(formData);
+      const originalUrl = res.data.image.path;
+      const resizing = "w_400,c_fill,g_auto";
+      const [baseUrl, path] = originalUrl.split("/upload/");
+      const newUrl = `${baseUrl}/upload/${resizing}/${path}`;
+
+      setUserData((prev) => ({
+        ...prev,
+        profileImg: {
+          url: newUrl,
+          publicId: res.data.image.filename,
+        },
+      }));
+    } catch (err) {
+      console.error("Error uploading image", err);
+    } finally {
+      setApiLoading("completed");
+      setImgLoading(true);
+    }
   };
 
   const handleSave = async () => {
-    const updatedUser = await userService.put(user._id, userData);
-    const { _id, name, email, profileImg } = updatedUser.data;
-    setUser({ _id, name, email, profileImg });
-    setOpenModal(false);
-    setLoading("idle");
+    try {
+      const updatedUser = await userService.put(user._id, userData);
+      const { _id, name, email, profileImg } = updatedUser.data;
+      setUser({ _id, name, email, profileImg });
+      setOpenModal(false);
+    } catch (err) {
+      console.error("Error saving user data", err);
+    } finally {
+      setApiLoading("idle");
+    }
   };
 
   const handleDeletePic = async () => {
-    setLoading("started");
+    setApiLoading("started");
     try {
       await imageService.delete(userData.profileImg.publicId);
       const updatedInfo = {
@@ -88,11 +97,13 @@ function UserPage() {
       };
       const updatedUser = await userService.put(user._id, updatedInfo);
       const { _id, name, email, profileImg } = updatedUser.data;
+      setUserData({ name, email, profileImg });
       setUser({ _id, name, email, profileImg });
       setOpenModal(false);
-      setLoading("idle");
     } catch (err) {
       console.error("Error deleting image", err);
+    } finally {
+      setApiLoading("idle");
     }
   };
 
@@ -105,73 +116,70 @@ function UserPage() {
   );
 
   const renderButtons = () => {
-    switch (loading) {
-      case "idle":
-        return (
-          <>
-            {!user.profileImg.url && (
+    if (apiLoading === "idle") {
+      return (
+        <>
+          {!user.profileImg.url ? (
+            <Button
+              variant="contained"
+              onClick={() => uploadFileRef.current.click()}
+              startIcon={<AddAPhotoOutlinedIcon />}
+            >
+              Add profile picture
+            </Button>
+          ) : (
+            <>
               <Button
                 variant="contained"
                 onClick={() => uploadFileRef.current.click()}
-                startIcon={<AddAPhotoOutlinedIcon />}
-              >
-                Add profile picture
-              </Button>
-            )}
-            {user.profileImg.url && (
-              <Button
-                variant="contained"
                 startIcon={<ModeEditOutlineOutlinedIcon />}
-                onClick={() => uploadFileRef.current.click()}
               >
                 Change
               </Button>
-            )}
-            {user.profileImg.url && (
               <Button
                 variant="outlined"
-                startIcon={<DeleteOutlineOutlinedIcon />}
                 onClick={handleDeletePic}
+                startIcon={<DeleteOutlineOutlinedIcon />}
               >
                 Remove
               </Button>
-            )}
-          </>
-        );
-      case "completed":
-        return (
-          <>
-            <Button variant="contained" onClick={handleSave}>
-              Save as profile picture
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setUserData((prev) => ({
-                  ...prev,
-                  profileImg: { url: "", publicId: "" },
-                }));
-                setLoading("idle");
-                setOpenModal(false);
-              }}
-            >
-              Cancel
-            </Button>
-          </>
-        );
-      default:
-        return null;
+            </>
+          )}
+        </>
+      );
     }
+    if (apiLoading === "completed" && !imgLoading) {
+      return (
+        <>
+          <Button variant="contained" onClick={handleSave}>
+            Save as profile picture
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setApiLoading("idle");
+              setOpenModal(false);
+            }}
+          >
+            Cancel
+          </Button>
+        </>
+      );
+    }
+    return null;
   };
 
   return (
     <main className="user">
       <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
-        {loading === "started" && <div className="img-loader"></div>}
+        {(apiLoading === "started" || imgLoading) && (
+          <div className="img-loader"></div>
+        )}
         <img
-          src={userData.profileImg.url}
+          src={userData.profileImg.url || placeholder}
           alt="profile picture"
-          //style={{ display: loading === "started" ? "none" : "block" }}
+          onError={(e) => (e.target.src = placeholder)}
+          onLoad={() => setImgLoading(false)}
         />
 
         <div className="user-buttons">{renderButtons()}</div>
@@ -179,11 +187,10 @@ function UserPage() {
       <div onClick={() => setOpenModal(true)}>
         <IconButton>
           <img
-            src={userData.profileImg.url}
+            src={userData.profileImg.url || placeholder}
             alt="profile picture"
-            // onLoad={handleImageLoad}
-            // onError={handleImageError}
-            //style={{ display: loading === "started" ? "none" : "block" }}
+            onError={(e) => (e.target.src = placeholder)}
+            onLoad={() => setImgLoading(false)}
           />
         </IconButton>
 
