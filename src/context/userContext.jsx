@@ -27,8 +27,6 @@ function UserProviderWrapper(props) {
     }
   }, [tokenPayload]);
 
-  console.log("this is user", user);
-
   // const handleDeleteAccount = async () => {
   //   try {
   //     const userResponse = await usersService.get(user._id);

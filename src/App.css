@@ -11,7 +11,7 @@ body {
   margin: 0;
   /* background-image: url("src/assets/main-bg2.jpg");
   background-size: cover; */
-  background-color: #909090;
+  background-color: #ffffff;
   height: 100%;
 }
 
@@ -141,14 +141,6 @@ aside img {
   border: 1px solid #eee;
 }
 
-main {
-  margin-left: 80px;
-  padding: 30px 5vw;
-  transition: all 0.5s ease;
-  width: calc(100vw - 80px);
-  height: 100%;
-}
-
 /* opened sidebar */
 aside.opened {
   width: 250px;
@@ -170,9 +162,22 @@ aside.opened ~ main {
 /* opened sidebar */
 
 main.about {
-  color: #fff;
+  color: #000000;
   width: 700px;
   line-height: 1.5;
+  margin-left: 80px;
+  padding: 30px 5vw;
+  transition: all 0.5s ease;
+  width: calc(100vw - 80px);
+  height: 100%;
+}
+
+.dashboard-main {
+  margin-left: 80px;
+  padding: 30px 5vw;
+  transition: all 0.5s ease;
+  width: calc(100vw - 80px);
+  height: 100%;
 }
 
 .edit-task {
@@ -405,13 +410,44 @@ main.about {
   margin: 0 auto;
 }
 
-main.login,
 main.user {
-  color: #fff;
+  color: #000000;
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  margin-left: 80px;
+  padding: 30px 5vw;
+  transition: all 0.5s ease;
+  width: calc(100vw - 80px);
+  height: 100%;
+}
+
+main.login-container {
+  color: #000000;
+  display: flex;
+  height: 100vh;
+}
+
+.login-container .side-pic-login {
+  background-image: url("src/assets/sidePic-login.jpeg");
+  background-size: cover;
+  width: 30%;
+}
+
+.login-container .side-pic-signup {
+  background-image: url("src/assets/sidePic-signup.jpeg");
+  background-size: cover;
+  width: 30%;
+}
+
+main .login {
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  margin-left: 130px;
+  justify-content: center;
+  margin-top: -200px;
 }
 
 main.user dialog[open] {
@@ -435,7 +471,6 @@ main.user dialog .close-icon {
   width: 200px;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 10px;
   position: relative;
 }
 
@@ -443,14 +478,7 @@ main.user dialog .close-icon {
   display: flex;
   flex-direction: column;
   color: white;
-  gap: 20px;
-  align-items: flex-start;
   width: 100%;
-}
-
-.login input,
-.user input {
-  margin-left: 10px;
 }
 
 .error-message {

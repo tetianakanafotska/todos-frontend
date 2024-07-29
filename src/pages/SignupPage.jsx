@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import authService from "@services/auth.service";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -35,41 +35,47 @@ function SignupPage() {
   };
 
   return (
-    <main className="login">
-      <h1>Signup</h1>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          id="name"
-          label="Name"
-          type="text"
-          variant="outlined"
-          value={data.name}
-          onChange={handleOnChange}
-          required
-        />
-        <TextField
-          id="email"
-          label="Email"
-          type="email"
-          variant="outlined"
-          value={data.email}
-          onChange={handleOnChange}
-          required
-        />
-        <TextField
-          id="password"
-          label="Password"
-          type="password"
-          variant="outlined"
-          value={data.password}
-          onChange={handleOnChange}
-          required
-        />
-        <p className="error-message">{errorMessage}</p>
-        <Button type="submit" variant="contained">
-          Sign up
-        </Button>
-      </form>
+    <main className="login-container">
+      <div className="side-pic-signup"></div>
+      <div className="login">
+        <h1>Signup to todo</h1>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            id="name"
+            label="Name"
+            type="text"
+            variant="outlined"
+            value={data.name}
+            onChange={handleOnChange}
+            required
+          />
+          <TextField
+            id="email"
+            label="Email"
+            type="email"
+            variant="outlined"
+            value={data.email}
+            onChange={handleOnChange}
+            required
+          />
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            variant="outlined"
+            value={data.password}
+            onChange={handleOnChange}
+            required
+          />
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <Button type="submit" variant="contained">
+            Sign up
+          </Button>
+        </form>
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </main>
   );
 }

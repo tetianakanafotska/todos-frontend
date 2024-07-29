@@ -12,6 +12,10 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import { IconButton } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import { Input } from "@mui/material";
+import { InputBase } from "@mui/material";
+import { FilledInput } from "@mui/material";
+import { InputLabel } from "@mui/material";
 
 function UserPage() {
   const { user, setUser } = useContext(UserContext);
@@ -157,6 +161,8 @@ function UserPage() {
           <Button
             variant="outlined"
             onClick={() => {
+              const { profileImg } = user;
+              setUserData((prev) => ({ ...prev, profileImg: profileImg }));
               setApiLoading("idle");
               setOpenModal(false);
             }}
@@ -176,10 +182,12 @@ function UserPage() {
           <div className="img-loader"></div>
         )}
         <img
+          key={Date.now()}
           src={userData.profileImg.url || placeholder}
           alt="profile picture"
           onError={(e) => (e.target.src = placeholder)}
           onLoad={() => setImgLoading(false)}
+          onClick={() => uploadFileRef.current.click()}
         />
 
         <div className="user-buttons">{renderButtons()}</div>
@@ -187,10 +195,10 @@ function UserPage() {
       <div onClick={() => setOpenModal(true)}>
         <IconButton>
           <img
+            key={Date.now()}
             src={userData.profileImg.url || placeholder}
             alt="profile picture"
             onError={(e) => (e.target.src = placeholder)}
-            onLoad={() => setImgLoading(false)}
           />
         </IconButton>
 

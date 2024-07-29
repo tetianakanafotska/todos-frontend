@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "@context/authContext.jsx";
 import authService from "@services/auth.service.js";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
+import { Typography } from "@mui/material";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -38,39 +39,45 @@ function LoginPage() {
   };
 
   return (
-    <main className="login">
-      <h1>Login</h1>
-      <form onSubmit={handleLoginSubmit}>
-        <TextField
-          id="email"
-          label="Email"
-          type="email"
-          variant="outlined"
-          value={email}
-          onChange={handleEmail}
-        />
-        <TextField
-          id="password"
-          label="Password"
-          type="password"
-          variant="outlined"
-          value={password}
-          onChange={handlePassword}
-        />
-        <Button type="submit" variant="contained">
-          Login
-        </Button>
-      </form>
-      {errorMessage && (
-        <Alert
-          severity="error"
-          onClose={() => {
-            setErrorMessage(null);
-          }}
-        >
-          {errorMessage}
-        </Alert>
-      )}
+    <main className="login-container">
+      <div className="side-pic-login"></div>
+      <div className="login">
+        <h1>Login to todo</h1>
+        <form onSubmit={handleLoginSubmit}>
+          <TextField
+            id="email"
+            label="Email"
+            type="email"
+            variant="outlined"
+            value={email}
+            onChange={handleEmail}
+          />
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            variant="outlined"
+            value={password}
+            onChange={handlePassword}
+          />
+          <Button type="submit" variant="contained">
+            Login
+          </Button>
+        </form>
+        {errorMessage && (
+          <Alert
+            severity="error"
+            onClose={() => {
+              setErrorMessage(null);
+            }}
+          >
+            {errorMessage}
+          </Alert>
+        )}
+        <p>
+          Don't have an account? <Link to="/signup">Sign up</Link>
+        </p>
+      </div>
     </main>
   );
 }
