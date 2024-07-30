@@ -2,20 +2,14 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "@context/userContext";
 import placeholder from "@/assets/placeholder.jpg";
 import EditIcon from "@mui/icons-material/Edit";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import userService from "@services/user.service.js";
 import imageService from "@services/image.service";
 import isEqual from "lodash/isEqual";
 import Modal from "../components/Modal";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import Button from "@mui/material/Button";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
-import { IconButton } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import { Input } from "@mui/material";
-import { InputBase } from "@mui/material";
-import { FilledInput } from "@mui/material";
-import { InputLabel } from "@mui/material";
+import { IconButton, TextField, Button } from "@mui/material";
 
 function UserPage() {
   const { user, setUser } = useContext(UserContext);

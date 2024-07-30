@@ -42,13 +42,12 @@ function LoginPage() {
     <main className="login-container">
       <div className="side-pic-login"></div>
       <div className="login">
-        <h1>Login to todo</h1>
+        <h2>Login to todo</h2>
         <form onSubmit={handleLoginSubmit}>
           <TextField
             id="email"
             label="Email"
             type="email"
-            variant="outlined"
             value={email}
             onChange={handleEmail}
           />
@@ -56,11 +55,10 @@ function LoginPage() {
             id="password"
             label="Password"
             type="password"
-            variant="outlined"
             value={password}
             onChange={handlePassword}
           />
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" color="black">
             Login
           </Button>
         </form>

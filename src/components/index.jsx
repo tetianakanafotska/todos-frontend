@@ -1,4 +1,3 @@
-import Footer from "./Footer.jsx";
 import Navbar from "./Navbar.jsx";
 import EditorForm from "./EditorForm.jsx";
 import Sidebar from "./Sidebar.jsx";
@@ -9,7 +8,6 @@ import IsPrivate from "./IsPrivate.jsx";
 import Loading from "./Loading.jsx";
 
 export {
-  Footer,
   Navbar,
   EditorForm,
   Sidebar,

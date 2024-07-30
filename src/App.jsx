@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Navbar, Footer, Sidebar, IsPrivate, IsAnon } from "@components";
+import { Navbar, Sidebar, IsPrivate, IsAnon } from "@components";
 import {
   Dashboard,
   About,
@@ -61,7 +61,6 @@ function App() {
         />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-      <Footer />
     </>
   );
 }
