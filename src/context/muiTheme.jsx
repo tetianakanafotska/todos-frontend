@@ -15,6 +15,12 @@ const theme = createTheme({
       contrastText: "#fff",
     },
   },
+  typography: {
+    fontFamily: '"Raleway", "Tahoma", "Geneva", "Verdana", sans-serif',
+    h5: {
+      fontWeight: "700",
+    },
+  },
   shape: {
     borderRadius: 9,
   },

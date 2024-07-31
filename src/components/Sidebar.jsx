@@ -22,12 +22,12 @@ function Sidebar() {
   useOutsideClick(ref, () => setIsOpen(false));
 
   useEffect(() => {
-    if (user.profileImg.url) {
+    if (user.profileImg) {
       setProfileUrl(user.profileImg.url);
     } else {
       setProfileUrl(placeholder);
     }
-  }, [user.profileImg.url]);
+  }, [user]);
 
   const handleImageLoad = () => {
     setIsLoading(false);

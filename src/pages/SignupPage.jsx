@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import authService from "@services/auth.service";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -38,7 +39,9 @@ function SignupPage() {
     <main className="login-container">
       <div className="side-pic-signup"></div>
       <div className="login">
-        <h1>Signup to todo</h1>
+        <Typography variant="h5" component="h1" mb="20px">
+          Signup to todo
+        </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
             id="name"
@@ -68,13 +71,14 @@ function SignupPage() {
             required
           />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" color="black">
             Sign up
           </Button>
         </form>
-        <p>
+        <Typography variant="body2" mt="20px" align="center">
           Already have an account? <Link to="/login">Login</Link>
-        </p>
+        </Typography>
+        <p></p>
       </div>
     </main>
   );

@@ -1,5 +1,4 @@
 * {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
 
@@ -329,7 +328,7 @@ main.about {
 }
 
 .task-card p {
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 #priority-tag {
@@ -355,7 +354,7 @@ main.about {
 
 .task-card h4 {
   margin: 7px 0 0px;
-  font-size: 0.96rem;
+  font-size: 1.1rem;
 }
 
 #task-dates {
@@ -363,7 +362,7 @@ main.about {
   align-items: center;
   gap: 5px;
   margin: 0 0 2px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 #btn-add-task {
@@ -422,7 +421,7 @@ main .login {
   flex-direction: column;
   margin-left: 130px;
   justify-content: center;
-  margin-top: -200px;
+  margin-top: -100px;
   width: 25%;
 }
 

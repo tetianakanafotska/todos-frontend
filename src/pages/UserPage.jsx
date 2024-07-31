@@ -30,8 +30,8 @@ function UserPage() {
         name,
         email,
         profileImg: {
-          url: profileImg.url || "",
-          publicId: profileImg.publicId || "",
+          url: profileImg?.url || "",
+          publicId: profileImg?.publicId || "",
         },
       });
     }
@@ -117,7 +117,7 @@ function UserPage() {
     if (apiLoading === "idle") {
       return (
         <>
-          {!user.profileImg.url ? (
+          {!user.profileImg ? (
             <Button
               variant="contained"
               onClick={() => uploadFileRef.current.click()}

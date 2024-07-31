@@ -5,7 +5,7 @@ import authService from "@services/auth.service.js";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -42,7 +42,9 @@ function LoginPage() {
     <main className="login-container">
       <div className="side-pic-login"></div>
       <div className="login">
-        <h2>Login to todo</h2>
+        <Typography variant="h5" component="h1" mb="20px">
+          Login to todo
+        </Typography>
         <form onSubmit={handleLoginSubmit}>
           <TextField
             id="email"
@@ -72,9 +74,9 @@ function LoginPage() {
             {errorMessage}
           </Alert>
         )}
-        <p>
+        <Typography variant="body2" mt="20px" align="center">
           Don't have an account? <Link to="/signup">Sign up</Link>
-        </p>
+        </Typography>
       </div>
     </main>
   );
