@@ -39,8 +39,8 @@ function Sidebar() {
   return (
     <>
       {!["/signup", "/login"].includes(location.pathname) && (
-        <aside id="sidebar" className={isOpen ? "opened" : ""}>
-          <div ref={ref}>
+        <aside id="sidebar" ref={ref} className={isOpen ? "opened" : ""}>
+          <div>
             <IconButton
               className="menu-icon"
               onClick={() => setIsOpen(!isOpen)}
