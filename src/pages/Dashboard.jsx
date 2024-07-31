@@ -104,8 +104,8 @@ function Dashboard({ withOpenEditor, withAddTask }) {
             <Skeleton
               animation="wave"
               variant="rounded"
-              width={210}
-              height={60}
+              width={393}
+              height={80}
             />
           ) : (
             <TaskList
@@ -120,8 +120,8 @@ function Dashboard({ withOpenEditor, withAddTask }) {
             <Skeleton
               animation="wave"
               variant="rounded"
-              width={210}
-              height={60}
+              width={393}
+              height={80}
             />
           ) : (
             <TaskList
@@ -136,8 +136,8 @@ function Dashboard({ withOpenEditor, withAddTask }) {
             <Skeleton
               animation="wave"
               variant="rounded"
-              width={210}
-              height={60}
+              width={393}
+              height={80}
             />
           ) : (
             <TaskList

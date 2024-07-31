@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import placeholder from "@/assets/placeholder.jpg";
 import useOutsideClick from "../hooks/useOutsideClick";
+import { UserContext } from "@context/userContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import IconButton from "@mui/material/IconButton";
-import { useNavigate, useLocation } from "react-router-dom";
-import { UserContext } from "@context/userContext";
 import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
 
 function Sidebar() {
   const location = useLocation();
@@ -65,15 +65,21 @@ function Sidebar() {
               />
             </IconButton>
 
-            <p>Tetiana K.</p>
+            <Typography variant="body1" sx={{ fontWeight: "700" }}>
+              {user.name}
+            </Typography>
           </div>
           <NavLink to="/">
             <HomeOutlinedIcon />
-            <span>Dashboard</span>
+            <Typography variant="body1" component="span">
+              Dashboard
+            </Typography>
           </NavLink>
           <NavLink to="/about">
             <InfoOutlinedIcon />
-            <span>About</span>
+            <Typography variant="body1" component="span">
+              About
+            </Typography>
           </NavLink>
         </aside>
       )}

@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -41,11 +42,23 @@ function LoginPage() {
   return (
     <main className="login-container">
       <div className="side-pic-login"></div>
-      <div className="login">
+      <Box
+        ml="8%"
+        mt="10%"
+        sx={{
+          width: {
+            sx: "97%",
+            sm: "40%",
+            md: "33%",
+            lg: "27%",
+            xl: "20%",
+          },
+        }}
+      >
         <Typography variant="h5" component="h1" mb="20px">
-          Login to todo
+          Login to Todo
         </Typography>
-        <form onSubmit={handleLoginSubmit}>
+        <Box component="form" display="flex" flexDirection="column">
           <TextField
             id="email"
             label="Email"
@@ -60,10 +73,16 @@ function LoginPage() {
             value={password}
             onChange={handlePassword}
           />
-          <Button type="submit" variant="contained" color="black">
+          <Button
+            type="submit"
+            variant="contained"
+            color="black"
+            onClick={handleLoginSubmit}
+          >
             Login
           </Button>
-        </form>
+        </Box>
+
         {errorMessage && (
           <Alert
             severity="error"
@@ -77,7 +96,7 @@ function LoginPage() {
         <Typography variant="body2" mt="20px" align="center">
           Don't have an account? <Link to="/signup">Sign up</Link>
         </Typography>
-      </div>
+      </Box>
     </main>
   );
 }

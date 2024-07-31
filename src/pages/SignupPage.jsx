@@ -4,6 +4,7 @@ import authService from "@services/auth.service";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -38,11 +39,23 @@ function SignupPage() {
   return (
     <main className="login-container">
       <div className="side-pic-signup"></div>
-      <div className="login">
+      <Box
+        ml="8%"
+        mt="10%"
+        sx={{
+          width: {
+            sx: "90%",
+            sm: "30%",
+            md: "27%",
+            lg: "27%",
+            xl: "20%",
+          },
+        }}
+      >
         <Typography variant="h5" component="h1" mb="20px">
-          Signup to todo
+          Signup to Todo
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <Box component="form" display="flex" flexDirection="column">
           <TextField
             id="name"
             label="Name"
@@ -71,15 +84,19 @@ function SignupPage() {
             required
           />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <Button type="submit" variant="contained" color="black">
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            variant="contained"
+            color="black"
+          >
             Sign up
           </Button>
-        </form>
+        </Box>
         <Typography variant="body2" mt="20px" align="center">
           Already have an account? <Link to="/login">Login</Link>
         </Typography>
-        <p></p>
-      </div>
+      </Box>
     </main>
   );
 }
