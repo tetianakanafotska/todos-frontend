@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import EditorForm from "@components/EditorForm";
+import TaskModal from "@components/TaskModal";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "@services/task.service";
 import { UserContext } from "@context/userContext";
@@ -17,6 +17,8 @@ function EditTask({ allTasks, setAllTasks, withEditTask }) {
 
   const currentTask = allTasks.find((task) => task._id === taskId);
 
+  console.log("this is current task", currentTask);
+
   const [formInputs, setFormInputs] = useState({
     title: currentTask.title,
     type: currentTask.type,
@@ -29,6 +31,10 @@ function EditTask({ allTasks, setAllTasks, withEditTask }) {
   const handleOnChange = (e) => {
     const { id, value } = e.target;
     setFormInputs((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleDateChange = (e) => {
+    setFormInputs((prev) => ({ ...prev, dueAt: e }));
   };
 
   const handleSave = () => {
@@ -64,7 +70,7 @@ function EditTask({ allTasks, setAllTasks, withEditTask }) {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose} fullWidth>
       <IconButton
         aria-label="close"
         onClick={handleClose}
@@ -77,7 +83,11 @@ function EditTask({ allTasks, setAllTasks, withEditTask }) {
         <CloseIcon />
       </IconButton>
       <DialogContent>
-        <EditorForm formInputs={formInputs} handleOnChange={handleOnChange} />
+        <TaskModal
+          formInputs={formInputs}
+          handleOnChange={handleOnChange}
+          handleDateChange={handleDateChange}
+        />
       </DialogContent>
 
       <DialogActions>

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import EditorForm from "@components/EditorForm";
+import TaskModal from "@components/TaskModal";
 import tasksService from "@services/task.service";
 import { useEffect, useState, useContext } from "react";
 import { Button } from "@mui/material";
@@ -9,6 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import CloseIcon from "@mui/icons-material/Close";
 import { UserContext } from "@context/userContext";
+import dayjs from "dayjs";
 
 import { IconButton } from "@mui/material";
 
@@ -22,8 +23,8 @@ function AddTask({ setAllTasks, withAddTask }) {
     type: "toDo",
     priority: "Low",
     description: "",
-    createdAt: new Date().toISOString().slice(0, 10),
-    dueAt: "",
+    createdAt: dayjs(),
+    dueAt: dayjs().add(1, "day"),
   });
 
   useEffect(() => {
@@ -38,6 +39,11 @@ function AddTask({ setAllTasks, withAddTask }) {
   const handleOnChange = (e) => {
     const { id, value } = e.target;
     setFormInputs((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleDateChange = (newDate) => {
+    console.log("this is due at", newDate);
+    setFormInputs((prev) => ({ ...prev, dueAt: newDate }));
   };
 
   const saveTask = (formInputs) => {
@@ -67,7 +73,7 @@ function AddTask({ setAllTasks, withAddTask }) {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose} fullWidth>
       <DialogTitle>Create a new task</DialogTitle>
 
       <IconButton
@@ -83,7 +89,11 @@ function AddTask({ setAllTasks, withAddTask }) {
       </IconButton>
 
       <DialogContent>
-        <EditorForm formInputs={formInputs} handleOnChange={handleOnChange} />
+        <TaskModal
+          formInputs={formInputs}
+          handleOnChange={handleOnChange}
+          handleDateChange={handleDateChange}
+        />
       </DialogContent>
 
       <DialogActions>

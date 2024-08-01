@@ -1,5 +1,5 @@
 import Navbar from "./Navbar.jsx";
-import EditorForm from "./EditorForm.jsx";
+import TaskModal from "./TaskModal.jsx";
 import Sidebar from "./Sidebar.jsx";
 import TaskCard from "./TaskCard.jsx";
 import TaskList from "./TaskList.jsx";
@@ -9,7 +9,7 @@ import Loading from "./Loading.jsx";
 
 export {
   Navbar,
-  EditorForm,
+  TaskModal,
   Sidebar,
   TaskCard,
   TaskList,

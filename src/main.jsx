@@ -5,14 +5,18 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProviderWrapper } from "@context/authContext.jsx";
 import { UserProviderWrapper } from "@context/userContext.jsx";
 import MuiTheme from "@context/muiTheme.jsx";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AuthProviderWrapper>
       <UserProviderWrapper>
-        <MuiTheme>
-          <App />
-        </MuiTheme>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <MuiTheme>
+            <App />
+          </MuiTheme>
+        </LocalizationProvider>
       </UserProviderWrapper>
     </AuthProviderWrapper>
   </BrowserRouter>

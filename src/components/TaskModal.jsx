@@ -3,12 +3,12 @@ import SubjectIcon from "@mui/icons-material/Subject";
 import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 import { TextField, Box, MenuItem, Typography, Container } from "@mui/material";
 
-function EditorForm({ formInputs, handleOnChange }) {
-  console.log("this is forminputs from parent", formInputs);
-
+function TaskModal({ formInputs, handleOnChange, handleDateChange }) {
   return (
     <>
       <Container>
@@ -34,20 +34,11 @@ function EditorForm({ formInputs, handleOnChange }) {
             value={formInputs.description}
             onChange={handleOnChange}
             fullWidth
+            multiline
+            rows={3}
           />
         </Box>
-        {/* due*/}
-        <Box sx={{ display: "flex" }}>
-          <Avatar sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-          <TextField
-            id="dueAt"
-            label="Due"
-            variant="standard"
-            onChange={handleOnChange}
-            value={formInputs.dueAt}
-            fullWidth
-          />
-        </Box>
+
         {/* priority*/}
         <TextField
           id="priority"
@@ -70,14 +61,22 @@ function EditorForm({ formInputs, handleOnChange }) {
             High
           </MenuItem>
         </TextField>
+        {/* due*/}
+        <DatePicker
+          label="Due"
+          value={formInputs.dueAt}
+          onChange={handleDateChange}
+          disablePast
+        />
         {/* createdAt*/}
-        <Typography>
-          Created at:{" "}
-          {formInputs.createdAt && formInputs.createdAt.slice(0, 10)}
-        </Typography>
+        <DatePicker
+          label="Created at"
+          defaultValue={formInputs.createdAt}
+          readOnly
+        />
       </Container>
     </>
   );
 }
 
-export default EditorForm;
+export default TaskModal;

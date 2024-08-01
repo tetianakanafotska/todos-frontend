@@ -8,7 +8,7 @@ import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import userService from "@services/user.service.js";
 import imageService from "@services/image.service";
 import isEqual from "lodash/isEqual";
-import Modal from "../components/Modal";
+import UserModal from "../components/UserModal";
 import { IconButton, TextField, Button } from "@mui/material";
 
 function UserPage() {
@@ -171,7 +171,7 @@ function UserPage() {
 
   return (
     <main className="user">
-      <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
+      <UserModal openModal={openModal} closeModal={() => setOpenModal(false)}>
         {(apiLoading === "started" || imgLoading) && (
           <div className="img-loader"></div>
         )}
@@ -185,7 +185,7 @@ function UserPage() {
         />
 
         <div className="user-buttons">{renderButtons()}</div>
-      </Modal>
+      </UserModal>
       <div onClick={() => setOpenModal(true)}>
         <IconButton>
           <img

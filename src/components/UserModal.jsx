@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 
-function Modal({ openModal, closeModal, children }) {
+function UserModal({ openModal, closeModal, children }) {
   const ref = useRef();
 
   useEffect(() => {
@@ -23,4 +23,4 @@ function Modal({ openModal, closeModal, children }) {
   );
 }
 
-export default Modal;
+export default UserModal;
