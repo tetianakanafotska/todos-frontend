@@ -3,13 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Grid, Button } from "@mui/material";
 import TaskList from "@components/TaskList";
-import TaskEditor from "./TaskEditor";
+import EditTask from "./EditTask";
 import AddTask from "./AddTask";
 import tasksService from "@services/task.service";
 import { DragDropContext } from "react-beautiful-dnd";
 import Skeleton from "@mui/material/Skeleton";
 
-function Dashboard({ withOpenEditor, withAddTask }) {
+function Dashboard({ withEditTask, withAddTask }) {
   const [toDoTasks, setToDoTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);
@@ -85,82 +85,94 @@ function Dashboard({ withOpenEditor, withAddTask }) {
   };
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      {withOpenEditor && (
-        <TaskEditor allTasks={allTasks} setAllTasks={setAllTasks} />
+    <>
+      {withEditTask && (
+        <EditTask
+          withEditTask={withEditTask}
+          allTasks={allTasks}
+          setAllTasks={setAllTasks}
+        />
       )}
-      {withAddTask && <AddTask allTasks={allTasks} setAllTasks={setAllTasks} />}
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="flex-start"
-        component="main"
-        width="calc(100vw - 80px)"
-        className="dashboard-main"
-      >
-        <Grid item lg={4} md={4} sm={12} xs={12}>
-          {loading ? (
-            <Skeleton
-              animation="wave"
-              variant="rounded"
-              width={393}
-              height={80}
-            />
-          ) : (
-            <TaskList
-              listType="toDo"
-              tasks={allTasks.filter((task) => task.type === "toDo")}
-            />
-          )}
-        </Grid>
-
-        <Grid item lg={4} md={4} sm={12} xs={12}>
-          {loading ? (
-            <Skeleton
-              animation="wave"
-              variant="rounded"
-              width={393}
-              height={80}
-            />
-          ) : (
-            <TaskList
-              listType="inProgress"
-              tasks={allTasks.filter((task) => task.type === "inProgress")}
-            />
-          )}
-        </Grid>
-
-        <Grid item lg={4} md={4} sm={12} xs={12}>
-          {loading ? (
-            <Skeleton
-              animation="wave"
-              variant="rounded"
-              width={393}
-              height={80}
-            />
-          ) : (
-            <TaskList
-              listType="done"
-              tasks={allTasks.filter((task) => task.type === "done")}
-            />
-          )}
-        </Grid>
-
-        <Button
-          id="btn-add-task"
-          size="large"
-          variant="contained"
-          aria-label="add a task"
-          startIcon={<AddCircleOutlineIcon />}
-          onClick={() => {
-            navigate("/addTask");
-          }}
+      {withAddTask && (
+        <AddTask
+          withAddTask={withAddTask}
+          allTasks={allTasks}
+          setAllTasks={setAllTasks}
+        />
+      )}
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
+          component="main"
+          width="calc(100vw - 80px)"
+          className="dashboard-main"
         >
-          Add a task
-        </Button>
-      </Grid>
-    </DragDropContext>
+          <Grid item lg={4} md={4} sm={12} xs={12}>
+            {loading ? (
+              <Skeleton
+                animation="wave"
+                variant="rounded"
+                width={393}
+                height={80}
+              />
+            ) : (
+              <TaskList
+                listType="toDo"
+                tasks={allTasks.filter((task) => task.type === "toDo")}
+              />
+            )}
+          </Grid>
+
+          <Grid item lg={4} md={4} sm={12} xs={12}>
+            {loading ? (
+              <Skeleton
+                animation="wave"
+                variant="rounded"
+                width={393}
+                height={80}
+              />
+            ) : (
+              <TaskList
+                listType="inProgress"
+                tasks={allTasks.filter((task) => task.type === "inProgress")}
+              />
+            )}
+          </Grid>
+
+          <Grid item lg={4} md={4} sm={12} xs={12}>
+            {loading ? (
+              <Skeleton
+                animation="wave"
+                variant="rounded"
+                width={393}
+                height={80}
+              />
+            ) : (
+              <TaskList
+                listType="done"
+                tasks={allTasks.filter((task) => task.type === "done")}
+              />
+            )}
+          </Grid>
+
+          <Button
+            id="btn-add-task"
+            size="large"
+            variant="contained"
+            aria-label="add a task"
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={() => {
+              navigate("/addTask");
+            }}
+          >
+            Add a task
+          </Button>
+        </Grid>
+      </DragDropContext>
+    </>
   );
 }
 

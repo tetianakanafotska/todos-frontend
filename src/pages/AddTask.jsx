@@ -1,11 +1,44 @@
 import { useNavigate } from "react-router-dom";
 import EditorForm from "@components/EditorForm";
-import { Button } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "@services/task.service";
+import { useEffect, useState, useContext } from "react";
+import { Button } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import CloseIcon from "@mui/icons-material/Close";
+import { UserContext } from "@context/userContext";
 
-function AddTask({ setAllTasks }) {
+import { IconButton } from "@mui/material";
+
+function AddTask({ setAllTasks, withAddTask }) {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const [open, setOpen] = useState(withAddTask);
+
+  const [formInputs, setFormInputs] = useState({
+    title: "",
+    type: "toDo",
+    priority: "Low",
+    description: "",
+    createdAt: new Date().toISOString().slice(0, 10),
+    dueAt: "",
+  });
+
+  useEffect(() => {
+    if (user) {
+      setFormInputs((prev) => ({
+        ...prev,
+        userId: user._id,
+      }));
+    }
+  }, [user]);
+
+  const handleOnChange = (e) => {
+    const { id, value } = e.target;
+    setFormInputs((prev) => ({ ...prev, [id]: value }));
+  };
 
   const saveTask = (formInputs) => {
     tasksService.getByType(formInputs.type).then((tasksOfType) => {
@@ -23,29 +56,49 @@ function AddTask({ setAllTasks }) {
     });
   };
 
-  const cancel = () => {
+  const handleSaveButton = (e) => {
+    e.preventDefault();
+    saveTask(formInputs);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
     navigate("/");
   };
 
   return (
-    <article className="task-editor-background">
-      <form className="task-editor-form" action="">
-        <div className="title">
-          <h3>Create a new task</h3>
-          <Button
-            sx={{ minWidth: "30px", borderRadius: "20px" }}
-            className="btn-close-editor"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            <CloseIcon />
-          </Button>
-        </div>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>Create a new task</DialogTitle>
 
-        <EditorForm saveTask={saveTask} cancel={cancel} />
-      </form>
-    </article>
+      <IconButton
+        aria-label="close"
+        onClick={handleClose}
+        sx={{
+          position: "absolute",
+          right: 8,
+          top: 8,
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+
+      <DialogContent>
+        <EditorForm formInputs={formInputs} handleOnChange={handleOnChange} />
+      </DialogContent>
+
+      <DialogActions>
+        <Button
+          onClick={handleSaveButton}
+          variant="contained"
+          disabled={formInputs.title === ""}
+        >
+          Save
+        </Button>
+        <Button onClick={handleClose} variant="outlined">
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 

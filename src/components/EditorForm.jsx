@@ -1,135 +1,81 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Button } from "@mui/material";
 import SubjectIcon from "@mui/icons-material/Subject";
 import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
-import { UserContext } from "@context/userContext";
 
-function EditorForm({ saveEdit, deleteTask, currentTask, saveTask, cancel }) {
-  const { user } = useContext(UserContext);
-  const [formInputs, setFormInputs] = useState({
-    title: currentTask?.title || "",
-    type: currentTask?.type || "toDo",
-    priority: currentTask?.priority || "Low",
-    description: currentTask?.description || "",
-    assignee: currentTask?.assignee || "",
-    createdAt: currentTask?.createdAt || new Date().toISOString().slice(0, 10),
-    dueAt: currentTask?.dueAt || "",
-  });
+import { TextField, Box, MenuItem, Typography, Container } from "@mui/material";
 
-  useEffect(() => {
-    if (user) formInputs.userId = user._id;
-  }, [user]);
-
-  const handleOnChange = (e) => {
-    const { id, value } = e.target;
-    setFormInputs((prev) => ({ ...prev, [id]: value }));
-  };
-
-  const handleSaveButton = (e) => {
-    e.preventDefault();
-    saveEdit ? saveEdit(formInputs) : saveTask(formInputs);
-  };
-
-  const handleDeleteButton = (e) => {
-    e.preventDefault();
-    deleteTask ? deleteTask(currentTask._id) : cancel();
-  };
+function EditorForm({ formInputs, handleOnChange }) {
+  console.log("this is forminputs from parent", formInputs);
 
   return (
     <>
-      <div className="main">
-        <div className="leftColumn">
-          {/* title*/}
-          <div className="title">
-            <SubtitlesIcon id="title-icon" />
-            <input
-              id="title"
-              type="text"
-              value={formInputs.title}
-              onChange={handleOnChange}
-            />
-          </div>
-          {/* description*/}
-          <label htmlFor="description">Description</label>
-          <div className="description-div">
-            <SubjectIcon id="description-icon" />
-            <textarea
-              id="description"
-              type="text"
-              value={formInputs.description}
-              onChange={handleOnChange}
-            />
-          </div>
-          {/* assignee*/}
-          <label htmlFor="assignee">Assignee</label>
-          <div className="assignee-div">
-            <Avatar sx={{ width: 21, height: 21 }} />{" "}
-            <input
-              id="assignee"
-              type="text"
-              value={formInputs.assignee}
-              onChange={handleOnChange}
-            />
-          </div>
-          {/* due*/}
-          <label htmlFor="dueAt">Due:</label>
-          <div className="dueAt-div">
-            <AccessTimeIcon id="dueAt-icon" sx={{ width: 23, height: 23 }} />
-            <input
-              id="dueAt"
-              type="date"
-              value={formInputs.dueAt}
-              onChange={handleOnChange}
-            />
-          </div>
-        </div>
-        <div className="rightColumn">
-          {/* task type */}
-          <label htmlFor="type">Task type:</label>
-          <select
-            name="type"
-            id="type"
-            value={formInputs.type}
+      <Container>
+        {/* title*/}
+        <Box sx={{ display: "flex" }}>
+          <SubtitlesIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+          <TextField
+            id="title"
+            label="Title"
+            variant="standard"
+            value={formInputs.title}
             onChange={handleOnChange}
-          >
-            <option value="toDo">To Do</option>
-            <option value="inProgress">In Progress</option>
-            <option value="done">Done</option>
-          </select>
-          {/* priority */}
-          <label htmlFor="priority">Set priority:</label>
-          <select
-            name="priority"
-            id="priority"
-            value={formInputs.priority}
+            fullWidth
+          />
+        </Box>
+        {/* description*/}
+        <Box sx={{ display: "flex" }}>
+          <SubjectIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+          <TextField
+            id="description"
+            label="Description"
+            variant="standard"
+            value={formInputs.description}
             onChange={handleOnChange}
-          >
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-          {/* created*/}
-          <label>Created at:</label>
-          <p id="createdAt">
-            {formInputs.createdAt && formInputs.createdAt.slice(0, 10)}
-          </p>
-        </div>
-      </div>
-
-      <div className="editor-buttons">
-        <Button
-          onClick={handleSaveButton}
-          variant="contained"
-          disabled={formInputs.title === ""}
+            fullWidth
+          />
+        </Box>
+        {/* due*/}
+        <Box sx={{ display: "flex" }}>
+          <Avatar sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+          <TextField
+            id="dueAt"
+            label="Due"
+            variant="standard"
+            onChange={handleOnChange}
+            value={formInputs.dueAt}
+            fullWidth
+          />
+        </Box>
+        {/* priority*/}
+        <TextField
+          id="priority"
+          select
+          label="priority"
+          defaultValue="Low"
+          helperText="Please select your priority"
+          variant="standard"
+          value={formInputs.priority}
+          onChange={handleOnChange}
+          fullWidth
         >
-          Save
-        </Button>
-        <Button onClick={handleDeleteButton} variant="outlined">
-          Delete
-        </Button>
-      </div>
+          <MenuItem key="low" value="Low">
+            Low
+          </MenuItem>
+          <MenuItem key="medium" value="Medium">
+            Medium
+          </MenuItem>
+          <MenuItem key="high" value="High">
+            High
+          </MenuItem>
+        </TextField>
+        {/* createdAt*/}
+        <Typography>
+          Created at:{" "}
+          {formInputs.createdAt && formInputs.createdAt.slice(0, 10)}
+        </Typography>
+      </Container>
     </>
   );
 }

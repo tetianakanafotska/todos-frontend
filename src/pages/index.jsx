@@ -3,7 +3,7 @@ import AddTask from "./AddTask";
 import Dashboard from "./Dashboard";
 import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
-import TaskEditor from "./TaskEditor";
+import EditTask from "./EditTask";
 import UserPage from "./UserPage";
 import ErrorPage from "./ErrorPage";
 
@@ -13,7 +13,7 @@ export {
   Dashboard,
   LoginPage,
   SignupPage,
-  TaskEditor,
+  EditTask,
   UserPage,
   ErrorPage,
 };

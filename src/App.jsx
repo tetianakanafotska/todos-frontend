@@ -29,7 +29,7 @@ function App() {
           path="tasks/:taskId"
           element={
             <IsPrivate>
-              <Dashboard withOpenEditor={true} />
+              <Dashboard withEditTask={true} />
             </IsPrivate>
           }
         />
