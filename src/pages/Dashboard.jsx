@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Grid, Button } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { Grid, Button, Skeleton } from "@mui/material";
 import TaskList from "@components/TaskList";
 import EditTask from "./EditTask";
 import AddTask from "./AddTask";
 import tasksService from "@services/task.service";
 import { DragDropContext } from "react-beautiful-dnd";
-import Skeleton from "@mui/material/Skeleton";
 
 function Dashboard() {
   const [toDoTasks, setToDoTasks] = useState([]);
@@ -20,8 +18,8 @@ function Dashboard() {
   const [openEditTask, setOpenEditTask] = useState(false);
 
   const { taskId } = useParams();
+  const { taskType } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const fetchTasksByType = async () => {
@@ -54,10 +52,10 @@ function Dashboard() {
       }
     }
 
-    if (location.pathname === "/addTask") {
+    if (taskType) {
       setOpenAddTask(true);
     }
-  }, [location, allTasks]);
+  }, [taskId, taskType, allTasks]);
 
   const handleDragEnd = async (result) => {
     const { source, destination } = result;
@@ -136,7 +134,7 @@ function Dashboard() {
               />
             ) : (
               <TaskList
-                listType="toDo"
+                taskType="toDo"
                 tasks={allTasks.filter((task) => task.type === "toDo")}
               />
             )}
@@ -152,7 +150,7 @@ function Dashboard() {
               />
             ) : (
               <TaskList
-                listType="inProgress"
+                taskType="inProgress"
                 tasks={allTasks.filter((task) => task.type === "inProgress")}
               />
             )}
@@ -168,24 +166,11 @@ function Dashboard() {
               />
             ) : (
               <TaskList
-                listType="done"
+                taskType="done"
                 tasks={allTasks.filter((task) => task.type === "done")}
               />
             )}
           </Grid>
-
-          <Button
-            id="btn-add-task"
-            size="large"
-            variant="contained"
-            aria-label="add a task"
-            startIcon={<AddCircleOutlineIcon />}
-            onClick={() => {
-              navigate("/addTask");
-            }}
-          >
-            Add a task
-          </Button>
         </Grid>
       </DragDropContext>
     </>

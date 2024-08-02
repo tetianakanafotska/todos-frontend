@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TaskModal from "@components/TaskModal";
 import tasksService from "@services/task.service";
 import { useEffect, useState, useContext } from "react";
@@ -15,11 +15,12 @@ import { IconButton } from "@mui/material";
 
 function AddTask({ setAllTasks, open, setOpen }) {
   const navigate = useNavigate();
+  const { taskType } = useParams();
   const { user } = useContext(UserContext);
 
   const [formInputs, setFormInputs] = useState({
     title: "",
-    type: "toDo",
+    type: taskType,
     priority: "Low",
     description: "",
     createdAt: dayjs(),
@@ -36,8 +37,8 @@ function AddTask({ setAllTasks, open, setOpen }) {
   }, [user]);
 
   const handleOnChange = (e) => {
-    const { id, value } = e.target;
-    setFormInputs((prev) => ({ ...prev, [id]: value }));
+    const { name, value } = e.target;
+    setFormInputs((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleDateChange = (newDate) => {

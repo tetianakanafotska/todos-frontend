@@ -1,9 +1,14 @@
 import React from "react";
-import { Card } from "@mui/material";
+import { Card, Button } from "@mui/material";
 import TaskCard from "./TaskCard";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import CardActions from "@mui/material/CardActions";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useNavigate } from "react-router-dom";
 
-function TaskList({ listType, tasks }) {
+function TaskList({ taskType, tasks }) {
+  const navigate = useNavigate();
+
   const getName = (name) => {
     const nameMap = {
       toDo: "To Do",
@@ -24,8 +29,8 @@ function TaskList({ listType, tasks }) {
       variant="elevation"
       elevation={2}
     >
-      <h3 className="task-list-title">{getName(listType)}</h3>
-      <Droppable droppableId={listType}>
+      <h3 className="task-list-title">{getName(taskType)}</h3>
+      <Droppable droppableId={taskType}>
         {(provided) => (
           <div
             className="task-list-content"
@@ -49,6 +54,19 @@ function TaskList({ listType, tasks }) {
           </div>
         )}
       </Droppable>
+      <CardActions>
+        <Button
+          color="black"
+          size="medium"
+          aria-label="add a task"
+          startIcon={<AddCircleOutlineIcon />}
+          onClick={() => {
+            navigate(`/addTask/${taskType}`);
+          }}
+        >
+          Add a task
+        </Button>
+      </CardActions>
     </Card>
   );
 }

@@ -26,8 +26,9 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
   });
 
   const handleOnChange = (e) => {
-    const { id, value } = e.target;
-    setFormInputs((prev) => ({ ...prev, [id]: value }));
+    const { name, value } = e.target;
+    console.log("this is name, value", e.target);
+    setFormInputs((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleDateChange = (e) => {

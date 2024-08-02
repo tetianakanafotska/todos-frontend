@@ -34,7 +34,7 @@ function App() {
           }
         />
         <Route
-          path="/addTask"
+          path="/addTask/:taskType"
           element={
             <IsPrivate>
               <Dashboard />

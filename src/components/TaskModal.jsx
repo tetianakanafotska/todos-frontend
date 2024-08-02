@@ -16,7 +16,7 @@ function TaskModal({ formInputs, handleOnChange, handleDateChange }) {
         <Box sx={{ display: "flex" }}>
           <SubtitlesIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
           <TextField
-            id="title"
+            name="title"
             label="Title"
             variant="standard"
             value={formInputs.title}
@@ -28,24 +28,23 @@ function TaskModal({ formInputs, handleOnChange, handleDateChange }) {
         <Box sx={{ display: "flex" }}>
           <SubjectIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
           <TextField
-            id="description"
+            name="description"
             label="Description"
             variant="standard"
             value={formInputs.description}
             onChange={handleOnChange}
             fullWidth
             multiline
-            rows={3}
+            maxRows={3}
           />
         </Box>
 
         {/* priority*/}
         <TextField
-          id="priority"
+          name="priority"
           select
           label="priority"
           defaultValue="Low"
-          helperText="Please select your priority"
           variant="standard"
           value={formInputs.priority}
           onChange={handleOnChange}

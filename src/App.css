@@ -220,12 +220,6 @@ main.about {
   font-size: 0.9rem;
 }
 
-#btn-add-task {
-  position: fixed;
-  bottom: 100px;
-  right: 100px;
-}
-
 .error {
   color: #00ff80;
   font-size: 7rem;
