@@ -55,7 +55,7 @@ function TaskCard({ task }) {
       </p>
       <IconButton
         id="btn-edit-task"
-        onClick={(e) => {
+        onClick={() => {
           navigate(`tasks/${task._id}`);
         }}
         aria-label="edit the task"

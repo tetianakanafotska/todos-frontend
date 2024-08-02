@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Grid, Button } from "@mui/material";
 import TaskList from "@components/TaskList";
@@ -9,14 +9,19 @@ import tasksService from "@services/task.service";
 import { DragDropContext } from "react-beautiful-dnd";
 import Skeleton from "@mui/material/Skeleton";
 
-function Dashboard({ withEditTask, withAddTask }) {
+function Dashboard() {
   const [toDoTasks, setToDoTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [openAddTask, setOpenAddTask] = useState(false);
+  const [openEditTask, setOpenEditTask] = useState(false);
+
   const { taskId } = useParams();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchTasksByType = async () => {
@@ -40,10 +45,19 @@ function Dashboard({ withEditTask, withAddTask }) {
   }, [toDoTasks, inProgressTasks, doneTasks]);
 
   useEffect(() => {
-    if (taskId && !allTasks.some((task) => task._id === taskId)) {
-      navigate("*");
+    if (allTasks.length > 0 && taskId) {
+      const taskExists = allTasks.some((task) => task._id === taskId);
+      if (!taskExists) {
+        navigate("*");
+      } else {
+        setOpenEditTask(true);
+      }
     }
-  }, [taskId]);
+
+    if (location.pathname === "/addTask") {
+      setOpenAddTask(true);
+    }
+  }, [location, allTasks]);
 
   const handleDragEnd = async (result) => {
     const { source, destination } = result;
@@ -86,16 +100,18 @@ function Dashboard({ withEditTask, withAddTask }) {
 
   return (
     <>
-      {withEditTask && (
+      {openEditTask && (
         <EditTask
-          withEditTask={withEditTask}
+          open={openEditTask}
+          setOpen={setOpenEditTask}
           allTasks={allTasks}
           setAllTasks={setAllTasks}
         />
       )}
-      {withAddTask && (
+      {openAddTask && (
         <AddTask
-          withAddTask={withAddTask}
+          open={openAddTask}
+          setOpen={setOpenAddTask}
           allTasks={allTasks}
           setAllTasks={setAllTasks}
         />

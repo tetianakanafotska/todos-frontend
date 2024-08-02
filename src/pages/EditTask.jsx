@@ -9,15 +9,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import { IconButton, Button } from "@mui/material";
 
-function EditTask({ allTasks, setAllTasks, withEditTask }) {
+function EditTask({ allTasks, setAllTasks, open, setOpen }) {
   const { user } = useContext(UserContext);
-  const [open, setOpen] = useState(withEditTask);
   const navigate = useNavigate();
   const { taskId } = useParams();
 
   const currentTask = allTasks.find((task) => task._id === taskId);
-
-  console.log("this is current task", currentTask);
 
   const [formInputs, setFormInputs] = useState({
     title: currentTask.title,
@@ -45,6 +42,7 @@ function EditTask({ allTasks, setAllTasks, withEditTask }) {
           task._id === taskId ? updatedTask.data : task
         );
         setAllTasks(updatedTasks);
+        setOpen(false);
         navigate("/");
       })
       .catch((err) => {
@@ -58,6 +56,7 @@ function EditTask({ allTasks, setAllTasks, withEditTask }) {
       .then(() => {
         const updatedTasks = allTasks.filter((task) => task._id != taskId);
         setAllTasks(updatedTasks);
+        setOpen(false);
         navigate("/");
       })
       .catch((err) => {

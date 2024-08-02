@@ -29,11 +29,18 @@ function App() {
           path="tasks/:taskId"
           element={
             <IsPrivate>
-              <Dashboard withEditTask={true} />
+              <Dashboard />
             </IsPrivate>
           }
         />
-        <Route path="/addTask" element={<Dashboard withAddTask={true} />} />
+        <Route
+          path="/addTask"
+          element={
+            <IsPrivate>
+              <Dashboard />
+            </IsPrivate>
+          }
+        />
         <Route
           path="/login"
           element={

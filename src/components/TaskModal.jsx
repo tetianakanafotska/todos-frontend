@@ -64,14 +64,14 @@ function TaskModal({ formInputs, handleOnChange, handleDateChange }) {
         {/* due*/}
         <DatePicker
           label="Due"
-          value={formInputs.dueAt}
+          value={dayjs(formInputs.dueAt)}
           onChange={handleDateChange}
           disablePast
         />
         {/* createdAt*/}
         <DatePicker
           label="Created at"
-          defaultValue={formInputs.createdAt}
+          defaultValue={dayjs(formInputs.createdAt)}
           readOnly
         />
       </Container>

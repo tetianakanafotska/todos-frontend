@@ -13,10 +13,9 @@ import dayjs from "dayjs";
 
 import { IconButton } from "@mui/material";
 
-function AddTask({ setAllTasks, withAddTask }) {
+function AddTask({ setAllTasks, open, setOpen }) {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  const [open, setOpen] = useState(withAddTask);
 
   const [formInputs, setFormInputs] = useState({
     title: "",
@@ -47,6 +46,12 @@ function AddTask({ setAllTasks, withAddTask }) {
   };
 
   const saveTask = (formInputs) => {
+    console.log("this is what does to the db", formInputs);
+    console.log(
+      "this is type of dates",
+      typeof formInputs.createdAt,
+      typeof formInputs.dueAt
+    );
     tasksService.getByType(formInputs.type).then((tasksOfType) => {
       const maxIndex = Math.max(
         ...tasksOfType.data.map((task) => task.position),
@@ -56,7 +61,14 @@ function AddTask({ setAllTasks, withAddTask }) {
       tasksService
         .post({ ...formInputs, position: nextIndex })
         .then((savedTask) => {
+          console.log("this is what comes or of db", savedTask.data);
+          console.log(
+            "this is type of dates",
+            typeof savedTask.data.createdAt,
+            typeof savedTask.data.dueAt
+          );
           setAllTasks((prev) => [...prev, savedTask.data]);
+          setOpen(false);
           navigate("/");
         });
     });

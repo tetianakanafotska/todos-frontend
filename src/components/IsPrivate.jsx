@@ -11,6 +11,7 @@ function IsPrivate({ children }) {
   if (!isLoggedIn) {
     return <Navigate to="/login" />;
   } else {
+    console.log("user logged in, returnign children");
     return children;
   }
 }
