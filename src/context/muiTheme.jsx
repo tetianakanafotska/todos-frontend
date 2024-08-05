@@ -2,24 +2,27 @@ import { createTheme, ThemeProvider } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#F6C786",
+      main: "#65CAA4",
+      contrastText: "#10171F",
     },
     secondary: {
-      main: "#F0C4EE",
-      dark: "#CA99FF",
+      main: "#fff",
+      contrastText: "#10171F",
     },
     black: {
-      main: "#000",
-      light: "#565563",
+      main: "#12171E",
+      light: "#505050",
       dark: "#000",
       contrastText: "#fff",
+    },
+    tags: {
+      high: "#FFE0DD",
+      low: "#D6EDF8",
+      medium: "#FAEDCD",
     },
   },
   typography: {
     fontFamily: '"Raleway", "Tahoma", "Geneva", "Verdana", sans-serif',
-    h5: {
-      fontWeight: "700",
-    },
   },
   shape: {
     borderRadius: 9,
@@ -55,13 +58,10 @@ const theme = createTheme({
 
     MuiButton: {
       styleOverrides: {
-        root: ({ ownerState, theme }) => ({
+        root: {
           borderRadius: "100px",
           padding: "11px 16px",
-          "&:hover": {
-            backgroundColor: theme.palette[ownerState.color].light,
-          },
-        }),
+        },
       },
     },
   },

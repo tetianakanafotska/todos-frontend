@@ -4,10 +4,11 @@ import placeholder from "@/assets/placeholder.jpg";
 import useOutsideClick from "../hooks/useOutsideClick";
 import { UserContext } from "@context/userContext";
 import MenuIcon from "@mui/icons-material/Menu";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
+import GridViewSharpIcon from "@mui/icons-material/GridViewSharp";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import HelpIcon from "@mui/icons-material/Help";
 import IconButton from "@mui/material/IconButton";
-import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 
 function Sidebar() {
@@ -49,37 +50,67 @@ function Sidebar() {
             </IconButton>
           </div>
 
-          <div className="userInfo">
+          <NavLink
+            to="/profile"
+            className="userInfo"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
             <IconButton
               sx={{
                 padding: "2px",
               }}
-              onClick={() => navigate("/profile")}
             >
-              {isLoading && <CircularProgress />}
               <img
                 src={profileUrl}
                 onLoad={handleImageLoad}
                 onError={handleImageError}
-                style={{ display: isLoading ? "none" : "block" }}
               />
             </IconButton>
 
-            <Typography variant="body1" sx={{ fontWeight: "700" }}>
+            <Typography
+              variant="body1"
+              sx={{
+                fontWeight: "700",
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+            >
               {user.name}
             </Typography>
-          </div>
-          <NavLink to="/">
-            <HomeOutlinedIcon />
-            <Typography variant="body1" component="span">
-              Dashboard
-            </Typography>
           </NavLink>
-          <NavLink to="/about">
-            <InfoOutlinedIcon />
-            <Typography variant="body1" component="span">
-              About
-            </Typography>
+          <NavLink
+            to="/"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            {({ isActive }) => (
+              <>
+                {isActive ? <GridViewSharpIcon /> : <GridViewOutlinedIcon />}
+                <Typography variant="body1" component="span">
+                  Dashboard
+                </Typography>
+              </>
+            )}
+          </NavLink>
+
+          <NavLink
+            to="/about"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            {({ isActive }) => (
+              <>
+                {isActive ? <HelpIcon /> : <HelpOutlineOutlinedIcon />}
+                <Typography variant="body1" component="span">
+                  About
+                </Typography>
+              </>
+            )}
           </NavLink>
         </aside>
       )}

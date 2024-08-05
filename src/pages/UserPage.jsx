@@ -9,7 +9,7 @@ import userService from "@services/user.service.js";
 import imageService from "@services/image.service";
 import isEqual from "lodash/isEqual";
 import UserModal from "../components/UserModal";
-import { IconButton, TextField, Button } from "@mui/material";
+import { IconButton, TextField, Button, Box, Container } from "@mui/material";
 
 function UserPage() {
   const { user, setUser } = useContext(UserContext);
@@ -170,70 +170,100 @@ function UserPage() {
   };
 
   return (
-    <main className="user">
-      <UserModal openModal={openModal} closeModal={() => setOpenModal(false)}>
-        {(apiLoading === "started" || imgLoading) && (
-          <div className="img-loader"></div>
-        )}
-        <img
-          key={Date.now()}
-          src={userData.profileImg.url || placeholder}
-          alt="profile picture"
-          onError={(e) => (e.target.src = placeholder)}
-          onLoad={() => setImgLoading(false)}
-          onClick={() => uploadFileRef.current.click()}
-        />
-
-        <div className="user-buttons">{renderButtons()}</div>
-      </UserModal>
-      <div onClick={() => setOpenModal(true)}>
-        <IconButton>
-          <img
-            key={Date.now()}
-            src={userData.profileImg.url || placeholder}
-            alt="profile picture"
-            onError={(e) => (e.target.src = placeholder)}
-          />
-        </IconButton>
-
-        <div className="edit-icon-container">
-          <EditIcon fontSize="small" />
-        </div>
-        <input
-          type="file"
-          ref={uploadFileRef}
-          accept="image"
-          onChange={handleUpload}
-          onClick={(e) => (e.target.value = null)}
-          style={{ display: "none" }}
-        />
-      </div>
-
-      <TextField
-        id="name"
-        label="Name"
-        type="text"
-        variant="outlined"
-        value={userData.name}
-        onChange={handleOnChange}
-      />
-      <TextField
-        id="email"
-        label="Email"
-        type="email"
-        variant="outlined"
-        value={userData.email}
-        onChange={handleOnChange}
-      />
-
-      <Button
-        variant="contained"
-        disabled={!isUserDataChanged}
-        onClick={handleSave}
+    <Container
+      component="main"
+      className="user"
+      sx={{
+        p: "30px 5vw",
+        ml: "80px",
+        transition: "margin 0.5s ease",
+        width: "calc(100vw - 80px)",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: {
+            xs: "90",
+            sm: "60%",
+            md: "40%",
+            lg: "30%",
+          },
+        }}
       >
-        Save
-      </Button>
-    </main>
+        <UserModal openModal={openModal} closeModal={() => setOpenModal(false)}>
+          {(apiLoading === "started" || imgLoading) && (
+            <div className="img-loader"></div>
+          )}
+          <Box sx={{ mt: "10px" }}>
+            <img
+              key={Date.now()}
+              src={userData.profileImg.url || placeholder}
+              alt="profile picture"
+              onError={(e) => (e.target.src = placeholder)}
+              onLoad={() => setImgLoading(false)}
+              onClick={() => uploadFileRef.current.click()}
+            />
+          </Box>
+
+          <div className="user-buttons">{renderButtons()}</div>
+        </UserModal>
+        <div onClick={() => setOpenModal(true)}>
+          <IconButton sx={{ margin: "10px 0 25px" }}>
+            <img
+              key={Date.now()}
+              src={userData.profileImg.url || placeholder}
+              alt="profile picture"
+              onError={(e) => (e.target.src = placeholder)}
+            />
+          </IconButton>
+
+          <div className="edit-icon-container">
+            <EditIcon fontSize="small" />
+          </div>
+          <input
+            type="file"
+            ref={uploadFileRef}
+            accept="image"
+            onChange={handleUpload}
+            onClick={(e) => (e.target.value = null)}
+            style={{ display: "none" }}
+          />
+        </div>
+
+        <TextField
+          id="name"
+          label="Name"
+          type="text"
+          variant="outlined"
+          value={userData.name}
+          onChange={handleOnChange}
+          fullWidth
+        />
+        <TextField
+          id="email"
+          label="Email"
+          type="email"
+          variant="outlined"
+          value={userData.email}
+          onChange={handleOnChange}
+          fullWidth
+        />
+
+        <Button
+          fullWidth
+          variant="contained"
+          disabled={!isUserDataChanged}
+          onClick={handleSave}
+        >
+          Save
+        </Button>
+      </Box>
+    </Container>
   );
 }
 

@@ -1,21 +1,15 @@
-import Card from "@mui/material/Card";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import Avatar from "@mui/material/Avatar";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
+import { useTheme } from "@mui/material/styles";
 
 function TaskCard({ task }) {
-  const [tagColor, setTagColor] = useState(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (task.priority === "High") {
-      setTagColor("#F87168");
-    } else if (task.priority === "Medium") setTagColor("#F6CC47");
-    else setTagColor("#76B947");
-  }, [task]);
+  const theme = useTheme();
 
   const convertDates = (createdAt, dueAt) => {
     const formatDate = (date) => {
@@ -31,28 +25,46 @@ function TaskCard({ task }) {
     } else return createdAtFormatted;
   };
 
-  const convertName = (name) => {
-    if (name && name.includes(" ")) {
-      const arr = name.split(" ");
-      return arr[0][0] + arr[1][0];
-    } else if (name && !name.includes(" ")) {
-      return name[0];
-    } else return;
-  };
-
-  const tagStyling = {
-    backgroundColor: tagColor,
-  };
-
   return (
-    <Card className="task-card" sx={{ mb: 1 }}>
-      <div id="priority-tag" style={tagStyling}></div>
-      <h4>{task.title}</h4>
-      <p>{task.description}</p>
-      <p id="task-dates">
+    <Paper
+      className="task-card"
+      sx={{
+        mb: 1,
+        p: "10px 20px",
+        position: "relative",
+        bgcolor: "#fff",
+      }}
+    >
+      <Chip
+        label={task.priority}
+        sx={{
+          bgcolor: theme.palette.tags[task.priority.toLowerCase()],
+          borderRadius: "5px",
+        }}
+      />
+      <Typography
+        variant="body1"
+        component="h4"
+        sx={{ margin: "7px 0 10px", fontWeight: "700" }}
+      >
+        {task.title}
+      </Typography>
+      <Typography variant="body2" gutterBottom>
+        {task.description}
+      </Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: "5px",
+          margin: "10px 0 5px",
+        }}
+      >
         <AccessTimeIcon sx={{ width: "15px" }} />
         {convertDates(task.createdAt, task.dueAt)}
-      </p>
+      </Typography>
+
       <IconButton
         id="btn-edit-task"
         onClick={() => {
@@ -62,13 +74,7 @@ function TaskCard({ task }) {
       >
         <EditIcon sx={{ width: 17, height: 17 }} />
       </IconButton>
-      <Avatar
-        id="task-card-avatar"
-        sx={{ width: 25, height: 25, fontSize: 12 }}
-      >
-        {convertName(task.assignee)}
-      </Avatar>
-    </Card>
+    </Paper>
   );
 }
 

@@ -2,16 +2,11 @@
   box-sizing: border-box;
 }
 
-#root {
-  height: inherit;
-}
-
 body {
   margin: 0;
-  /* background-image: url("src/assets/main-bg2.jpg");
-  background-size: cover; */
-  background-color: #f8f7f3;
-  height: 100%;
+  background-color: #f9f9f9;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .topNavBar {
@@ -48,7 +43,7 @@ aside {
   position: absolute;
   top: 50px;
   width: 80px;
-  height: 100%;
+  height: 100vh;
   background-color: #12171e;
   padding: 20px 15px 0 15px;
   border-right: 0.5px solid #383838;
@@ -61,12 +56,41 @@ aside p {
   white-space: nowrap;
 }
 
-aside .userInfo {
+aside a.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+aside a.userInfo.active {
   color: #fff;
   display: flex;
   align-items: center;
   gap: 15px;
   margin-bottom: 20px;
+  padding: 0;
+  transition: all 0.5s ease;
+}
+
+aside a.userInfo.active img {
+  box-shadow: 0 0 3px 2px#65caa4;
+}
+aside a.userInfo:hover img {
+  box-shadow: 0 0 3px 2px#65caa4;
+}
+
+aside img {
+  width: 45px;
+  height: 45px;
+  border-radius: 25px;
+  filter: contrast(1.2);
+  transition: all 0.5s ease;
+}
+
+aside a.userInfo.active p {
+  color: #65caa4;
 }
 
 aside a span {
@@ -94,10 +118,10 @@ aside a span {
 }
 
 aside a:hover {
-  color: #f6c786;
+  color: #65caa4;
 }
 aside a.active {
-  color: #f6c786;
+  color: #65caa4;
 }
 
 aside .menu-icon {
@@ -105,14 +129,6 @@ aside .menu-icon {
   cursor: pointer;
   margin-left: 5px;
   margin-bottom: 15px;
-}
-
-aside img {
-  width: 45px;
-  height: 45px;
-  border-radius: 25px;
-  filter: contrast(1.2);
-  border: 1px solid #eee;
 }
 
 /* opened sidebar */
@@ -163,32 +179,10 @@ main.about {
   color: #fff;
 }
 
-.task-list-card {
-  margin-bottom: 10px;
-}
-
-.task-list-title {
-  text-align: center;
-  margin-top: 0;
-}
-
-.task-card {
-  padding: 10px 20px;
-  position: relative;
-}
-
-.task-card h4 ~ p {
-  margin-top: 9px;
-  margin-bottom: 7px;
-}
-
-.task-card p {
-  font-size: 1rem;
-}
-
 #priority-tag {
   width: 17px;
   height: 17px;
+  border-top-left-radius: inherit;
   border-bottom-right-radius: 17px;
   position: absolute;
   top: 0;
@@ -205,11 +199,6 @@ main.about {
   position: absolute;
   bottom: 13px;
   right: 13px;
-}
-
-.task-card h4 {
-  margin: 7px 0 0px;
-  font-size: 1.1rem;
 }
 
 #task-dates {
@@ -231,19 +220,6 @@ main.about {
 .error div {
   width: fit-content;
   margin: 0 auto;
-}
-
-main.user {
-  color: #000000;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-  margin-left: 80px;
-  padding: 30px 5vw;
-  transition: all 0.5s ease;
-  width: calc(100vw - 80px);
-  height: 100%;
 }
 
 main.login-container {
@@ -312,7 +288,7 @@ main.user dialog .close-icon {
 .img-loader {
   animation: spin 1s infinite linear;
   border-radius: 100%;
-  box-shadow: inset -2px 0 blue;
+  box-shadow: inset -2px 0 #65caa4;
   height: 220px;
   position: absolute;
   width: 220px;
