@@ -1,25 +1,32 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
+import {
+  IconButton,
+  Dialog,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 
-function UserModal({ openModal, closeModal, children }) {
-  const ref = useRef();
-
-  useEffect(() => {
-    if (openModal) {
-      ref.current.showModal();
-    } else {
-      ref.current.close();
-    }
-  }, [openModal]);
-
+function UserModal({ openModal, setOpenModal, children, renderButtons }) {
   return (
-    <dialog ref={ref} onCancel={closeModal}>
-      <IconButton className="close-icon" onClick={closeModal}>
+    <Dialog
+      className="user"
+      open={openModal}
+      onClose={() => setOpenModal(false)}
+    >
+      <IconButton
+        sx={{ position: "absolute", right: "5px", top: "5px" }}
+        onClick={() => setOpenModal(false)}
+      >
         <CloseIcon />
       </IconButton>
-      {children}
-    </dialog>
+      <DialogContent>
+        {children}
+        <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
+          {renderButtons()}
+        </DialogActions>
+      </DialogContent>
+    </Dialog>
   );
 }
 

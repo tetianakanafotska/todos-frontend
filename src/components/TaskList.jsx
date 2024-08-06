@@ -22,9 +22,9 @@ function TaskList({ taskType, tasks }) {
 
   return (
     <Card
-      className="task-list-card"
       sx={{
         mr: 3,
+        mb: 2,
         p: "10px",
         bgcolor: "#F1F1F1",
       }}
@@ -37,42 +37,39 @@ function TaskList({ taskType, tasks }) {
       >
         {getName(taskType)}
       </Typography>
-      <CardContent
-        sx={{ maxHeight: "70vh", overflow: "scroll", pb: "0", pt: "0" }}
-      >
-        <Droppable droppableId={taskType}>
-          {(provided) => (
-            <div
-              className="task-list-content"
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {tasks.map((task, index) => (
-                <Draggable key={task._id} draggableId={task._id} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <TaskCard task={task} />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </CardContent>
 
+      <Droppable droppableId={taskType}>
+        {(provided) => (
+          <div
+            style={{ maxHeight: "70vh", overflow: "scroll", minHeight: "1px" }}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {tasks.map((task, index) => (
+              <Draggable key={task._id} draggableId={task._id} index={index}>
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                    <TaskCard task={task} />
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
       <Button
         variant="contained"
         size="large"
         sx={{
           display: "flex",
           justifyContent: "center",
-          margin: "5px auto 0px",
+          margin: "5px auto 3px",
+          padding: "6px 16px",
           bgcolor: "primary.light",
           color: "black.main",
           "&:hover": {

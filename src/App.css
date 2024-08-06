@@ -9,36 +9,6 @@ body {
   overflow: hidden;
 }
 
-.topNavBar {
-  height: 50px;
-  background-color: #12171e;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  padding: 5px 20px;
-  border-bottom: 0.5px solid #383838;
-}
-
-.topNavBar button {
-  color: #fff;
-}
-
-.topNavBar h1 {
-  font-size: 1.1rem;
-  margin: auto 0;
-  font-weight: 100;
-  display: inline;
-  margin-left: 10px;
-  line-height: 50px;
-}
-
-.bx.bx-calendar-check {
-  font-size: 1.4rem;
-  margin: auto 10px auto 20px;
-  line-height: 45px;
-}
-
 aside {
   position: absolute;
   top: 50px;
@@ -240,22 +210,6 @@ main.login-container {
   width: 30%;
 }
 
-main.user dialog[open] {
-  flex-direction: column;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  padding: 50px;
-  border: 0px;
-  border-radius: 2%;
-}
-
-main.user dialog .close-icon {
-  position: absolute;
-  top: 13px;
-  right: 13px;
-}
-
 .user img {
   height: 200px;
   width: 200px;
@@ -321,7 +275,6 @@ main.user dialog .close-icon {
   opacity: 1;
 }
 
-.user-buttons {
-  display: flex;
-  gap: 10px;
+.MuiSkeleton-root {
+  width: calc(100vw - 80px);
 }

@@ -6,7 +6,7 @@ import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
-import { TextField, Box, MenuItem, Typography, Container } from "@mui/material";
+import { TextField, Box, MenuItem, Container } from "@mui/material";
 
 function TaskModal({ formInputs, handleOnChange, handleDateChange }) {
   return (

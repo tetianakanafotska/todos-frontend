@@ -9,7 +9,13 @@ import userService from "@services/user.service.js";
 import imageService from "@services/image.service";
 import isEqual from "lodash/isEqual";
 import UserModal from "../components/UserModal";
-import { IconButton, TextField, Button, Box, Container } from "@mui/material";
+import {
+  IconButton,
+  TextField,
+  Button,
+  Box,
+  CircularProgress,
+} from "@mui/material";
 
 function UserPage() {
   const { user, setUser } = useContext(UserContext);
@@ -170,13 +176,13 @@ function UserPage() {
   };
 
   return (
-    <Container
-      component="main"
+    <Box
       className="user"
+      component="main"
       sx={{
         p: "30px 5vw",
         ml: "80px",
-        transition: "margin 0.5s ease",
+        transition: "all 0.5s ease",
         width: "calc(100vw - 80px)",
         display: "flex",
         justifyContent: "center",
@@ -195,11 +201,27 @@ function UserPage() {
           },
         }}
       >
-        <UserModal openModal={openModal} closeModal={() => setOpenModal(false)}>
-          {(apiLoading === "started" || imgLoading) && (
-            <div className="img-loader"></div>
-          )}
-          <Box sx={{ mt: "10px" }}>
+        <UserModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          renderButtons={renderButtons}
+        >
+          <Box
+            sx={{
+              margin: "10px 0",
+              padding: "20px 50px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {(apiLoading === "started" || imgLoading) && (
+              <CircularProgress
+                size={210}
+                thickness={2}
+                sx={{ position: "absolute", top: "75px" }}
+              />
+            )}
             <img
               key={Date.now()}
               src={userData.profileImg.url || placeholder}
@@ -209,9 +231,8 @@ function UserPage() {
               onClick={() => uploadFileRef.current.click()}
             />
           </Box>
-
-          <div className="user-buttons">{renderButtons()}</div>
         </UserModal>
+
         <div onClick={() => setOpenModal(true)}>
           <IconButton sx={{ margin: "10px 0 25px" }}>
             <img
@@ -263,7 +284,7 @@ function UserPage() {
           Save
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 }
 

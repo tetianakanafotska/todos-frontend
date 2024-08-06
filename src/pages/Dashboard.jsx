@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Grid, Button, Skeleton } from "@mui/material";
+import { Grid, Skeleton } from "@mui/material";
 import TaskList from "@components/TaskList";
 import EditTask from "./EditTask";
 import AddTask from "./AddTask";
@@ -117,10 +117,9 @@ function Dashboard() {
       <DragDropContext onDragEnd={handleDragEnd}>
         <Grid
           container
-          direction="row"
-          justifyContent="center"
-          alignItems="flex-start"
+          spacing="10px"
           component="main"
+          sx={{ ml: "80px" }}
           width="calc(100vw - 80px)"
           className="dashboard-main"
         >
@@ -129,7 +128,7 @@ function Dashboard() {
               <Skeleton
                 animation="wave"
                 variant="rounded"
-                width={393}
+                width="100%"
                 height={80}
               />
             ) : (
@@ -145,7 +144,7 @@ function Dashboard() {
               <Skeleton
                 animation="wave"
                 variant="rounded"
-                width={393}
+                width="100%"
                 height={80}
               />
             ) : (
@@ -161,7 +160,7 @@ function Dashboard() {
               <Skeleton
                 animation="wave"
                 variant="rounded"
-                width={393}
+                width="100%"
                 height={80}
               />
             ) : (

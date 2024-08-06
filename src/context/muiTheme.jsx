@@ -28,11 +28,6 @@ const theme = createTheme({
     borderRadius: 9,
   },
   components: {
-    MuiPaper: {
-      styleOverrides: {
-        root: {},
-      },
-    },
     MuiTextField: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -60,7 +55,6 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: "100px",
-          padding: "11px 16px",
         },
       },
     },

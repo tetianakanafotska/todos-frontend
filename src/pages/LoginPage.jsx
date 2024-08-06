@@ -78,6 +78,7 @@ function LoginPage() {
             variant="contained"
             color="black"
             onClick={handleLoginSubmit}
+            sx={{ padding: "11px 16px" }}
           >
             Login
           </Button>
