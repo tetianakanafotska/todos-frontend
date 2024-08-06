@@ -8,16 +8,13 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import GridViewSharpIcon from "@mui/icons-material/GridViewSharp";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import HelpIcon from "@mui/icons-material/Help";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import { IconButton, Typography, Avatar } from "@mui/material";
 
 function Sidebar() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
-  const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(true);
   const [profileUrl, setProfileUrl] = useState(null);
 
   useOutsideClick(ref, () => setIsOpen(false));
@@ -29,13 +26,6 @@ function Sidebar() {
       setProfileUrl(placeholder);
     }
   }, [user]);
-
-  const handleImageLoad = () => {
-    setIsLoading(false);
-  };
-  const handleImageError = () => {
-    setIsLoading(false);
-  };
 
   return (
     <>
@@ -57,17 +47,28 @@ function Sidebar() {
               setIsOpen(true);
             }}
           >
-            <IconButton
-              sx={{
-                padding: "2px",
-              }}
-            >
-              <img
-                src={profileUrl}
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-              />
-            </IconButton>
+            {user.profileImg.url ? (
+              <IconButton sx={{ padding: "2px" }}>
+                <img
+                  src={profileUrl}
+                  alt="profile picture"
+                  style={{ width: "45px", height: "45px", borderRadius: "50%" }}
+                />
+              </IconButton>
+            ) : (
+              <IconButton sx={{ padding: "2px" }}>
+                <Avatar
+                  sx={{
+                    width: 45,
+                    height: 45,
+                    bgcolor: "tags.medium",
+                    color: "black.light",
+                  }}
+                >
+                  {user.name[0]}
+                </Avatar>
+              </IconButton>
+            )}
 
             <Typography
               variant="body1"
