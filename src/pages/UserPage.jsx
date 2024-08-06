@@ -1,21 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "@context/userContext";
-import placeholder from "@/assets/placeholder.jpg";
-import EditIcon from "@mui/icons-material/Edit";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import userService from "@services/user.service.js";
 import imageService from "@services/image.service";
 import isEqual from "lodash/isEqual";
 import UserModal from "../components/UserModal";
-import {
-  IconButton,
-  TextField,
-  Button,
-  Box,
-  CircularProgress,
-} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+
+import { IconButton, TextField, Button, Box } from "@mui/material";
 
 function UserPage() {
   const { user, setUser } = useContext(UserContext);
@@ -119,62 +110,6 @@ function UserPage() {
     { name: user.name, email: user.email }
   );
 
-  const renderButtons = () => {
-    if (apiLoading === "idle") {
-      return (
-        <>
-          {!user.profileImg ? (
-            <Button
-              variant="contained"
-              onClick={() => uploadFileRef.current.click()}
-              startIcon={<AddAPhotoOutlinedIcon />}
-            >
-              Add profile picture
-            </Button>
-          ) : (
-            <>
-              <Button
-                variant="contained"
-                onClick={() => uploadFileRef.current.click()}
-                startIcon={<ModeEditOutlineOutlinedIcon />}
-              >
-                Change
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={handleDeletePic}
-                startIcon={<DeleteOutlineOutlinedIcon />}
-              >
-                Remove
-              </Button>
-            </>
-          )}
-        </>
-      );
-    }
-    if (apiLoading === "completed" && !imgLoading) {
-      return (
-        <>
-          <Button variant="contained" onClick={handleSave}>
-            Save as profile picture
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              const { profileImg } = user;
-              setUserData((prev) => ({ ...prev, profileImg: profileImg }));
-              setApiLoading("idle");
-              setOpenModal(false);
-            }}
-          >
-            Cancel
-          </Button>
-        </>
-      );
-    }
-    return null;
-  };
-
   return (
     <Box
       className="user"
@@ -194,7 +129,7 @@ function UserPage() {
           flexDirection: "column",
           alignItems: "center",
           width: {
-            xs: "90",
+            xs: "90%",
             sm: "60%",
             md: "40%",
             lg: "30%",
@@ -204,57 +139,51 @@ function UserPage() {
         <UserModal
           openModal={openModal}
           setOpenModal={setOpenModal}
-          renderButtons={renderButtons}
-        >
-          <Box
-            sx={{
-              margin: "10px 0",
-              padding: "20px 50px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            {(apiLoading === "started" || imgLoading) && (
-              <CircularProgress
-                size={210}
-                thickness={2}
-                sx={{ position: "absolute", top: "75px" }}
+          apiLoading={apiLoading}
+          setApiLoading={setApiLoading}
+          imgLoading={imgLoading}
+          setImgLoading={setImgLoading}
+          uploadFileRef={uploadFileRef}
+          handleDeletePic={handleDeletePic}
+          handleSave={handleSave}
+          userData={userData}
+          setUserData={userData}
+        ></UserModal>
+
+        <Box onClick={() => setOpenModal(true)}>
+          {userData.profileImg.url ? (
+            <IconButton sx={{ margin: "10px 0 25px" }}>
+              <img
+                key={Date.now()}
+                src={userData.profileImg.url}
+                alt="profile picture"
+                style={{ width: 200, height: 200, borderRadius: "50%" }}
               />
-            )}
-            <img
-              key={Date.now()}
-              src={userData.profileImg.url || placeholder}
-              alt="profile picture"
-              onError={(e) => (e.target.src = placeholder)}
-              onLoad={() => setImgLoading(false)}
-              onClick={() => uploadFileRef.current.click()}
-            />
-          </Box>
-        </UserModal>
-
-        <div onClick={() => setOpenModal(true)}>
-          <IconButton sx={{ margin: "10px 0 25px" }}>
-            <img
-              key={Date.now()}
-              src={userData.profileImg.url || placeholder}
-              alt="profile picture"
-              onError={(e) => (e.target.src = placeholder)}
-            />
-          </IconButton>
-
-          <div className="edit-icon-container">
-            <EditIcon fontSize="small" />
-          </div>
+            </IconButton>
+          ) : (
+            <IconButton sx={{ margin: "10px 0 25px" }}>
+              <Avatar
+                sx={{
+                  width: 200,
+                  height: 200,
+                  bgcolor: "tags.medium",
+                  color: "black.light",
+                  fontSize: "2rem",
+                }}
+              >
+                {userData.name[0]}
+              </Avatar>
+            </IconButton>
+          )}
           <input
             type="file"
             ref={uploadFileRef}
-            accept="image"
+            accept="image/*"
             onChange={handleUpload}
             onClick={(e) => (e.target.value = null)}
             style={{ display: "none" }}
           />
-        </div>
+        </Box>
 
         <TextField
           id="name"

@@ -257,24 +257,6 @@ main.login-container {
   }
 }
 
-.edit-icon-container {
-  padding: 6px;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 170px;
-  left: 155px;
-  background-color: green;
-  border-radius: 50%;
-  opacity: 0;
-  transition: 0.3s;
-}
-
-.user-pic:hover .edit-icon-container {
-  opacity: 1;
-}
-
 .MuiSkeleton-root {
   width: calc(100vw - 80px);
 }
