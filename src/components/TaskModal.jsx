@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
+import Select from "@mui/material/Select";
+import { InputBase } from "@mui/material";
 
 import { TextField, Box, MenuItem, Container } from "@mui/material";
 
@@ -72,25 +75,18 @@ function TaskModal({ formInputs, setFormInputs }) {
         {/* priority*/}
         <Box sx={{ display: "flex", gap: "10px" }}>
           <Typography>Priority</Typography>
-          <TextField
+          <Select
             name="priority"
-            select
             defaultValue="Low"
-            variant="standard"
             value={formInputs.priority}
             onChange={handleOnChange}
-            fullWidth
+            input={<InputBase sx={{ "& svg": { display: "none" } }} />}
+            renderValue={(value) => <Chip value={value} label={value} />}
           >
-            <MenuItem key="low" value="Low">
-              Low
-            </MenuItem>
-            <MenuItem key="medium" value="Medium">
-              Medium
-            </MenuItem>
-            <MenuItem key="high" value="High">
-              High
-            </MenuItem>
-          </TextField>
+            <Chip value="Low" label="Low" sx={{ margin: "0 9px" }} />
+            <Chip value="Medium" label="Medium" />
+            <Chip value="High" label="High" sx={{ margin: "0 9px" }} />
+          </Select>
         </Box>
         {/* timeline*/}
         <Box

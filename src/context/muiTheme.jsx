@@ -65,6 +65,19 @@ const theme = createTheme({
         className: "no-border",
       },
     },
+    MuiChip: {
+      styleOverrides: {
+        root: ({ ownerState }) => {
+          const value =
+            ownerState.value?.toLowerCase() ||
+            ownerState["data-value"].toLowerCase();
+          return {
+            backgroundColor: theme.palette.tags[value],
+            borderRadius: "5px",
+          };
+        },
+      },
+    },
   },
 });
 

@@ -5,11 +5,9 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
-import { useTheme } from "@mui/material/styles";
 
 function TaskCard({ task }) {
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const convertDates = (createdAt, dueAt) => {
     const formatDate = (date) => {
@@ -35,13 +33,7 @@ function TaskCard({ task }) {
         bgcolor: "#fff",
       }}
     >
-      <Chip
-        label={task.priority}
-        sx={{
-          bgcolor: theme.palette.tags[task.priority.toLowerCase()],
-          borderRadius: "5px",
-        }}
-      />
+      <Chip label={task.priority} value={task.priority} />
       <Typography
         variant="body1"
         component="h4"
