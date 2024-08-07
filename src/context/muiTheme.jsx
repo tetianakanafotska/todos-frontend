@@ -58,6 +58,13 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiDatePicker: {
+      defaultProps: {
+        format: "MMM D, YYYY",
+        className: "no-border",
+      },
+    },
   },
 });
 

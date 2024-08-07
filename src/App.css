@@ -44,21 +44,6 @@ aside a.userInfo.active {
   transition: all 0.5s ease;
 }
 
-aside a.userInfo.active img {
-  box-shadow: 0 0 3px 2px#65caa4;
-}
-aside a.userInfo:hover img {
-  box-shadow: 0 0 3px 2px#65caa4;
-}
-
-/* aside img {
-  width: 45px;
-  height: 45px;
-  border-radius: 25px;
-  filter: contrast(1.2);
-  transition: all 0.5s ease;
-} */
-
 aside a.userInfo.active p {
   color: #65caa4;
 }
@@ -233,30 +218,33 @@ main.login-container {
   position: relative;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.img-loader {
-  animation: spin 1s infinite linear;
-  border-radius: 100%;
-  box-shadow: inset -2px 0 #65caa4;
-  height: 220px;
-  position: absolute;
-  width: 220px;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .MuiSkeleton-root {
   width: calc(100vw - 80px);
+}
+
+.no-label label,
+legend {
+  display: none;
+}
+
+.no-border fieldset {
+  border: none;
+  display: none;
+}
+
+.no-border .MuiInputBase-root {
+  padding: 0;
+  width: 105px;
+}
+
+.no-border.MuiFormControl-root {
+  margin-bottom: 0;
+}
+
+.no-border input {
+  padding: 0;
+}
+
+.no-border button {
+  display: none;
 }

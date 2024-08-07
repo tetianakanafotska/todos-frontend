@@ -5,7 +5,6 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
-import { CardContent } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 function TaskList({ taskType, tasks }) {

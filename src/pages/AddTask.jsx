@@ -24,7 +24,7 @@ function AddTask({ setAllTasks, open, setOpen }) {
     priority: "Low",
     description: "",
     createdAt: dayjs(),
-    dueAt: dayjs().add(1, "day"),
+    dueAt: dayjs().add(3, "day"),
   });
 
   useEffect(() => {
@@ -35,16 +35,6 @@ function AddTask({ setAllTasks, open, setOpen }) {
       }));
     }
   }, [user]);
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setFormInputs((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleDateChange = (newDate) => {
-    console.log("this is due at", newDate);
-    setFormInputs((prev) => ({ ...prev, dueAt: newDate }));
-  };
 
   const saveTask = (formInputs) => {
     console.log("this is what does to the db", formInputs);
@@ -87,7 +77,9 @@ function AddTask({ setAllTasks, open, setOpen }) {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
-      <DialogTitle>Create a new task</DialogTitle>
+      <DialogTitle sx={{ padding: "25px 34px 0" }}>
+        Create a new task
+      </DialogTitle>
 
       <IconButton
         aria-label="close"
@@ -101,26 +93,21 @@ function AddTask({ setAllTasks, open, setOpen }) {
         <CloseIcon />
       </IconButton>
 
-      <DialogContent>
-        <TaskModal
-          formInputs={formInputs}
-          handleOnChange={handleOnChange}
-          handleDateChange={handleDateChange}
-        />
+      <DialogContent sx={{ p: "20px 10px 15px" }}>
+        <TaskModal formInputs={formInputs} setFormInputs={setFormInputs} />{" "}
+        <DialogActions>
+          <Button
+            onClick={handleSaveButton}
+            variant="contained"
+            disabled={formInputs.title === ""}
+          >
+            Save
+          </Button>
+          <Button onClick={handleClose} variant="outlined">
+            Cancel
+          </Button>
+        </DialogActions>
       </DialogContent>
-
-      <DialogActions>
-        <Button
-          onClick={handleSaveButton}
-          variant="contained"
-          disabled={formInputs.title === ""}
-        >
-          Save
-        </Button>
-        <Button onClick={handleClose} variant="outlined">
-          Cancel
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

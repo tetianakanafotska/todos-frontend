@@ -25,16 +25,6 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
     dueAt: currentTask.dueAt,
   });
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    console.log("this is name, value", e.target);
-    setFormInputs((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleDateChange = (e) => {
-    setFormInputs((prev) => ({ ...prev, dueAt: e }));
-  };
-
   const handleSave = () => {
     tasksService
       .put(taskId, { ...formInputs, user: user._id })
@@ -82,22 +72,17 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
       >
         <CloseIcon />
       </IconButton>
-      <DialogContent>
-        <TaskModal
-          formInputs={formInputs}
-          handleOnChange={handleOnChange}
-          handleDateChange={handleDateChange}
-        />
+      <DialogContent sx={{ p: "30px 10px 15px" }}>
+        <TaskModal formInputs={formInputs} setFormInputs={setFormInputs} />
+        <DialogActions>
+          <Button onClick={handleSave} variant="contained">
+            Save
+          </Button>
+          <Button onClick={handleDelete} variant="outlined">
+            Delete
+          </Button>
+        </DialogActions>
       </DialogContent>
-
-      <DialogActions>
-        <Button onClick={handleSave} variant="contained">
-          Save
-        </Button>
-        <Button onClick={handleDelete} variant="outlined">
-          Delete
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

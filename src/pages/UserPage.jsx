@@ -147,7 +147,7 @@ function UserPage() {
           handleDeletePic={handleDeletePic}
           handleSave={handleSave}
           userData={userData}
-          setUserData={userData}
+          setUserData={setUserData}
         ></UserModal>
 
         <Box onClick={() => setOpenModal(true)}>
