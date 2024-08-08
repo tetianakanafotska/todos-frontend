@@ -109,6 +109,7 @@ const theme = createTheme({
           return {
             backgroundColor: theme.palette.tags[value].main,
             borderRadius: "5px",
+            fontSize: "0.85rem",
             fontWeight: "550",
             "&:hover": {
               backgroundColor: theme.palette.tags[value].dark,

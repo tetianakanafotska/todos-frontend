@@ -24,7 +24,7 @@ function TaskList({ taskType, tasks }) {
       sx={{
         mr: 3,
         mb: 2,
-        p: "10px",
+        p: "18px",
         bgcolor: "#F1F1F1",
       }}
       elevation={2}
@@ -32,7 +32,7 @@ function TaskList({ taskType, tasks }) {
       <Typography
         variant="subtitle1"
         component="h3"
-        sx={{ margin: "5px 0 10px 16px", color: "black.light" }}
+        sx={{ margin: "0 0 10px 0px", color: "black.light" }}
       >
         {getName(taskType)}
       </Typography>

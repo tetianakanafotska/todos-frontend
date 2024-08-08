@@ -72,7 +72,7 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
       >
         <CloseIcon />
       </IconButton>
-      <DialogContent sx={{ p: "30px 10px 15px" }}>
+      <DialogContent sx={{ p: "30px 10px 15px", mt: "30px" }}>
         <TaskModal formInputs={formInputs} setFormInputs={setFormInputs} />
         <DialogActions>
           <Button onClick={handleSave} variant="contained">

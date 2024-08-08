@@ -27,7 +27,7 @@ function TaskCard({ task }) {
     <Paper
       sx={{
         mb: 1,
-        p: "25px 20px 20px",
+        p: "15px",
         position: "relative",
         bgcolor: "#fff",
       }}
@@ -36,15 +36,11 @@ function TaskCard({ task }) {
       <Typography
         variant="body1"
         component="h4"
-        sx={{ margin: "15px 0 10px", fontWeight: "700" }}
+        sx={{ margin: "10px 0 5px", fontWeight: "700" }}
       >
         {task.title}
       </Typography>
-      <Typography
-        variant="subtitle2"
-        sx={{ fontWeight: "inherit" }}
-        gutterBottom
-      >
+      <Typography variant="subtitle2" sx={{ fontWeight: "inherit" }}>
         {task.description}
       </Typography>
       <Typography

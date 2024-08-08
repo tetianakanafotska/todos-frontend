@@ -68,8 +68,9 @@ function AddTask({ setAllTasks, open, setOpen }) {
       <DialogTitle
         sx={{
           padding: "25px 34px 0",
-          typography: "subtitle2",
-          fontSize: "1rem",
+          typography: "h6",
+          fontWeight: "700",
+          color: "black.main",
         }}
       >
         Create a new task

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import dayjs from "dayjs";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
@@ -6,10 +6,16 @@ import Select from "@mui/material/Select";
 import { InputBase } from "@mui/material";
 import CustomDatePicker from "./CustomDatePicker";
 import CustomTextField from "./CustomTextField";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Divider } from "@mui/material";
 
 function TaskModal({ formInputs, setFormInputs }) {
-  const handleDateChange = (e) => {
+  const handleCreatedDate = (e) => {
+    console.log("this is data", e);
+    setFormInputs((prev) => ({ ...prev, createdAt: e }));
+  };
+
+  const handleDueDate = (e) => {
+    console.log("this is data", e);
     setFormInputs((prev) => ({ ...prev, dueAt: e }));
   };
 
@@ -22,38 +28,38 @@ function TaskModal({ formInputs, setFormInputs }) {
   return (
     <>
       <Container>
-        {/* title*/}
-
         <CustomTextField
           name="title"
-          placeholder="Title"
+          placeholder="Add title"
           value={formInputs.title}
           onChange={handleOnChange}
-          sx={{
-            "& .MuiInputBase-root": {
-              fontWeight: "700",
-            },
-          }}
+          onFocus={(e) =>
+            e.currentTarget.setSelectionRange(
+              e.currentTarget.value.length,
+              e.currentTarget.value.length
+            )
+          }
+          autoFocus
         />
-        {/* description*/}
         <CustomTextField
           name="description"
-          placeholder="Description"
+          placeholder="Add description"
           value={formInputs.description}
           onChange={handleOnChange}
+          rows={3}
           sx={{
             "& .MuiInputBase-root": {
               typography: "subtitle2",
               fontWeight: "inherit",
+              fontSize: "1rem",
             },
           }}
         />
+        <Divider sx={{ mb: "12px" }} />
 
         {/* priority*/}
-        <Box
-          sx={{ display: "flex", alignItems: "center", position: "relative" }}
-        >
-          <Typography variant="subtitle2" sx={{ width: "6rem" }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography variant="subtitle2" sx={{ width: "7rem" }}>
             Priority
           </Typography>
           <Select
@@ -74,7 +80,7 @@ function TaskModal({ formInputs, setFormInputs }) {
         <Box
           sx={{ display: "flex", alignItems: "center", margin: "5px 0 9px" }}
         >
-          <Typography variant="subtitle2" sx={{ width: "6rem" }}>
+          <Typography variant="subtitle2" sx={{ width: "7rem" }}>
             Status
           </Typography>
           <Select
@@ -104,22 +110,22 @@ function TaskModal({ formInputs, setFormInputs }) {
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            mb: "20px",
+            mb: "5px",
           }}
         >
-          <Typography variant="subtitle2" sx={{ width: "6rem" }}>
+          <Typography variant="subtitle2" sx={{ width: "7rem" }}>
             Timeline
           </Typography>
           <CustomDatePicker
             name="createdAt"
             value={dayjs(formInputs.createdAt)}
-            handleDateChange={handleDateChange}
+            handleDateChange={handleCreatedDate}
           />
           <span style={{ marginRight: "6px" }}>–</span>
           <CustomDatePicker
             name="dueAt"
             value={dayjs(formInputs.dueAt)}
-            handleDateChange={handleDateChange}
+            handleDateChange={handleDueDate}
             disablePast
           />
         </Box>
