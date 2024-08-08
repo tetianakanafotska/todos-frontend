@@ -25,10 +25,9 @@ function TaskCard({ task }) {
 
   return (
     <Paper
-      className="task-card"
       sx={{
         mb: 1,
-        p: "10px 20px",
+        p: "25px 20px 20px",
         position: "relative",
         bgcolor: "#fff",
       }}
@@ -37,23 +36,28 @@ function TaskCard({ task }) {
       <Typography
         variant="body1"
         component="h4"
-        sx={{ margin: "7px 0 10px", fontWeight: "700" }}
+        sx={{ margin: "15px 0 10px", fontWeight: "700" }}
       >
         {task.title}
       </Typography>
-      <Typography variant="body2" gutterBottom>
+      <Typography
+        variant="subtitle2"
+        sx={{ fontWeight: "inherit" }}
+        gutterBottom
+      >
         {task.description}
       </Typography>
       <Typography
-        variant="body2"
         sx={{
           display: "flex",
           alignItems: "center",
           gap: "5px",
           margin: "10px 0 5px",
+          fontSize: "0.95rem",
+          fontWeight: "500",
         }}
       >
-        <AccessTimeIcon sx={{ width: "15px" }} />
+        <AccessTimeIcon sx={{ width: "17px" }} />
         {convertDates(task.createdAt, task.dueAt)}
       </Typography>
 

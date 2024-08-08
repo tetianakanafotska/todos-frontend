@@ -30,7 +30,7 @@ function TaskList({ taskType, tasks }) {
       elevation={2}
     >
       <Typography
-        variant="h6"
+        variant="subtitle1"
         component="h3"
         sx={{ margin: "5px 0 10px 16px", color: "black.light" }}
       >

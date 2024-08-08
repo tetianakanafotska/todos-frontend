@@ -128,7 +128,7 @@ function UserModal({
               sx={{
                 width: 200,
                 height: 200,
-                bgcolor: "tags.medium",
+                bgcolor: "tags.medium.main",
                 color: "black.light",
                 fontSize: "2rem",
               }}

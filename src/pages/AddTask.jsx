@@ -20,9 +20,9 @@ function AddTask({ setAllTasks, open, setOpen }) {
 
   const [formInputs, setFormInputs] = useState({
     title: "",
+    description: "",
     type: taskType,
     priority: "Low",
-    description: "",
     createdAt: dayjs(),
     dueAt: dayjs().add(3, "day"),
   });
@@ -37,12 +37,6 @@ function AddTask({ setAllTasks, open, setOpen }) {
   }, [user]);
 
   const saveTask = (formInputs) => {
-    console.log("this is what does to the db", formInputs);
-    console.log(
-      "this is type of dates",
-      typeof formInputs.createdAt,
-      typeof formInputs.dueAt
-    );
     tasksService.getByType(formInputs.type).then((tasksOfType) => {
       const maxIndex = Math.max(
         ...tasksOfType.data.map((task) => task.position),
@@ -52,12 +46,6 @@ function AddTask({ setAllTasks, open, setOpen }) {
       tasksService
         .post({ ...formInputs, position: nextIndex })
         .then((savedTask) => {
-          console.log("this is what comes or of db", savedTask.data);
-          console.log(
-            "this is type of dates",
-            typeof savedTask.data.createdAt,
-            typeof savedTask.data.dueAt
-          );
           setAllTasks((prev) => [...prev, savedTask.data]);
           setOpen(false);
           navigate("/");
@@ -77,7 +65,13 @@ function AddTask({ setAllTasks, open, setOpen }) {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
-      <DialogTitle sx={{ padding: "25px 34px 0" }}>
+      <DialogTitle
+        sx={{
+          padding: "25px 34px 0",
+          typography: "subtitle2",
+          fontSize: "1rem",
+        }}
+      >
         Create a new task
       </DialogTitle>
 

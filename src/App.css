@@ -150,20 +150,6 @@ main.about {
   right: 7px;
 }
 
-#task-card-avatar {
-  position: absolute;
-  bottom: 13px;
-  right: 13px;
-}
-
-#task-dates {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin: 0 0 2px;
-  font-size: 0.9rem;
-}
-
 .error {
   color: #00ff80;
   font-size: 7rem;
@@ -210,10 +196,6 @@ main.login-container {
   width: 100%;
 }
 
-.error-message {
-  color: #fff;
-}
-
 .user-pic {
   position: relative;
 }
@@ -234,7 +216,7 @@ legend {
 
 .no-border .MuiInputBase-root {
   padding: 0;
-  width: 105px;
+  width: 101px;
 }
 
 .no-border.MuiFormControl-root {
@@ -247,4 +229,19 @@ legend {
 
 .no-border button {
   display: none;
+}
+
+#menu-type .MuiPaper-root ul,
+#menu-priority .MuiPaper-root ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 3px;
+}
+
+#menu-priority .MuiPaper-root {
+  transform: translateX(54px) !important;
+}
+
+#menu-type .MuiPaper-root {
+  transform: translateX(67px) !important;
 }

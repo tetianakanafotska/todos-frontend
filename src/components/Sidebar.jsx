@@ -40,13 +40,7 @@ function Sidebar() {
             </IconButton>
           </div>
 
-          <NavLink
-            to="/profile"
-            className="userInfo"
-            onClick={() => {
-              setIsOpen(true);
-            }}
-          >
+          <NavLink to="/profile" className="userInfo">
             {user.profileImg.url ? (
               <IconButton sx={{ padding: "2px" }}>
                 <img
@@ -61,7 +55,7 @@ function Sidebar() {
                   sx={{
                     width: 45,
                     height: 45,
-                    bgcolor: "tags.medium",
+                    bgcolor: "tags.medium.main",
                     color: "black.light",
                   }}
                 >
@@ -82,12 +76,7 @@ function Sidebar() {
               {user.name}
             </Typography>
           </NavLink>
-          <NavLink
-            to="/"
-            onClick={() => {
-              setIsOpen(true);
-            }}
-          >
+          <NavLink to="/">
             {({ isActive }) => (
               <>
                 {isActive ? <GridViewSharpIcon /> : <GridViewOutlinedIcon />}
@@ -98,12 +87,7 @@ function Sidebar() {
             )}
           </NavLink>
 
-          <NavLink
-            to="/about"
-            onClick={() => {
-              setIsOpen(true);
-            }}
-          >
+          <NavLink to="/about">
             {({ isActive }) => (
               <>
                 {isActive ? <HelpIcon /> : <HelpOutlineOutlinedIcon />}
