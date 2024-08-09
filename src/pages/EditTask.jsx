@@ -34,7 +34,7 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
         );
         setAllTasks(updatedTasks);
         setOpen(false);
-        navigate("/");
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.error(err);
@@ -48,7 +48,7 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
         const updatedTasks = allTasks.filter((task) => task._id != taskId);
         setAllTasks(updatedTasks);
         setOpen(false);
-        navigate("/");
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.error(err);
@@ -56,7 +56,7 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
   };
   const handleClose = () => {
     setOpen(false);
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (

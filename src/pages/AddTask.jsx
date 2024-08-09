@@ -48,7 +48,7 @@ function AddTask({ setAllTasks, open, setOpen }) {
         .then((savedTask) => {
           setAllTasks((prev) => [...prev, savedTask.data]);
           setOpen(false);
-          navigate("/");
+          navigate("/dashboard");
         });
     });
   };
@@ -60,7 +60,7 @@ function AddTask({ setAllTasks, open, setOpen }) {
 
   const handleClose = () => {
     setOpen(false);
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (

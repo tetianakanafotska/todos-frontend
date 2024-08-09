@@ -28,7 +28,7 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route
-          path="tasks/:taskId"
+          path="/tasks/:taskId"
           element={
             <IsPrivate>
               <Dashboard />

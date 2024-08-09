@@ -26,7 +26,7 @@ function TaskCard({ task }) {
   return (
     <Paper
       elevation={0}
-      onClick={() => navigate(`tasks/${task._id}`)}
+      onClick={() => navigate(`/tasks/${task._id}`)}
       sx={{
         m: "8px 8px 15px 8px",
         p: "15px",
@@ -35,7 +35,7 @@ function TaskCard({ task }) {
         boxShadow: "0 0 7px 1px rgba(211, 211, 211, 0.2)",
       }}
     >
-      <Chip label={task.priority} value={task.priority} disable />
+      <Chip label={task.priority} value={task.priority} disableeffects="true" />
       <Typography
         variant="body1"
         component="h4"

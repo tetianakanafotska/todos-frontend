@@ -112,7 +112,7 @@ const theme = createTheme({
             borderRadius: "5px",
             fontSize: "0.85rem",
             fontWeight: "550",
-            ...(ownerState.disable
+            ...(ownerState.disableeffects
               ? {}
               : {
                   "&:hover": {

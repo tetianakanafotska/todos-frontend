@@ -13,7 +13,7 @@ aside {
   position: absolute;
   top: 50px;
   width: 80px;
-  height: 100vh;
+  height: calc(100vh - 50px);
   background-color: #12171e;
   padding: 20px 15px 0 15px;
   border-right: 0.5px solid #383838;
@@ -24,6 +24,7 @@ aside {
 aside p {
   opacity: 0;
   white-space: nowrap;
+  transition: opacity 0.5s ease;
 }
 
 aside a.userInfo {
@@ -50,6 +51,7 @@ aside a.userInfo.active p {
 
 aside a span {
   opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 /* navlinks */
@@ -65,7 +67,7 @@ aside a {
   min-width: 50px;
   margin-bottom: 10px;
   padding: 7px 7px 7px 12px;
-  gap: 7px;
+  gap: 15px;
 }
 
 aside a span {
@@ -180,7 +182,7 @@ main.login-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000000;
+  background-color: #12171e;
   border-radius: 50%;
   width: 38px;
   height: 38px;
@@ -190,4 +192,26 @@ main.login-container {
   right: 22px;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.no-border fieldset {
+  border: none;
+  display: none;
+}
+
+.no-border .MuiInputBase-root {
+  padding: 0;
+  width: 105px;
+}
+
+.no-border.MuiFormControl-root {
+  margin-bottom: 0;
+}
+
+.no-border input {
+  padding: 0;
+}
+
+.no-border button {
+  display: none;
 }
