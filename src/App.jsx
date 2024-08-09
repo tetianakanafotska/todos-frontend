@@ -9,6 +9,7 @@ import {
   SignupPage,
   UserPage,
 } from "@pages";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
       <Navbar />
       <Sidebar />
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <IsPrivate>
               <Dashboard />

@@ -73,6 +73,16 @@ function LoginPage() {
             value={password}
             onChange={handlePassword}
           />
+          {errorMessage && (
+            <Alert
+              severity="error"
+              onClose={() => {
+                setErrorMessage(null);
+              }}
+            >
+              {errorMessage}
+            </Alert>
+          )}
           <Button
             type="submit"
             variant="contained"
@@ -84,16 +94,6 @@ function LoginPage() {
           </Button>
         </Box>
 
-        {errorMessage && (
-          <Alert
-            severity="error"
-            onClose={() => {
-              setErrorMessage(null);
-            }}
-          >
-            {errorMessage}
-          </Alert>
-        )}
         <Typography variant="body2" mt="20px" align="center">
           Don't have an account? <Link to="/signup">Sign up</Link>
         </Typography>

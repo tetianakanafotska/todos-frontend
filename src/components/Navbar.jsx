@@ -3,16 +3,17 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "@/assets/logo.png";
 import { AuthContext } from "@context/authContext.jsx";
 import { IconButton } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 
 function Navbar() {
   const { logOutUser } = useContext(AuthContext);
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <>
-      {!["/signup", "/login"].includes(location.pathname) && (
+      {!["/signup", "/login", "/"].includes(location.pathname) && (
         <Box
           sx={{
             bgcolor: "black.main",
@@ -24,7 +25,12 @@ function Navbar() {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img src={logo} alt="todo logo" width="90" />
+            <img
+              src={logo}
+              alt="todo logo"
+              width="90"
+              onClick={() => navigate("/")}
+            />
           </Box>
 
           <IconButton onClick={logOutUser}>

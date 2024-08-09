@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function SignupPage() {
         const errorDescription = err.response.data.message
           ? err.response.data.message
           : err.request.statusText;
-        setErrorMessage("❌ " + errorDescription);
+        setErrorMessage(errorDescription);
       });
   };
 
@@ -53,7 +54,7 @@ function SignupPage() {
         }}
       >
         <Typography variant="h5" component="h1" mb="20px">
-          Signup to Todo
+          Sign up to Todo
         </Typography>
         <Box component="form" display="flex" flexDirection="column">
           <TextField
@@ -83,16 +84,28 @@ function SignupPage() {
             onChange={handleOnChange}
             required
           />
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {errorMessage && (
+            <Alert
+              severity="error"
+              onClose={() => {
+                setErrorMessage(null);
+              }}
+              sx={{ mb: "20px" }}
+            >
+              {errorMessage}
+            </Alert>
+          )}
           <Button
             type="submit"
             onClick={handleSubmit}
             variant="contained"
             color="black"
+            sx={{ padding: "11px 16px" }}
           >
             Sign up
           </Button>
         </Box>
+
         <Typography variant="body2" mt="20px" align="center">
           Already have an account? <Link to="/login">Login</Link>
         </Typography>

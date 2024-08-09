@@ -112,11 +112,14 @@ const theme = createTheme({
             borderRadius: "5px",
             fontSize: "0.85rem",
             fontWeight: "550",
-            ...(ownerState.disableHover
+            ...(ownerState.disable
               ? {}
               : {
                   "&:hover": {
                     backgroundColor: theme.palette.tags[value].dark,
+                  },
+                  "&:active": {
+                    transform: "scale(0.9)",
                   },
                 }),
           };

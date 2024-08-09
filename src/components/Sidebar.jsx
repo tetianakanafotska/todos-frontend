@@ -27,7 +27,7 @@ function Sidebar() {
 
   return (
     <>
-      {!["/signup", "/login"].includes(location.pathname) && (
+      {!["/signup", "/login", "/"].includes(location.pathname) && (
         <aside id="sidebar" ref={ref} className={isOpen ? "opened" : ""}>
           <div>
             <IconButton
@@ -75,7 +75,7 @@ function Sidebar() {
               {user.name}
             </Typography>
           </NavLink>
-          <NavLink to="/">
+          <NavLink to="/dashboard">
             {({ isActive }) => (
               <>
                 {isActive ? <GridViewSharpIcon /> : <GridViewOutlinedIcon />}

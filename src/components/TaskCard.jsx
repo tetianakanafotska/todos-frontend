@@ -35,7 +35,7 @@ function TaskCard({ task }) {
         boxShadow: "0 0 7px 1px rgba(211, 211, 211, 0.2)",
       }}
     >
-      <Chip label={task.priority} value={task.priority} disableHover />
+      <Chip label={task.priority} value={task.priority} disable />
       <Typography
         variant="body1"
         component="h4"
