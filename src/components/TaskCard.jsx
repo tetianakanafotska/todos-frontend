@@ -1,10 +1,10 @@
-import { IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import { IconButton, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
+import CircleIcon from "@mui/icons-material/Circle";
 
 function TaskCard({ task }) {
   const navigate = useNavigate();
@@ -25,14 +25,17 @@ function TaskCard({ task }) {
 
   return (
     <Paper
+      elevation={0}
+      onClick={() => navigate(`tasks/${task._id}`)}
       sx={{
-        mb: 1,
+        m: "8px 8px 15px 8px",
         p: "15px",
         position: "relative",
         bgcolor: "#fff",
+        boxShadow: "0 0 7px 1px rgba(211, 211, 211, 0.2)",
       }}
     >
-      <Chip label={task.priority} value={task.priority} />
+      <Chip label={task.priority} value={task.priority} disableHover />
       <Typography
         variant="body1"
         component="h4"
@@ -58,13 +61,20 @@ function TaskCard({ task }) {
       </Typography>
 
       <IconButton
-        id="btn-edit-task"
-        onClick={() => {
-          navigate(`tasks/${task._id}`);
-        }}
+        onClick={() => navigate(`tasks/${task._id}`)}
         aria-label="edit the task"
+        sx={{
+          position: "absolute",
+          top: "8px",
+          right: "9px",
+          width: 30,
+          height: 30,
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        <EditIcon sx={{ width: 17, height: 17 }} />
+        <CircleIcon sx={{ fontSize: 5, marginRight: "5px" }} />
+        <CircleIcon sx={{ fontSize: 5 }} />
       </IconButton>
     </Paper>
   );

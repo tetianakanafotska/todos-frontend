@@ -72,10 +72,14 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
       >
         <CloseIcon />
       </IconButton>
-      <DialogContent sx={{ p: "30px 10px 15px", mt: "30px" }}>
+      <DialogContent sx={{ p: "30px 10px 15px", mt: "20px" }}>
         <TaskModal formInputs={formInputs} setFormInputs={setFormInputs} />
         <DialogActions>
-          <Button onClick={handleSave} variant="contained">
+          <Button
+            onClick={handleSave}
+            variant="contained"
+            disabled={formInputs.title === ""}
+          >
             Save
           </Button>
           <Button onClick={handleDelete} variant="outlined">

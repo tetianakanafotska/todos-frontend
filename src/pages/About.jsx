@@ -6,14 +6,14 @@ import Link from "@mui/material/Link";
 
 function About() {
   return (
-    <Box component="main" className="about">
+    <Box component="main" className="about" maxWidth={"730px"}>
       <Typography variant="h2" sx={{ margin: "40px 0 20px" }}>
         About
       </Typography>
       <Typography variant="body1" gutterBottom>
-        A kanban app with a drag-and-drop feature. Manage your task in different
-        stages: To Do, In Progress, Done. <br /> Upload your user profile
-        picture and go!
+        A modern kanban app with a drag-and-drop feature and a stylish design.
+        Manage your task in different stages: To Do, In Progress, Done. <br />{" "}
+        Upload your user profile picture and go!
       </Typography>
 
       <Typography>Check this project on Github:</Typography>

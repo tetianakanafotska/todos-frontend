@@ -22,8 +22,6 @@ function Sidebar() {
   useEffect(() => {
     if (user.profileImg) {
       setProfileUrl(user.profileImg.url);
-    } else {
-      setProfileUrl(placeholder);
     }
   }, [user]);
 
@@ -35,13 +33,14 @@ function Sidebar() {
             <IconButton
               className="menu-icon"
               onClick={() => setIsOpen(!isOpen)}
+              sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}
             >
               <MenuIcon />
             </IconButton>
           </div>
 
           <NavLink to="/profile" className="userInfo">
-            {user.profileImg.url ? (
+            {profileUrl ? (
               <IconButton sx={{ padding: "2px" }}>
                 <img
                   src={profileUrl}

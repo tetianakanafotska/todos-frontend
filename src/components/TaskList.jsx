@@ -1,19 +1,20 @@
 import React from "react";
-import { Button } from "@mui/material";
 import TaskCard from "./TaskCard";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 
 function TaskList({ taskType, tasks }) {
   const navigate = useNavigate();
 
   const getName = (name) => {
     const nameMap = {
-      toDo: "To Do",
-      inProgress: "In Progress",
+      toDo: "To do",
+      inProgress: "In progress",
       done: "Done",
     };
     return nameMap[name] || "";
@@ -24,18 +25,21 @@ function TaskList({ taskType, tasks }) {
       sx={{
         mr: 3,
         mb: 2,
-        p: "18px",
+        p: "14px",
         bgcolor: "#F1F1F1",
+        boxShadow: "none",
+        position: "relative",
       }}
-      elevation={2}
     >
       <Typography
         variant="subtitle1"
         component="h3"
-        sx={{ margin: "0 0 10px 0px", color: "black.light" }}
+        sx={{ margin: "10px 0 5px 10px", color: "black.light" }}
       >
         {getName(taskType)}
       </Typography>
+
+      {tasks.length > 0 && <div id="total-badge">{tasks.length}</div>}
 
       <Droppable droppableId={taskType}>
         {(provided) => (
@@ -61,27 +65,26 @@ function TaskList({ taskType, tasks }) {
           </div>
         )}
       </Droppable>
-      <Button
-        variant="contained"
-        size="large"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "5px auto 3px",
-          padding: "6px 16px",
-          bgcolor: "primary.light",
-          color: "black.main",
-          "&:hover": {
-            bgcolor: "primary.main",
-          },
-        }}
-        startIcon={<AddCircleOutlineIcon />}
-        onClick={() => {
-          navigate(`/addTask/${taskType}`);
-        }}
-      >
-        Add a task
-      </Button>
+      <CardActions sx={{ display: "flex", justifyContent: "center", p: "0" }}>
+        <Fab
+          size="small"
+          aria-label="add task"
+          onClick={() => {
+            navigate(`/addTask/${taskType}`);
+          }}
+          sx={{
+            boxShadow: "0 0 7px 1px rgba(211, 211, 211, 0.3)",
+            bgcolor: "grey.300",
+            color: "grey.600",
+            "&:hover": {
+              bgcolor: "grey.300",
+              boxShadow: "0 0 4px 2px rgba(150, 150, 150, 0.35)",
+            },
+          }}
+        >
+          <AddIcon />
+        </Fab>
+      </CardActions>
     </Card>
   );
 }

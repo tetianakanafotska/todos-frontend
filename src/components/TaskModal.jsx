@@ -46,7 +46,6 @@ function TaskModal({ formInputs, setFormInputs }) {
           placeholder="Add description"
           value={formInputs.description}
           onChange={handleOnChange}
-          rows={3}
           sx={{
             "& .MuiInputBase-root": {
               typography: "subtitle2",

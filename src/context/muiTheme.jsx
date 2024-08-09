@@ -88,9 +88,9 @@ const theme = createTheme({
 
     MuiButton: {
       styleOverrides: {
-        root: {
+        root: ({ theme, ownerState }) => ({
           borderRadius: "100px",
-        },
+        }),
       },
     },
 
@@ -106,14 +106,19 @@ const theme = createTheme({
           const value =
             ownerState.value?.toLowerCase() ||
             ownerState["data-value"].toLowerCase();
+
           return {
             backgroundColor: theme.palette.tags[value].main,
             borderRadius: "5px",
             fontSize: "0.85rem",
             fontWeight: "550",
-            "&:hover": {
-              backgroundColor: theme.palette.tags[value].dark,
-            },
+            ...(ownerState.disableHover
+              ? {}
+              : {
+                  "&:hover": {
+                    backgroundColor: theme.palette.tags[value].dark,
+                  },
+                }),
           };
         },
       },

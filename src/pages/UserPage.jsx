@@ -171,7 +171,7 @@ function UserPage() {
                   fontSize: "2rem",
                 }}
               >
-                {userData.name[0]}
+                {user.name[0]}
               </Avatar>
             </IconButton>
           )}
