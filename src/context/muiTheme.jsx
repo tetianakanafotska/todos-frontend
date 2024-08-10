@@ -2,11 +2,11 @@ import { createTheme, ThemeProvider } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#65CAA4",
+      main: "#2DCDA1",
       contrastText: "#10171F",
     },
     secondary: {
-      main: "#fff",
+      main: "#5056FD",
       contrastText: "#10171F",
     },
     black: {
@@ -14,6 +14,12 @@ const theme = createTheme({
       light: "#505050",
       dark: "#000",
       contrastText: "#fff",
+    },
+    white: {
+      main: "#fff",
+      light: "#fff",
+      dark: "#eee",
+      contrastText: "#000",
     },
     tags: {
       high: {
@@ -44,19 +50,27 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: '"Raleway", "Tahoma", "Geneva", "Verdana", sans-serif',
+    h3: {
+      fontSize: "1.8rem",
+      fontWeight: "600",
+    },
+    h4: {
+      fontSize: "1.5rem",
+      fontWeight: "500",
+    },
     subtitle1: {
       fontSize: "1.2rem",
       fontWeight: "600",
     },
     subtitle2: {
-      fontSize: "0.95rem",
+      fontSize: "0.9rem",
       color: "#C0C0C0",
     },
     body1: {
       fontSize: "1rem",
     },
     body2: {
-      fontSize: "0.97rem",
+      fontSize: "0.9rem",
     },
   },
   shape: {
@@ -94,12 +108,6 @@ const theme = createTheme({
       },
     },
 
-    MuiDatePicker: {
-      defaultProps: {
-        format: "MMM D, YYYY",
-        className: "no-border",
-      },
-    },
     MuiChip: {
       styleOverrides: {
         root: ({ ownerState }) => {
@@ -110,7 +118,7 @@ const theme = createTheme({
           return {
             backgroundColor: theme.palette.tags[value].main,
             borderRadius: "5px",
-            fontSize: "0.85rem",
+            fontSize: "0.83rem",
             fontWeight: "550",
             ...(ownerState.disableeffects
               ? {}

@@ -1,4 +1,4 @@
-import { IconButton, Box } from "@mui/material";
+import { IconButton, Box, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Paper from "@mui/material/Paper";
@@ -43,7 +43,10 @@ function TaskCard({ task }) {
       >
         {task.title}
       </Typography>
-      <Typography variant="subtitle2" sx={{ fontWeight: "inherit" }}>
+      <Typography
+        variant="subtitle2"
+        sx={{ fontWeight: "inherit", lineHeight: "1.5" }}
+      >
         {task.description}
       </Typography>
       <Typography
@@ -52,8 +55,8 @@ function TaskCard({ task }) {
           alignItems: "center",
           gap: "5px",
           margin: "10px 0 5px",
-          fontSize: "0.95rem",
-          fontWeight: "500",
+          fontSize: "0.83rem",
+          fontWeight: "400",
         }}
       >
         <AccessTimeIcon sx={{ width: "17px" }} />

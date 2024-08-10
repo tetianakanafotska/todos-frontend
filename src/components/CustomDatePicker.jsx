@@ -7,6 +7,8 @@ const CustomDatePicker = ({ value, handleDateChange, ...props }) => {
   return (
     <DatePicker
       open={open}
+      format="MMM D, YYYY"
+      className="no-border"
       value={dayjs(value)}
       onChange={(date) => {
         handleDateChange(date);
@@ -18,7 +20,7 @@ const CustomDatePicker = ({ value, handleDateChange, ...props }) => {
           onClick: () => setOpen(true),
           sx: {
             input: {
-              fontSize: "0.95rem",
+              fontSize: "0.9rem",
               fontWeight: "500",
               "&:hover": { fontWeight: "600", transition: "color 0.1s" },
             },

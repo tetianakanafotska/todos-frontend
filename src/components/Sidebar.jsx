@@ -45,7 +45,11 @@ function Sidebar() {
                 <img
                   src={profileUrl}
                   alt="profile picture"
-                  style={{ width: "45px", height: "45px", borderRadius: "50%" }}
+                  style={{
+                    width: "45px",
+                    height: "45px",
+                    borderRadius: "50%",
+                  }}
                 />
               </IconButton>
             ) : (

@@ -9,7 +9,7 @@ function IsAnon({ children }) {
   if (isLoading) return <Loading />;
 
   if (isLoggedIn) {
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard" />;
   } else {
     return children;
   }

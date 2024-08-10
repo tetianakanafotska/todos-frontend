@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9; */
   height: 100vh;
   overflow: scroll;
 }
@@ -19,6 +19,7 @@ aside {
   border-right: 0.5px solid #383838;
   border-top: 0.5px solid #383838;
   transition: all 0.5s ease;
+  box-shadow: 4px 0 10px rgba(160, 160, 160, 0.2);
 }
 
 aside p {
@@ -120,7 +121,7 @@ main.about {
 
 .dashboard-main {
   margin-left: 80px;
-  padding: 30px 5vw;
+  padding: 30px 3%;
   transition: all 0.5s ease;
   width: calc(100vw - 80px);
   height: 100%;
@@ -201,11 +202,11 @@ main.login-container {
 
 .no-border .MuiInputBase-root {
   padding: 0;
-  width: 105px;
 }
 
 .no-border.MuiFormControl-root {
   margin-bottom: 0;
+  width: 94px;
 }
 
 .no-border input {

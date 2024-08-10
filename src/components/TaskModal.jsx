@@ -125,7 +125,6 @@ function TaskModal({ formInputs, setFormInputs }) {
             name="dueAt"
             value={dayjs(formInputs.dueAt)}
             handleDateChange={handleDueDate}
-            disablePast
           />
         </Box>
       </Container>
