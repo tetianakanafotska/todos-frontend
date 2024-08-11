@@ -25,10 +25,13 @@ const CustomDatePicker = ({ value, handleDateChange, ...props }) => {
               "&:hover": { fontWeight: "600", transition: "color 0.1s" },
             },
           },
+          inputProps: {
+            onMouseDown: (event) => event.preventDefault(),
+          },
         },
       }}
       {...props}
-    ></DatePicker>
+    />
   );
 };
 

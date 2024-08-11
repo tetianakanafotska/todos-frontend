@@ -8,6 +8,7 @@ import GridViewSharpIcon from "@mui/icons-material/GridViewSharp";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import HelpIcon from "@mui/icons-material/Help";
 import { IconButton, Typography, Avatar } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 
 function Sidebar() {
   const location = useLocation();
@@ -27,16 +28,22 @@ function Sidebar() {
   return (
     <>
       {!["/signup", "/login", "/"].includes(location.pathname) && (
-        <aside id="sidebar" ref={ref} className={isOpen ? "opened" : ""}>
-          <div>
+        <Stack component="aside" ref={ref} className={isOpen ? "opened" : ""}>
+          <Box sx={{ m: "0 0 15px 5px" }}>
             <IconButton
-              className="menu-icon"
               onClick={() => setIsOpen(!isOpen)}
-              sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "flex",
+                  md: "flex",
+                  color: "#fff",
+                },
+              }}
             >
               <MenuIcon />
             </IconButton>
-          </div>
+          </Box>
 
           <NavLink to="/profile" className="userInfo">
             {profileUrl ? (
@@ -99,7 +106,7 @@ function Sidebar() {
               </>
             )}
           </NavLink>
-        </aside>
+        </Stack>
       )}
     </>
   );

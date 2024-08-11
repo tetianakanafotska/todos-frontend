@@ -2,161 +2,91 @@ import React, { useRef } from "react";
 import {
   Box,
   Button,
-  IconButton,
-  Grid,
   Container,
   Typography,
   Stack,
   Divider,
 } from "@mui/material";
-import logoWhite from "@/assets/logo-white.png";
-import logoBlack from "@/assets/logo-black.png";
-import mockup from "@/assets/mockup.png";
-import dragscreen from "@/assets/dragscreen.png";
-import tagsscreen from "@/assets/tagsscreen.png";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import { useNavigate } from "react-router-dom";
-import { useTheme, alpha, duration } from "@mui/material/styles";
-import bgGreen from "@/assets/bg-green.png";
-import bgBlack from "@/assets/bg-black.png";
+import { useTheme, alpha } from "@mui/material/styles";
+import CustomButton from "@components/CustomButton";
+import {
+  bgBlack,
+  logoWhite,
+  logoBlack,
+  mockup,
+  dragscreen,
+  tagsscreen,
+} from "@/assets";
 
 function LandingPage() {
   const navigate = useNavigate();
   const theme = useTheme();
   const featuresRef = useRef();
 
-  console.log(window.innerWidth, window.innerHeight);
-
   return (
-    //landing page
-    <Box>
-      {/* hero */}
+    <Box component="main" className="landing-page">
       <Box
+        component="header"
         sx={{
           bgcolor: "primary.main",
-          //backgroundImage: `url(${bgGreen})`,
-          //backgroundSize: "cover",
-          height: "100vh",
-          p: "20px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          overflow: "visible",
         }}
       >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          sx={{ width: "100%", p: "10px 5% 0" }}
-          alignItems="center"
-        >
+        <Stack component="nav">
           <Box sx={{ width: "100px" }}>
-            <img
-              src={logoWhite}
-              alt="Logo"
-              style={{ width: "100%", objectFit: "contain" }}
-            />
+            <img src={logoWhite} alt="Logo" className="img-styling" />
           </Box>
 
-          <Button
+          <CustomButton
             onClick={() => navigate("/login")}
-            disableRipple
-            size="large"
             endIcon={<CallMadeIcon sx={{ fontSize: "17px !important" }} />}
-            sx={{
-              textTransform: "none",
-              mr: "10px",
-              p: "12px 25px",
-              boxShadow: "none",
-              bgcolor: "rgba(255, 255, 255, 0.15)",
-              "&:hover": { bgcolor: "rgba(255, 255, 255, 0.3)" },
-              color: "#fff",
-            }}
           >
             Login
-          </Button>
+          </CustomButton>
         </Stack>
 
         {/* heading */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            maxWidth: "950px",
-          }}
-        >
-          <Typography
-            variant="h2"
-            component="h1"
-            sx={{
-              color: "#fff",
-              textAlign: "center",
-              mt: "100px",
-              fontWeight: "650",
-              textShadow: "2px 2px 3px rgba(160, 160, 160, 0.2)",
-            }}
-          >
+        <Box className="title">
+          <Typography variant="h2" component="h1">
             Your personal productivity space — simple and free of fuss.
           </Typography>
           <Box sx={{ margin: "30px 0 50px" }}>
-            <Button
+            <CustomButton
               onClick={() => navigate("/dashboard")}
-              disableRipple
               color="white"
               variant="contained"
-              size="large"
               endIcon={<CallMadeIcon sx={{ fontSize: "17px !important" }} />}
-              sx={{
-                textTransform: "none",
-                fontWeight: "600",
-                mr: "10px",
-                p: "12px 25px",
-                boxShadow: "0 0 4px 1px rgba(160, 160, 160, 0.3)",
-              }}
+              sx={{ boxShadow: "0 0 4px 1px rgba(160, 160, 160, 0.3)" }}
             >
               Try now
-            </Button>
-            <Button
+            </CustomButton>
+            <CustomButton
               onClick={() =>
                 featuresRef.current?.scrollIntoView({
                   behavior: "smooth",
                 })
               }
-              disableRipple
               color="white"
               variant="outlined"
-              size="large"
-              sx={{
-                textTransform: "none",
-                fontWeight: "600",
-                p: "12px 25px",
-              }}
             >
               More
-            </Button>
+            </CustomButton>
           </Box>
         </Box>
         <Box sx={{ width: "80%" }}>
           <img
             src={mockup}
             alt="dashboard screenshot"
-            style={{
-              width: "100%",
-              objectFit: "cover",
-            }}
+            className="img-styling"
           />
         </Box>
       </Box>
 
       <Box
+        className="features"
         ref={featuresRef}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          bgcolor: "#fff",
-          pb: "80px",
           color: "black.main",
           mt: {
             xs: "5rem",
@@ -166,26 +96,9 @@ function LandingPage() {
           },
         }}
       >
-        <Typography
-          variant="h2"
-          sx={{
-            textAlign: "center",
-            mb: "30px",
-            fontWeight: "800",
-          }}
-        >
-          Features
-        </Typography>
+        <Typography variant="h2">Features</Typography>
 
-        <Typography
-          sx={{
-            textAlign: "center",
-            maxWidth: "33rem",
-            mb: "60px",
-            fontWeight: "200",
-            fontSize: "1.1rem",
-          }}
-        >
+        <Typography className="description">
           Sleek design that keeps you focused on what matters. No clutter, no
           distractions — just a clean, intuitive space tailored for you.
         </Typography>
@@ -199,13 +112,11 @@ function LandingPage() {
         >
           <Container
             sx={{
-              //bgcolor: "black.main",
               backgroundImage: `url(${bgBlack})`,
               backgroundSize: "cover",
               p: "70px 8% !important",
               borderRadius: "20px",
               maxWidth: "700px !important",
-              //color: "black.main",
               color: "#fff",
               display: "flex",
               flexDirection: "column",

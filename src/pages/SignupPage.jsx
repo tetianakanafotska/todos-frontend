@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
-import signupPic from "@/assets/signup.png";
+import { signup } from "@/assets";
 import { Stack } from "@mui/material";
 
 function SignupPage() {
@@ -43,7 +43,7 @@ function SignupPage() {
     <Stack direction="row">
       <Box sx={{ height: "100vh", width: "30%" }}>
         <img
-          src={signupPic}
+          src={signup}
           alt=""
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
         />

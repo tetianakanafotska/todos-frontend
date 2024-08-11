@@ -4,9 +4,85 @@
 
 body {
   margin: 0;
-  /* background-color: #f9f9f9; */
+  background-color: #f9f9f9;
   height: 100vh;
   overflow: scroll;
+}
+
+.landing-page header {
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-page nav {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 5% 0;
+}
+
+.landing-page nav button {
+  text-transform: none;
+  margin-right: 10px;
+  padding: 12px 25px;
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.landing-page nav button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.landing-page .title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 950px;
+}
+
+.landing-page .title h1 {
+  color: #fff;
+  text-align: center;
+  margin-top: 100px;
+  font-weight: 650;
+  text-shadow: 2px 2px 3px rgba(160, 160, 160, 0.2);
+}
+
+.landing-page .title button {
+  text-transform: none;
+  font-weight: 600;
+  margin-right: 10px;
+  padding: 12px 25px;
+}
+
+.img-styling {
+  width: 100%;
+  object-fit: cover;
+}
+
+.landing-page .features {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 80px;
+}
+
+.landing-page .features h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 800;
+}
+.landing-page .features .description {
+  text-align: center;
+  max-width: 33rem;
+  margin-bottom: 60px;
+  font-weight: 200;
+  font-size: 1.1rem;
 }
 
 aside {
@@ -82,13 +158,6 @@ aside a.active {
   color: #65caa4;
 }
 
-aside .menu-icon {
-  color: #fff;
-  cursor: pointer;
-  margin-left: 5px;
-  margin-bottom: 15px;
-}
-
 /* opened sidebar */
 aside.opened {
   width: 250px;
@@ -121,7 +190,7 @@ main.about {
 
 .dashboard-main {
   margin-left: 80px;
-  padding: 30px 3%;
+  padding: 30px 3% 0;
   transition: all 0.5s ease;
   width: calc(100vw - 80px);
   height: 100%;
