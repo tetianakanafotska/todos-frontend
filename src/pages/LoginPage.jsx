@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Stack } from "@mui/material";
+import signupPic from "@/assets/signup.png";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -40,8 +42,14 @@ function LoginPage() {
   };
 
   return (
-    <main className="login-container">
-      <div className="side-pic-login"></div>
+    <Stack direction="row">
+      <Box sx={{ height: "100vh", width: "30%" }}>
+        <img
+          src={signupPic}
+          alt=""
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+        />
+      </Box>
       <Box
         ml="8%"
         mt="10%"
@@ -95,10 +103,10 @@ function LoginPage() {
         </Box>
 
         <Typography variant="body2" mt="20px" align="center">
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          Don't have an account? <Link to="/signup">Sign up for free</Link>
         </Typography>
       </Box>
-    </main>
+    </Stack>
   );
 }
 

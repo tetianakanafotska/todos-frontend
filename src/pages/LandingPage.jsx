@@ -17,11 +17,15 @@ import tagsscreen from "@/assets/tagsscreen.png";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import { useNavigate } from "react-router-dom";
 import { useTheme, alpha, duration } from "@mui/material/styles";
+import bgGreen from "@/assets/bg-green.png";
+import bgBlack from "@/assets/bg-black.png";
 
 function LandingPage() {
   const navigate = useNavigate();
   const theme = useTheme();
   const featuresRef = useRef();
+
+  console.log(window.innerWidth, window.innerHeight);
 
   return (
     //landing page
@@ -30,23 +34,27 @@ function LandingPage() {
       <Box
         sx={{
           bgcolor: "primary.main",
+          //backgroundImage: `url(${bgGreen})`,
+          //backgroundSize: "cover",
           height: "100vh",
           p: "20px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          overflow: "visible",
         }}
       >
         <Stack
           direction="row"
           justifyContent="space-between"
-          sx={{ width: "100%", p: "10px 50px 0" }}
+          sx={{ width: "100%", p: "10px 5% 0" }}
+          alignItems="center"
         >
           <Box sx={{ width: "100px" }}>
             <img
               src={logoWhite}
               alt="Logo"
-              style={{ width: "100px", objectFit: "contain" }}
+              style={{ width: "100%", objectFit: "contain" }}
             />
           </Box>
 
@@ -129,8 +137,15 @@ function LandingPage() {
             </Button>
           </Box>
         </Box>
-        <Box>
-          <img src={mockup} alt="dashboard screenshot" width="1100px" />
+        <Box sx={{ width: "80%" }}>
+          <img
+            src={mockup}
+            alt="dashboard screenshot"
+            style={{
+              width: "100%",
+              objectFit: "cover",
+            }}
+          />
         </Box>
       </Box>
 
@@ -141,9 +156,14 @@ function LandingPage() {
           flexDirection: "column",
           alignItems: "center",
           bgcolor: "#fff",
-          mt: "550px",
           pb: "80px",
           color: "black.main",
+          mt: {
+            xs: "5rem",
+            sm: "15rem",
+            md: "20rem",
+            lg: "35rem",
+          },
         }}
       >
         <Typography
@@ -160,7 +180,7 @@ function LandingPage() {
         <Typography
           sx={{
             textAlign: "center",
-            maxWidth: "600px",
+            maxWidth: "33rem",
             mb: "60px",
             fontWeight: "200",
             fontSize: "1.1rem",
@@ -173,15 +193,16 @@ function LandingPage() {
           sx={{
             gap: "40px",
             display: "flex",
-            flexDirection: "row",
-            m: "0 70px",
+            flexDirection: { xs: "column", sm: "column", lg: "row" },
+            m: "0 5%",
           }}
         >
           <Container
             sx={{
-              //bgcolor: alpha(theme.palette.black.main, 0.1),
-              bgcolor: "black.main",
-              p: "70px 80px !important",
+              //bgcolor: "black.main",
+              backgroundImage: `url(${bgBlack})`,
+              backgroundSize: "cover",
+              p: "70px 8% !important",
               borderRadius: "20px",
               maxWidth: "700px !important",
               //color: "black.main",
@@ -203,7 +224,7 @@ function LandingPage() {
               }}
             >
               Easily organize tasks by dragging and dropping them across your
-              workflow. It's intuitive, and keeps you in control.
+              workflow. It's fast, intuitive, and keeps you in control.
             </Typography>
             <Button
               disableRipple
@@ -237,7 +258,7 @@ function LandingPage() {
               bgcolor: alpha(theme.palette.secondary.main, 0.1),
               //bgcolor: "primary.main",
               color: "black.main",
-              p: "70px 80px !important",
+              p: "70px 8% !important",
               borderRadius: "20px",
               maxWidth: "700px !important",
               textShadow: "2px 2px 3px rgba(160, 160, 160, 0.15)",
@@ -295,21 +316,30 @@ function LandingPage() {
       <Divider />
       <Stack
         direction="row"
-        spacing={5}
+        spacing={3}
         sx={{
           height: "7rem",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-between",
+          position: "relative",
         }}
       >
-        <Box sx={{ width: "100px", position: "absolute", left: "70px" }}>
+        <Box sx={{ width: "100px", ml: "7% !important" }}>
           <img
             src={logoBlack}
             alt="logo-black"
             style={{ width: "100%", objectFit: "contain" }}
           />
         </Box>
-        <Typography variant="body2" sx={{ display: "block" }}>
+        <Typography
+          variant="body2"
+          sx={{
+            display: "block",
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
           Created by Tetiana Kanafotska
         </Typography>
       </Stack>

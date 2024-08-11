@@ -1,5 +1,5 @@
-import { createTheme, ThemeProvider } from "@mui/material";
-const theme = createTheme({
+import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
+let theme = createTheme({
   palette: {
     primary: {
       main: "#2DCDA1",
@@ -136,6 +136,8 @@ const theme = createTheme({
     },
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 const MuiTheme = ({ children }) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
