@@ -10,18 +10,15 @@ import { Box, Container, Divider } from "@mui/material";
 
 function TaskModal({ formInputs, setFormInputs }) {
   const handleCreatedDate = (e) => {
-    console.log("this is data", e);
     setFormInputs((prev) => ({ ...prev, createdAt: e }));
   };
 
   const handleDueDate = (e) => {
-    console.log("this is data", e);
     setFormInputs((prev) => ({ ...prev, dueAt: e }));
   };
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    console.log("typed:", e.target);
     setFormInputs((prev) => ({ ...prev, [name]: value }));
   };
 

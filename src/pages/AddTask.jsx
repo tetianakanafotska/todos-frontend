@@ -95,10 +95,11 @@ function AddTask({ setAllTasks, open, setOpen }) {
             onClick={handleSaveButton}
             variant="contained"
             disabled={formInputs.title === ""}
+            color="black"
           >
             Save
           </Button>
-          <Button onClick={handleClose} variant="outlined">
+          <Button onClick={handleClose} variant="outlined" color="black">
             Cancel
           </Button>
         </DialogActions>

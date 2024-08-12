@@ -46,7 +46,7 @@ function LandingPage() {
           </Typography>
           <Box sx={{ margin: "30px 0 50px" }}>
             <CustomButton
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/login")}
               color="white"
               variant="contained"
               endIcon={<CallMadeIcon sx={{ fontSize: "17px !important" }} />}
@@ -80,8 +80,6 @@ function LandingPage() {
         className="features"
         ref={featuresRef}
         sx={{
-          //bgcolor: alpha(theme.palette.black.main, 0.97),
-          //color: "#fff",
           pt: {
             xs: "5rem",
             sm: "11rem",
@@ -96,8 +94,7 @@ function LandingPage() {
 
         <Typography variant="h3" className="description" sx={{ mb: "70px" }}>
           Todo is crafted with the solo user in mind. No complicated setups, no
-          team management — just you, your tasks, and a beautifully simple tool
-          to help you get things done.
+          team management — just you and your tasks.
         </Typography>
         <Box
           className="container"
@@ -108,7 +105,6 @@ function LandingPage() {
           <Container
             component="article"
             sx={{
-              //bgcolor: alpha(theme.palette.white.main, 0.06),
               bgcolor: alpha(theme.palette.black.main, 1),
               color: "#fff",
             }}

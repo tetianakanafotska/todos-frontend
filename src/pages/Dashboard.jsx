@@ -123,6 +123,7 @@ function Dashboard() {
           width="calc(100vw - 80px)"
           className="dashboard-main"
         >
+          {/* <Sidebar /> */}
           <Grid item lg={4} md={4} sm={12} xs={12}>
             {loading ? (
               <Skeleton

@@ -25,7 +25,7 @@ function TaskList({ taskType, tasks }) {
       sx={{
         mr: 3,
         mb: 2,
-        p: "14px",
+        p: "14px 14px 0",
         bgcolor: "#F1F1F1",
         boxShadow: "none",
         position: "relative",
@@ -76,6 +76,7 @@ function TaskList({ taskType, tasks }) {
             boxShadow: "0 0 7px 1px rgba(211, 211, 211, 0.3)",
             bgcolor: "grey.300",
             color: "grey.600",
+            m: "14px 0",
             "&:hover": {
               bgcolor: "grey.300",
               boxShadow: "0 0 4px 2px rgba(150, 150, 150, 0.35)",

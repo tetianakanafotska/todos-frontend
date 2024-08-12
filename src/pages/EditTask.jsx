@@ -78,11 +78,12 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
           <Button
             onClick={handleSave}
             variant="contained"
+            color="black"
             disabled={formInputs.title === ""}
           >
             Save
           </Button>
-          <Button onClick={handleDelete} variant="outlined">
+          <Button onClick={handleDelete} variant="outlined" color="black">
             Delete
           </Button>
         </DialogActions>

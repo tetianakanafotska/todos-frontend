@@ -28,7 +28,7 @@ function TaskCard({ task }) {
       elevation={0}
       onClick={() => navigate(`/tasks/${task._id}`)}
       sx={{
-        m: "8px 8px 15px 8px",
+        m: "8px 8px 15px 0",
         p: "15px",
         position: "relative",
         bgcolor: "#fff",

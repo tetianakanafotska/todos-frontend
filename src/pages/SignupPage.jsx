@@ -20,7 +20,6 @@ function SignupPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("data", data);
     authService
       .signup(data)
       .then((createdUser) => {
