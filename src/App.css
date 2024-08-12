@@ -26,9 +26,7 @@ body {
 }
 
 .landing-page nav button {
-  text-transform: none;
   margin-right: 10px;
-  padding: 12px 25px;
   box-shadow: none;
   background-color: rgba(255, 255, 255, 0.15);
   color: #fff;
@@ -49,15 +47,11 @@ body {
   color: #fff;
   text-align: center;
   margin-top: 100px;
-  font-weight: 650;
   text-shadow: 2px 2px 3px rgba(160, 160, 160, 0.2);
 }
 
 .landing-page .title button {
-  text-transform: none;
-  font-weight: 600;
   margin-right: 10px;
-  padding: 12px 25px;
 }
 
 .img-styling {
@@ -72,17 +66,57 @@ body {
   padding-bottom: 80px;
 }
 
-.landing-page .features h2 {
+.landing-page .features .title {
   text-align: center;
-  margin-bottom: 30px;
-  font-weight: 800;
+  margin: 0 10px 20px;
+  max-width: 35rem;
+  line-height: 1.5;
 }
 .landing-page .features .description {
   text-align: center;
-  max-width: 33rem;
-  margin-bottom: 60px;
-  font-weight: 200;
+  max-width: 35rem;
+  font-weight: 250;
   font-size: 1.1rem;
+  line-height: 1.8;
+  padding: 0 10px;
+}
+
+.landing-page .features .container {
+  display: flex;
+  gap: 40px;
+  margin: 0 5%;
+}
+
+.landing-page .features .container article {
+  padding: 70px 6% !important;
+  border-radius: 20px;
+  max-width: 700px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-page .features .container article h3 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.landing-page h2.cta {
+  font-weight: 800;
+  font-size: 4rem;
+}
+
+.landing-page footer {
+  height: 7rem;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.landing-page footer p {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 aside {

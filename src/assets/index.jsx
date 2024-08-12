@@ -1,4 +1,5 @@
 import bgBlack from "./bg-black.png";
+import bgGreen from "./bg-green.png";
 import dragscreen from "./dragscreen.png";
 import logoBlack from "./logo-black.png";
 import logoGreen from "./logo-green.png";
@@ -10,6 +11,7 @@ import tagsscreen from "./tagsscreen.png";
 
 export {
   bgBlack,
+  bgGreen,
   dragscreen,
   logoGreen,
   logoBlack,

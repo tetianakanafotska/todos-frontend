@@ -8,12 +8,25 @@ function About() {
   return (
     <Box component="main" className="about" maxWidth={"730px"}>
       <Typography variant="h2" sx={{ margin: "40px 0 20px" }}>
-        About
+        How It Works:
       </Typography>
       <Typography variant="body1" gutterBottom>
         A modern kanban app with a drag-and-drop feature and a stylish design.
-        Manage your task in different stages: To Do, In Progress, Done. <br />{" "}
-        Upload your user profile picture and go!
+        <ul>
+          <li>
+            Organize: Create tasks and arrange them in three straightforward
+            sections: To Do, In Progress, and Done.
+          </li>
+          <li>
+            Prioritize: Use color-coded priority tags to highlight what's
+            important.
+          </li>
+          <li>
+            Achieve: Watch your progress as you drag tasks across your board,
+            bringing you closer to your goals.
+          </li>
+        </ul>
+        <br /> Upload your user profile picture and go!
       </Typography>
 
       <Typography>Check this project on Github:</Typography>

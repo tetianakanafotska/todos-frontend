@@ -50,13 +50,21 @@ let theme = createTheme({
   },
   typography: {
     fontFamily: '"Raleway", "Tahoma", "Geneva", "Verdana", sans-serif',
+    h1: {
+      fontSize: "3.7rem",
+      fontWeight: "650",
+    },
+    h2: {
+      fontSize: "3.2rem",
+      fontWeight: "800",
+    },
     h3: {
       fontSize: "1.8rem",
       fontWeight: "600",
     },
     h4: {
-      fontSize: "1.5rem",
-      fontWeight: "500",
+      fontSize: "1.55rem",
+      fontWeight: "600",
     },
     subtitle1: {
       fontSize: "1.2rem",
