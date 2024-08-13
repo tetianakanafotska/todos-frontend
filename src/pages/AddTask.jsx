@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import TaskModal from "@components/TaskModal";
+import TaskEditModal from "@components/TaskEditModal";
 import tasksService from "@services/task.service";
 import { useEffect, useState, useContext } from "react";
 import { Button } from "@mui/material";
@@ -89,7 +89,7 @@ function AddTask({ setAllTasks, open, setOpen }) {
       </IconButton>
 
       <DialogContent sx={{ p: "20px 10px 15px" }}>
-        <TaskModal formInputs={formInputs} setFormInputs={setFormInputs} />{" "}
+        <TaskEditModal formInputs={formInputs} setFormInputs={setFormInputs} />{" "}
         <DialogActions>
           <Button
             onClick={handleSaveButton}

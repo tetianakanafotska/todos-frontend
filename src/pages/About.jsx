@@ -8,14 +8,11 @@ function About() {
   return (
     <Box component="main" className="about">
       <Typography
-        variant="h2"
+        variant="h3"
         component="h1"
         sx={{ marginBottom: "20px", fontWeight: "bold" }}
       >
         How It Works:
-      </Typography>
-      <Typography gutterBottom>
-        A modern kanban app with a drag-and-drop feature and a stylish design.
       </Typography>
       <List sx={{ marginBottom: "20px" }}>
         <ListItem sx={{ pl: "0" }}>
@@ -33,14 +30,14 @@ function About() {
         <ListItem sx={{ pl: "0" }}>
           <Typography>
             <strong>Achieve:</strong> Watch your progress as you drag tasks
-            across your board, bringing you closer to your goals.
+            across your board.
           </Typography>
         </ListItem>
       </List>
       <Typography gutterBottom>
         Upload your user profile picture and go!
       </Typography>
-      <Typography variant="subtitle1" component="p" sx={{ marginTop: "30px" }}>
+      <Typography component="p" sx={{ marginTop: "30px", fontWeight: "700" }}>
         Check this project on GitHub:
       </Typography>
       <Box

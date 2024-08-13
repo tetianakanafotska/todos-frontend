@@ -2,11 +2,10 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "@context/userContext";
 import userService from "@services/user.service.js";
 import imageService from "@services/image.service";
-import isEqual from "lodash/isEqual";
-import UserModal from "../components/UserModal";
+import { UserImageModal, UserProfileForm } from "@/components";
 import Avatar from "@mui/material/Avatar";
 
-import { IconButton, TextField, Button, Box } from "@mui/material";
+import { IconButton, Box } from "@mui/material";
 
 function UserPage() {
   const { user, setUser } = useContext(UserContext);
@@ -33,11 +32,6 @@ function UserPage() {
       });
     }
   }, [user]);
-
-  const handleOnChange = (e) => {
-    const { id, value } = e.target;
-    setUserData((prev) => ({ ...prev, [id]: value }));
-  };
 
   const handleUpload = async (e) => {
     setApiLoading("started");
@@ -102,14 +96,6 @@ function UserPage() {
     }
   };
 
-  const isUserDataChanged = !isEqual(
-    {
-      name: userData.name,
-      email: userData.email,
-    },
-    { name: user.name, email: user.email }
-  );
-
   const renderImageOrAvatar = () => {
     return (
       <>
@@ -153,7 +139,7 @@ function UserPage() {
           },
         }}
       >
-        <UserModal
+        <UserImageModal
           openModal={openModal}
           setOpenModal={setOpenModal}
           apiLoading={apiLoading}
@@ -165,7 +151,7 @@ function UserPage() {
           handleSave={handleSave}
           userData={userData}
           setUserData={setUserData}
-        ></UserModal>
+        ></UserImageModal>
 
         <Box onClick={() => setOpenModal(true)}>
           {renderImageOrAvatar()}
@@ -179,33 +165,11 @@ function UserPage() {
           />
         </Box>
 
-        <TextField
-          id="name"
-          label="Name"
-          type="text"
-          variant="outlined"
-          value={userData.name}
-          onChange={handleOnChange}
-          fullWidth
+        <UserProfileForm
+          userData={userData}
+          setUserData={setUserData}
+          handleSave={handleSave}
         />
-        <TextField
-          id="email"
-          label="Email"
-          type="email"
-          variant="outlined"
-          value={userData.email}
-          onChange={handleOnChange}
-          fullWidth
-        />
-
-        <Button
-          fullWidth
-          variant="contained"
-          disabled={!isUserDataChanged}
-          onClick={handleSave}
-        >
-          Save
-        </Button>
       </Box>
     </Box>
   );

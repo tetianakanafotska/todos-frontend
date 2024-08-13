@@ -1,13 +1,16 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import TaskModal from "@components/TaskModal";
+import TaskEditModal from "@components/TaskEditModal";
 import CloseIcon from "@mui/icons-material/Close";
 import tasksService from "@services/task.service";
 import { UserContext } from "@context/userContext";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import { IconButton, Button } from "@mui/material";
+import {
+  IconButton,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 
 function EditTask({ allTasks, setAllTasks, open, setOpen }) {
   const { user } = useContext(UserContext);
@@ -73,7 +76,7 @@ function EditTask({ allTasks, setAllTasks, open, setOpen }) {
         <CloseIcon />
       </IconButton>
       <DialogContent sx={{ p: "30px 10px 15px", mt: "20px" }}>
-        <TaskModal formInputs={formInputs} setFormInputs={setFormInputs} />
+        <TaskEditModal formInputs={formInputs} setFormInputs={setFormInputs} />
         <DialogActions>
           <Button
             onClick={handleSave}

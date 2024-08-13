@@ -8,7 +8,7 @@ import CustomDatePicker from "./CustomDatePicker";
 import CustomTextField from "./CustomTextField";
 import { Box, Container, Divider } from "@mui/material";
 
-function TaskModal({ formInputs, setFormInputs }) {
+function TaskEditModal({ formInputs, setFormInputs }) {
   const handleCreatedDate = (e) => {
     setFormInputs((prev) => ({ ...prev, createdAt: e }));
   };
@@ -129,4 +129,4 @@ function TaskModal({ formInputs, setFormInputs }) {
   );
 }
 
-export default TaskModal;
+export default TaskEditModal;

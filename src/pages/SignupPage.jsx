@@ -22,8 +22,8 @@ function SignupPage() {
     e.preventDefault();
     authService
       .signup(data)
-      .then((createdUser) => {
-        console.log(createdUser), navigate("/login");
+      .then(() => {
+        navigate("/login");
       })
       .catch((err) => {
         console.error("Error while creating a user", err);

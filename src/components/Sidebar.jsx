@@ -21,6 +21,8 @@ function Sidebar() {
   useEffect(() => {
     if (user.profileImg) {
       setProfileUrl(user.profileImg.url);
+    } else {
+      setProfileUrl(null);
     }
   }, [user]);
 

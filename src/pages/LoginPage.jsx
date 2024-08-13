@@ -87,6 +87,7 @@ function LoginPage() {
               onClose={() => {
                 setErrorMessage(null);
               }}
+              sx={{ mb: "20px" }}
             >
               {errorMessage}
             </Alert>

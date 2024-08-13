@@ -29,11 +29,10 @@ function UserModal({
   handleSave,
 }) {
   const { user } = useContext(UserContext);
-
   const renderImageOrAvatar = () => {
     return (
       <>
-        {apiLoading === "idle" && (
+        {apiLoading === "idle" && !user.profileImg?.url && (
           <Avatar
             className="avatar"
             sx={{
@@ -43,6 +42,17 @@ function UserModal({
           >
             {userData.name[0]}
           </Avatar>
+        )}
+
+        {apiLoading === "idle" && user.profileImg?.url && (
+          <img
+            key={Date.now()}
+            src={user.profileImg.url}
+            alt="profile picture"
+            onLoad={() => setImgLoading(false)}
+            onClick={() => uploadFileRef.current.click()}
+            style={{ display: `${imgLoading ? "none" : "block"}` }}
+          />
         )}
 
         {(apiLoading === "started" || imgLoading) && (
@@ -82,7 +92,7 @@ function UserModal({
     if (apiLoading === "idle") {
       return (
         <>
-          {!user.profileImg ? (
+          {!user.profileImg?.url ? (
             <Button
               variant="contained"
               onClick={() => uploadFileRef.current.click()}
