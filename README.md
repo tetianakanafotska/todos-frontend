@@ -1,26 +1,43 @@
-# Flowboard
-Flowboard is a Kanban-style project management tool designed to help individuals manage tasks. It offers a simple, intuitive interface for tracking tasks across different stages of completion — from "To Do," through "In Progress," to "Done."
+# Todos App
+
+## Overview
+
+Todos is a modern task management application tailored for solo users who seek a clean, intuitive interface without unnecessary clutter. The app offers essential features such as drag-and-drop task organization, priority tagging, and secure JWT user authentication, all wrapped in a responsive and aesthetically pleasing design.
+
 ## Features
-- **Dashboard**: Visualize all tasks across different columns based on their status.
-- **Task Management**: Add, edit, and delete tasks using a simple form-based interface.
-- **Persistent Storage**: Tasks are saved in the local storage to ensure data is not lost between sessions.
-- **Responsive Design**: Adapt to different screen sizes for ease of use on any device.
-## Technology Stack
-- **React**: A JavaScript library for building user interfaces.
-- **Material-UI**: A popular React UI framework that provides ready-to-use components.
-- **React Router**: For navigation within the application, allowing users to bookmark and share URLs.
-## Pages and Routes
-- **/:** The main dashboard where tasks are displayed.
-- **/about:** Information about the Flowboard application.
-- **/:taskId:** Detailed view and edit interface for a specific task.
-- **/addTask:** Interface to add a new task.
-- ***:** Catch-all route that displays an error page for any unrecognized URLs.
-## Components
-- **Navbar**: Top navigation bar that remains consistent across all pages.
-- **Sidebar**: Side navigation offering additional navigation options within the app.
-- **Footer**: Footer content that provides additional information or links.
-- **TaskList**: Displays tasks filtered by their current status.
-- **TaskEditor**: Form used for detailed task editing.
-- **AddTask**: Form for creating new tasks.
-## Contributing
-Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or create a pull request.
+
+- **Effortless Drag and Drop:** Easily organize tasks by dragging and dropping them into different categories (To Do, In Progress, Done).
+- **Priority Tags:** Quickly assign priority levels (High, Medium, Low) to tasks for better focus and organization.
+- **Responsive Design:** A clean and responsive layout that works well on both desktop and mobile devices.
+
+## Pages
+
+- **Landing Page:** `/` - The entry point of the app, showcasing its features and inviting users to sign up or log in.
+- **Dashboard:** `/dashboard` - The main task management interface, where authenticated users can manage their tasks.
+- **User Profile:** `/profile` - This page allows users to manage their profile settings.
+- **About:** `/about` - A public page providing information about the app.
+- **Login and Signup:** `/login` and `/signup` - Public pages for user authentication.
+- **Error Page:** `/404` - A fallback for undefined routes.
+- **Edit Task:** `/tasks/:taskId` - Allows users to edit a specific task. Protected route for authenticated users.
+- **Add Task:** `/addTask/:taskType` - Allows users to add a new task. Protected route for authenticated users.
+
+## Dependencies
+
+- **React:** Core library for building the user interface.
+- **@mui/material:** Material UI components for a consistent and professional design.
+- **@emotion/react & @emotion/styled:** CSS-in-JS library for styling components.
+- **react-beautiful-dnd:** Provides drag-and-drop functionality for tasks.
+- **axios:** For handling HTTP requests.
+- **dayjs:** A lightweight date manipulation library.
+- **lodash:** Utility library for data manipulation.
+- **react-router-dom:** For routing and navigation.
+
+## Dev Dependencies
+
+- **Vite:** A fast development build tool.
+- **ESLint:** For identifying and fixing JavaScript and JSX issues.
+- **Sass:** A CSS preprocessor to make styles more maintainable.
+
+## License
+
+This project is open-source and available under the MIT License.
