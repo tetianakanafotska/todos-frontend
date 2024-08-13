@@ -2,9 +2,7 @@ import React from "react";
 import TaskCard from "./TaskCard";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useNavigate } from "react-router-dom";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import Typography from "@mui/material/Typography";
+import { Card, CardActions, Typography, Stack } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -28,18 +26,23 @@ function TaskList({ taskType, tasks }) {
         p: "14px 14px 0",
         bgcolor: "#F1F1F1",
         boxShadow: "none",
-        position: "relative",
       }}
     >
-      <Typography
-        variant="subtitle1"
-        component="h3"
-        sx={{ margin: "10px 0 5px 10px", color: "black.light" }}
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ margin: "5px 5px 10px" }}
       >
-        {getName(taskType)}
-      </Typography>
-
-      {tasks.length > 0 && <div id="total-badge">{tasks.length}</div>}
+        <Typography
+          variant="subtitle1"
+          component="h3"
+          sx={{ color: "black.light" }}
+        >
+          {getName(taskType)}
+        </Typography>
+        {tasks.length > 0 && <div id="total-badge">{tasks.length}</div>}
+      </Stack>
 
       <Droppable droppableId={taskType}>
         {(provided) => (

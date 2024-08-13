@@ -6,6 +6,7 @@ import TaskList from "./TaskList.jsx";
 import IsAnon from "./IsAnon.jsx";
 import IsPrivate from "./IsPrivate.jsx";
 import Loading from "./Loading.jsx";
+import Layout from "./Layout.jsx";
 
 export {
   Navbar,
@@ -16,4 +17,5 @@ export {
   IsPrivate,
   IsAnon,
   Loading,
+  Layout,
 };

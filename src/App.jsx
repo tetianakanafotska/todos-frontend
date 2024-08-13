@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Navbar, Sidebar, IsPrivate, IsAnon } from "@components";
+import { Layout, IsPrivate, IsAnon } from "@components";
 import {
   Dashboard,
   About,
@@ -14,24 +14,33 @@ import LandingPage from "./pages/LandingPage";
 function App() {
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route
           path="/dashboard"
           element={
             <IsPrivate>
-              <Dashboard />
+              <Layout>
+                <Dashboard />
+              </Layout>
             </IsPrivate>
           }
         />
-        <Route path="/about" element={<About />} />
+        <Route
+          path="/about"
+          element={
+            <Layout>
+              <About />
+            </Layout>
+          }
+        />
         <Route
           path="/tasks/:taskId"
           element={
             <IsPrivate>
-              <Dashboard />
+              <Layout>
+                <Dashboard />
+              </Layout>
             </IsPrivate>
           }
         />
@@ -39,7 +48,9 @@ function App() {
           path="/addTask/:taskType"
           element={
             <IsPrivate>
-              <Dashboard />
+              <Layout>
+                <Dashboard />
+              </Layout>
             </IsPrivate>
           }
         />
@@ -59,12 +70,13 @@ function App() {
             </IsAnon>
           }
         />
-        {/* change later to user name */}
         <Route
           path="/profile"
           element={
             <IsPrivate>
-              <UserPage />
+              <Layout>
+                <UserPage />
+              </Layout>
             </IsPrivate>
           }
         />
