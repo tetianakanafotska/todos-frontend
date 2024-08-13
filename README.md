@@ -4,6 +4,8 @@
 
 Todos is a modern task management application tailored for solo users who seek a clean, intuitive interface without unnecessary clutter. The app offers essential features such as drag-and-drop task organization, priority tagging, and secure user authentication, all wrapped in a responsive and aesthetically pleasing design.
 
+This application is built as a full-stack MERN (MongoDB, Express, React, Node.js) stack app.
+
 ## Features
 
 - **Effortless Drag and Drop:** Easily organize tasks by dragging and dropping them into different categories (To Do, In Progress, Done).
