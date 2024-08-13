@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
+import "./App.sass";
 import { Layout, IsPrivate, IsAnon } from "@components";
 import {
   Dashboard,

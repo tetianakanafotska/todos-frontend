@@ -161,7 +161,7 @@ function UserModal({
         <CloseIcon />
       </IconButton>
       <DialogContent>
-        <Box className="pic-container">{renderImageOrAvatar()}</Box>
+        <Box className="modal-container">{renderImageOrAvatar()}</Box>
         <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
           {renderButtons()}
         </DialogActions>

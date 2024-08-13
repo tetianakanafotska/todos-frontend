@@ -121,7 +121,7 @@ function Dashboard() {
           component="main"
           sx={{ ml: "80px" }}
           width="calc(100vw - 80px)"
-          className="dashboard-main"
+          className="main-container"
         >
           <Grid item lg={4} md={4} sm={12} xs={12}>
             {loading ? (

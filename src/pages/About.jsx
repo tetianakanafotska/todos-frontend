@@ -6,7 +6,7 @@ import Link from "@mui/material/Link";
 
 function About() {
   return (
-    <Box component="main" className="about">
+    <Box component="main" className="main-container">
       <Typography
         variant="h3"
         component="h1"

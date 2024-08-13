@@ -89,12 +89,13 @@ function LandingPage() {
         }}
       >
         <Typography variant="h2" className="title">
-          Designed for Individuals Like You
+          Designed with Solo Users in Mind
         </Typography>
 
         <Typography variant="h3" className="description" sx={{ mb: "70px" }}>
-          Todo is crafted with the solo user in mind. No complicated setups, no
-          team management — just you and your tasks.
+          Enjoy a sleek design that keeps you focused on what matters. No
+          clutter, no distractions — just a clean, intuitive space tailored for
+          you.
         </Typography>
         <Box
           className="container"
@@ -181,7 +182,7 @@ function LandingPage() {
           className="description"
           sx={{ mt: "20px", maxWidth: "50rem !important" }}
         >
-          Sign up and start organizing your tasks in seconds.
+          Sign up and start organizing your tasks within seconds.
         </Typography>
         <CustomButton
           variant="contained"

@@ -127,9 +127,13 @@ function UserPage() {
   };
 
   return (
-    <Box className="user" component="main">
+    <Box
+      className="main-container"
+      component="main"
+      sx={{ display: "flex", justifyContent: "center" }}
+    >
       <Box
-        className="form-container"
+        className="user-info"
         sx={{
           width: {
             xs: "90%",

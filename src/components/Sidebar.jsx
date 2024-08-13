@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import useOutsideClick from "../hooks/useOutsideClick";
 import { UserContext } from "@context/userContext";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -7,8 +7,7 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import GridViewSharpIcon from "@mui/icons-material/GridViewSharp";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import HelpIcon from "@mui/icons-material/Help";
-import { IconButton, Typography, Avatar } from "@mui/material";
-import { Stack, Box } from "@mui/material";
+import { IconButton, Typography, Avatar, Stack, Box } from "@mui/material";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +27,11 @@ function Sidebar() {
 
   return (
     <>
-      <Stack component="aside" ref={ref} className={isOpen ? "opened" : ""}>
+      <Stack
+        component="aside"
+        ref={ref}
+        className={isOpen ? "sidebar opened" : "sidebar"}
+      >
         <Box sx={{ m: "0 0 15px 5px" }}>
           <IconButton
             onClick={() => setIsOpen(!isOpen)}
@@ -55,6 +58,7 @@ function Sidebar() {
                   width: "45px",
                   height: "45px",
                   borderRadius: "50%",
+                  objectFit: "cover",
                 }}
               />
             </IconButton>
@@ -75,6 +79,7 @@ function Sidebar() {
 
           <Typography
             variant="body1"
+            component="span"
             sx={{
               fontWeight: "700",
               "&:hover": {
