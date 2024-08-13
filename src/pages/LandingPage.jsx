@@ -188,7 +188,7 @@ function LandingPage() {
           color="primary"
           endIcon={<CallMadeIcon />}
           onClick={() => navigate("/dashboard")}
-          styling={{ m: "40px 0", color: "#fff" }}
+          styling={{ m: "40px 0" }}
         >
           Try for free
         </CustomButton>

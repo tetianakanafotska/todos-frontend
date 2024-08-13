@@ -1,47 +1,63 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Container, List, ListItem } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "@mui/material/Link";
 
 function About() {
   return (
-    <Box component="main" className="about" maxWidth={"730px"}>
-      <Typography variant="h2" sx={{ margin: "40px 0 20px" }}>
+    <Box component="main" className="about">
+      <Typography
+        variant="h2"
+        component="h1"
+        sx={{ marginBottom: "20px", fontWeight: "bold" }}
+      >
         How It Works:
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography gutterBottom>
         A modern kanban app with a drag-and-drop feature and a stylish design.
-        <ul>
-          <li>
-            Organize: Create tasks and arrange them in three straightforward
-            sections: To Do, In Progress, and Done.
-          </li>
-          <li>
-            Prioritize: Use color-coded priority tags to highlight what's
-            important.
-          </li>
-          <li>
-            Achieve: Watch your progress as you drag tasks across your board,
-            bringing you closer to your goals.
-          </li>
-        </ul>
-        <br /> Upload your user profile picture and go!
       </Typography>
-
-      <Typography>Check this project on Github:</Typography>
+      <List sx={{ marginBottom: "20px" }}>
+        <ListItem sx={{ pl: "0" }}>
+          <Typography>
+            <strong>Organize:</strong> Create tasks and arrange them in three
+            straightforward sections: To Do, In Progress, and Done.
+          </Typography>
+        </ListItem>
+        <ListItem sx={{ pl: "0" }}>
+          <Typography>
+            <strong>Prioritize:</strong> Use color-coded priority tags to
+            highlight what's important.
+          </Typography>
+        </ListItem>
+        <ListItem sx={{ pl: "0" }}>
+          <Typography>
+            <strong>Achieve:</strong> Watch your progress as you drag tasks
+            across your board, bringing you closer to your goals.
+          </Typography>
+        </ListItem>
+      </List>
+      <Typography gutterBottom>
+        Upload your user profile picture and go!
+      </Typography>
+      <Typography variant="subtitle1" component="p" sx={{ marginTop: "30px" }}>
+        Check this project on GitHub:
+      </Typography>
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: "5px",
-          margin: "10px 0",
+          gap: "8px",
+          marginTop: "10px",
         }}
       >
-        <GitHubIcon />
+        <GitHubIcon sx={{ fontSize: "24px" }} />
         <Link
-          variant="body1"
           href="https://github.com/tetianakanafotska/flowboard-frontend"
+          variant="body1"
+          color="primary"
+          sx={{ fontWeight: "bold" }}
+          underline="hover"
         >
           Todo.
         </Link>

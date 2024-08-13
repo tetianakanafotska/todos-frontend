@@ -90,13 +90,13 @@ function TaskModal({ formInputs, setFormInputs }) {
                 value={value}
                 label={value
                   .replace(/([A-Z])/g, " $1")
-                  .replace(/\b\w/g, (char) => char.toUpperCase())
-                  .trim()}
+                  .toLowerCase()
+                  .replace(/^\w/, (c) => c.toUpperCase())}
               />
             )}
           >
-            <Chip value="toDo" label="To Do" sx={{ margin: "0 9px" }} />
-            <Chip value="inProgress" label="In Progress" />
+            <Chip value="toDo" label="To do" sx={{ margin: "0 9px" }} />
+            <Chip value="inProgress" label="In progress" />
             <Chip value="done" label="Done" sx={{ margin: "0 9px" }} />
           </Select>
         </Box>

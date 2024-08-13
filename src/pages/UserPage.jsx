@@ -110,24 +110,41 @@ function UserPage() {
     { name: user.name, email: user.email }
   );
 
+  const renderImageOrAvatar = () => {
+    return (
+      <>
+        {userData.profileImg.url && !imgLoading && (
+          <IconButton sx={{ margin: "10px 0 25px" }}>
+            <img
+              key={Date.now()}
+              src={userData.profileImg.url}
+              alt="profile picture"
+              style={{ width: 200, height: 200, borderRadius: "50%" }}
+            />
+          </IconButton>
+        )}
+        {(!userData.profileImg.url || imgLoading) && (
+          <IconButton sx={{ margin: "10px 0 25px" }}>
+            <Avatar
+              className="avatar"
+              sx={{
+                bgcolor: "tags.medium.main",
+                color: "black.light",
+              }}
+            >
+              {user.name[0]}
+            </Avatar>
+          </IconButton>
+        )}
+      </>
+    );
+  };
+
   return (
-    <Box
-      className="user"
-      component="main"
-      sx={{
-        p: "30px 5vw",
-        ml: "80px",
-        transition: "all 0.5s ease",
-        width: "calc(100vw - 80px)",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <Box className="user" component="main">
       <Box
+        className="form-container"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
           width: {
             xs: "90%",
             sm: "60%",
@@ -151,30 +168,7 @@ function UserPage() {
         ></UserModal>
 
         <Box onClick={() => setOpenModal(true)}>
-          {userData.profileImg.url ? (
-            <IconButton sx={{ margin: "10px 0 25px" }}>
-              <img
-                key={Date.now()}
-                src={userData.profileImg.url}
-                alt="profile picture"
-                style={{ width: 200, height: 200, borderRadius: "50%" }}
-              />
-            </IconButton>
-          ) : (
-            <IconButton sx={{ margin: "10px 0 25px" }}>
-              <Avatar
-                sx={{
-                  width: 200,
-                  height: 200,
-                  bgcolor: "tags.medium.main",
-                  color: "black.light",
-                  fontSize: "2rem",
-                }}
-              >
-                {user.name[0]}
-              </Avatar>
-            </IconButton>
-          )}
+          {renderImageOrAvatar()}
           <input
             type="file"
             ref={uploadFileRef}

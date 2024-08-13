@@ -20,15 +20,63 @@ function UserModal({
   setOpenModal,
   apiLoading,
   setApiLoading,
+  userData,
   setUserData,
   imgLoading,
   setImgLoading,
   uploadFileRef,
   handleDeletePic,
   handleSave,
-  userData,
 }) {
   const { user } = useContext(UserContext);
+
+  const renderImageOrAvatar = () => {
+    return (
+      <>
+        {apiLoading === "idle" && (
+          <Avatar
+            className="avatar"
+            sx={{
+              bgcolor: "tags.medium.main",
+              color: "black.light",
+            }}
+          >
+            {userData.name[0]}
+          </Avatar>
+        )}
+
+        {(apiLoading === "started" || imgLoading) && (
+          <>
+            <CircularProgress
+              size={208}
+              thickness={1}
+              sx={{ position: "absolute", top: "46px" }}
+            />
+            <Avatar
+              className="avatar"
+              sx={{
+                bgcolor: "tags.medium.main",
+                color: "black.light",
+              }}
+            >
+              {userData.name[0]}
+            </Avatar>
+          </>
+        )}
+
+        {apiLoading === "completed" && (
+          <img
+            key={Date.now()}
+            src={userData.profileImg.url}
+            alt="profile picture"
+            onLoad={() => setImgLoading(false)}
+            onClick={() => uploadFileRef.current.click()}
+            style={{ display: `${imgLoading ? "none" : "block"}` }}
+          />
+        )}
+      </>
+    );
+  };
 
   const renderButtons = () => {
     if (apiLoading === "idle") {
@@ -47,7 +95,11 @@ function UserModal({
               <Button
                 variant="contained"
                 onClick={() => uploadFileRef.current.click()}
-                startIcon={<ModeEditOutlineOutlinedIcon />}
+                startIcon={
+                  <ModeEditOutlineOutlinedIcon
+                    sx={{ fontSize: "18px !important" }}
+                  />
+                }
               >
                 Change
               </Button>
@@ -99,44 +151,7 @@ function UserModal({
         <CloseIcon />
       </IconButton>
       <DialogContent>
-        <Box
-          sx={{
-            margin: "10px 0",
-            padding: "20px 50px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          {(apiLoading === "started" || imgLoading) && (
-            <CircularProgress
-              size={220}
-              thickness={2}
-              sx={{ position: "absolute", top: "40px" }}
-            />
-          )}
-          {userData.profileImg.url ? (
-            <img
-              key={Date.now()}
-              src={userData.profileImg.url}
-              alt="profile picture"
-              onLoad={() => setImgLoading(false)}
-              onClick={() => uploadFileRef.current.click()}
-            />
-          ) : (
-            <Avatar
-              sx={{
-                width: 200,
-                height: 200,
-                bgcolor: "tags.medium.main",
-                color: "black.light",
-                fontSize: "2rem",
-              }}
-            >
-              {userData.name[0]}
-            </Avatar>
-          )}
-        </Box>
+        <Box className="pic-container">{renderImageOrAvatar()}</Box>
         <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
           {renderButtons()}
         </DialogActions>
