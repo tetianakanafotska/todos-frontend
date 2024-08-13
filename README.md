@@ -2,7 +2,7 @@
 
 ## Overview
 
-Todos is a modern task management application tailored for solo users who seek a clean, intuitive interface without unnecessary clutter. The app offers essential features such as drag-and-drop task organization, priority tagging, and secure JWT user authentication, all wrapped in a responsive and aesthetically pleasing design.
+Todos is a modern task management application tailored for solo users who seek a clean, intuitive interface without unnecessary clutter. The app offers essential features such as drag-and-drop task organization, priority tagging, and secure user authentication, all wrapped in a responsive and aesthetically pleasing design.
 
 ## Features
 
@@ -21,22 +21,39 @@ Todos is a modern task management application tailored for solo users who seek a
 - **Edit Task:** `/tasks/:taskId` - Allows users to edit a specific task. Protected route for authenticated users.
 - **Add Task:** `/addTask/:taskType` - Allows users to add a new task. Protected route for authenticated users.
 
-## Dependencies
+## Project Dependencies
 
-- **React:** Core library for building the user interface.
-- **@mui/material:** Material UI components for a consistent and professional design.
-- **@emotion/react & @emotion/styled:** CSS-in-JS library for styling components.
-- **react-beautiful-dnd:** Provides drag-and-drop functionality for tasks.
-- **axios:** For handling HTTP requests.
-- **dayjs:** A lightweight date manipulation library.
-- **lodash:** Utility library for data manipulation.
-- **react-router-dom:** For routing and navigation.
+### Frontend Dependencies
 
-## Dev Dependencies
+- **React**: Core library for building the UI.
+- **@mui/material**: Material UI components for design consistency.
+- **@emotion/react & @emotion/styled**: CSS-in-JS for styling.
+- **react-beautiful-dnd**: Drag-and-drop functionality.
+- **axios**: For HTTP requests.
+- **dayjs**: Date manipulation.
+- **lodash**: Utility functions.
+- **react-router-dom**: Routing and navigation.
 
-- **Vite:** A fast development build tool.
-- **ESLint:** For identifying and fixing JavaScript and JSX issues.
-- **Sass:** A CSS preprocessor to make styles more maintainable.
+### Backend Dependencies
+
+- **axios**: For making HTTP requests.
+- **bcryptjs**: For hashing passwords.
+- **cloudinary**: For image uploads and management.
+- **cors**: Middleware for enabling Cross-Origin Resource Sharing.
+- **dotenv**: For environment variable management.
+- **express**: Web framework for Node.js.
+- **jsonwebtoken**: For JSON Web Token authentication.
+- **morgan**: HTTP request logger middleware for Node.js.
+- **multer**: Middleware for handling multipart/form-data (file uploads).
+- **multer-storage-cloudinary**: Cloudinary storage engine for multer.
+
+### Dev Dependencies
+
+- **Vite**: Fast development build tool (Frontend).
+- **ESLint**: For code linting (Frontend).
+- **Sass**: CSS preprocessor for maintainable styles (Frontend).
+- **mongoose**: MongoDB object modeling tool (Backend).
+- **nodemon**: Automatically restart the server on code changes (Backend).
 
 ## License
 
