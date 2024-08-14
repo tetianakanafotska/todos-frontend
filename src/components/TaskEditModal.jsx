@@ -1,6 +1,7 @@
 import React from "react";
 import dayjs from "dayjs";
 import Typography from "@mui/material/Typography";
+import tasksService from "@services/task.service";
 import Chip from "@mui/material/Chip";
 import Select from "@mui/material/Select";
 import { InputBase } from "@mui/material";
@@ -20,6 +21,22 @@ function TaskEditModal({ formInputs, setFormInputs }) {
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormInputs((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleTypeChange = (e) => {
+    const { value } = e.target;
+    tasksService.getByType(value).then((tasksOfType) => {
+      const maxIndex = Math.max(
+        ...tasksOfType.data.map((task) => task.position),
+        0
+      );
+      const nextIndex = tasksOfType.data.length === 0 ? 1 : maxIndex + 1;
+      setFormInputs((prev) => ({
+        ...prev,
+        type: value,
+        position: nextIndex,
+      }));
+    });
   };
 
   return (
@@ -83,7 +100,7 @@ function TaskEditModal({ formInputs, setFormInputs }) {
             name="type"
             defaultValue="toDo"
             value={formInputs.type}
-            onChange={handleOnChange}
+            onChange={handleTypeChange}
             input={<InputBase sx={{ "& svg": { display: "none" } }} />}
             renderValue={(value) => (
               <Chip

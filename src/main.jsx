@@ -7,6 +7,7 @@ import { UserProviderWrapper } from "@context/userContext.jsx";
 import MuiTheme from "@context/muiTheme.jsx";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { TaskProvider } from "@context/taskContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserProviderWrapper>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MuiTheme>
-            <App />
+            <TaskProvider>
+              <App />
+            </TaskProvider>
           </MuiTheme>
         </LocalizationProvider>
       </UserProviderWrapper>

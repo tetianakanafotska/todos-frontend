@@ -93,7 +93,7 @@ function LandingPage() {
         ref={featuresRef}
         sx={{
           pt: {
-            xs: "6rem",
+            xs: "10rem",
             sm: "22rem",
             md: "15rem",
             lg: "26rem",

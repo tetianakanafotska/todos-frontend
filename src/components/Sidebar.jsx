@@ -47,7 +47,6 @@ function Sidebar() {
             <MenuIcon />
           </IconButton>
         </Box>
-
         <NavLink to="/profile" className="userInfo">
           {profileUrl ? (
             <IconButton sx={{ padding: "2px" }}>

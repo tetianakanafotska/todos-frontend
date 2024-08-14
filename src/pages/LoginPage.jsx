@@ -2,13 +2,16 @@ import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "@context/authContext.jsx";
 import authService from "@services/auth.service.js";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Alert from "@mui/material/Alert";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { Stack } from "@mui/material";
+import {
+  Button,
+  Alert,
+  Typography,
+  Box,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { signup } from "@/assets";
+import { logoWhite } from "@/assets";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -43,7 +46,22 @@ function LoginPage() {
 
   return (
     <Stack direction="row">
-      <Box sx={{ height: "100vh", width: "30%" }}>
+      <Box sx={{ height: "100vh" }}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "100px",
+            left: "40px",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/")}
+        >
+          <img src={logoWhite} alt="Logo" width="170px" />
+          <Typography sx={{ color: "#fff", fontWeight: "200" }}>
+            Your personal productivity space
+          </Typography>
+        </Box>
+
         <img
           src={signup}
           alt=""
