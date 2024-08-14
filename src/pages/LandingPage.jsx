@@ -89,7 +89,7 @@ function LandingPage() {
         }}
       >
         <Typography variant="h2" className="title">
-          Designed with Solo Users in Mind
+          Designed with a Solo User in Mind
         </Typography>
 
         <Typography variant="h3" className="description" sx={{ mb: "70px" }}>
@@ -175,7 +175,7 @@ function LandingPage() {
           m: "3% 5% 2%",
         }}
       >
-        <Typography variant="h2" className="cta">
+        <Typography variant="h2" sx={{ textAlign: "center" }}>
           It's easy to get started
         </Typography>
         <Typography

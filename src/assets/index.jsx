@@ -6,7 +6,7 @@ import logoGreen from "./logo-green.png";
 import logoWhite from "./logo-white.png";
 import logo from "./logo.png";
 import mockup from "./mockup.png";
-import signup from "./signup.png";
+import signup from "./signup.jpeg";
 import tagsscreen from "./tagsscreen.png";
 
 export {
