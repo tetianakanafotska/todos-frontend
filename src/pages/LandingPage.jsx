@@ -25,6 +25,10 @@ function LandingPage() {
         component="header"
         sx={{
           bgcolor: "primary.main",
+          height: {
+            xs: "100vh",
+            md: "120vh",
+          },
         }}
       >
         <Stack component="nav">
@@ -67,7 +71,15 @@ function LandingPage() {
             </CustomButton>
           </Box>
         </Box>
-        <Box sx={{ width: "80%" }}>
+        <Box
+          sx={{
+            width: {
+              xs: "100%",
+              md: "81%",
+              lg: "81%",
+            },
+          }}
+        >
           <img
             src={mockup}
             alt="dashboard screenshot"
@@ -81,10 +93,10 @@ function LandingPage() {
         ref={featuresRef}
         sx={{
           pt: {
-            xs: "5rem",
-            sm: "11rem",
-            md: "18rem",
-            lg: "35rem",
+            xs: "6rem",
+            sm: "22rem",
+            md: "15rem",
+            lg: "26rem",
           },
         }}
       >
