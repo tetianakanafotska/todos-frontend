@@ -45,7 +45,6 @@ function AddTask({ open, setOpen }) {
       const tasksOfType = tasks[formInputs.type] || [];
       const maxIndex = Math.max(...tasksOfType.map((task) => task.position), 0);
       const nextIndex = tasksOfType.length === 0 ? 1 : maxIndex + 1;
-
       const savedTask = await tasksService.post({
         ...formInputs,
         position: nextIndex,

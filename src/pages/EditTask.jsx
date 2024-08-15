@@ -51,14 +51,13 @@ function EditTask({ open, setOpen }) {
 
   const handleSave = async () => {
     try {
-      const savedTask = await tasksService.put(taskId, {
-        ...formInputs,
-        user: user._id,
-      });
-      const updatedTasks = tasks.map((task) =>
-        task._id === taskId ? savedTask.data : task
+      const updatedTask = tasks.map((task) =>
+        task._id === taskId ? { ...task, ...formInputs } : task
       );
-      setTasks(updatedTasks);
+      setTasks(updatedTask);
+      await tasksService.put(taskId, {
+        ...formInputs,
+      });
       setOpen(false);
       navigate("/dashboard");
     } catch (err) {
