@@ -33,7 +33,12 @@ function LandingPage() {
       >
         <Stack component="nav">
           <Box sx={{ width: "100px" }}>
-            <img src={logoWhite} alt="Logo" className="img-styling" />
+            <img
+              src={logoWhite}
+              alt="Logo"
+              className="img-styling"
+              loading="lazy"
+            />
           </Box>
 
           <CustomButton
@@ -84,6 +89,7 @@ function LandingPage() {
             src={mockup}
             alt="dashboard screenshot"
             className="img-styling"
+            loading="lazy"
           />
         </Box>
       </Box>
@@ -143,6 +149,7 @@ function LandingPage() {
                 src={dragscreen}
                 alt="drag and drop depiction"
                 className="img-styling"
+                loading="lazy"
               />
             </Box>
           </Container>
@@ -176,6 +183,7 @@ function LandingPage() {
                 src={tagsscreen}
                 alt="tagging depiction"
                 className="img-styling"
+                loading="lazy"
               />
             </Box>
           </Container>
@@ -209,7 +217,12 @@ function LandingPage() {
       <Divider />
       <Stack component="footer" direction="row" spacing={3}>
         <Box sx={{ width: "100px", ml: "7% !important" }}>
-          <img src={logoBlack} alt="logo-black" className="img-styling" />
+          <img
+            src={logoBlack}
+            alt="logo-black"
+            className="img-styling"
+            loading="lazy"
+          />
         </Box>
         <Typography variant="body2">By Tetiana Kanafotska</Typography>
       </Stack>

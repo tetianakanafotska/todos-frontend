@@ -56,7 +56,7 @@ function LoginPage() {
           }}
           onClick={() => navigate("/")}
         >
-          <img src={logoWhite} alt="Logo" width="170px" />
+          <img src={logoWhite} alt="Logo" width="170px" loading="lazy" />
           <Typography sx={{ color: "#fff", fontWeight: "200" }}>
             Your personal productivity space
           </Typography>
@@ -66,6 +66,7 @@ function LoginPage() {
           src={signup}
           alt=""
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          loading="lazy"
         />
       </Box>
       <Box

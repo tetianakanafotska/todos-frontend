@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import authService from "@services/auth.service";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
+import {
+  Button,
+  Alert,
+  Typography,
+  Box,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { signup } from "@/assets";
-import { Stack } from "@mui/material";
+import { logoWhite } from "@/assets";
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -40,11 +43,27 @@ function SignupPage() {
 
   return (
     <Stack direction="row">
-      <Box sx={{ height: "100vh", width: "30%" }}>
+      <Box sx={{ height: "100vh" }}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "100px",
+            left: "40px",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/")}
+        >
+          <img src={logoWhite} alt="Logo" width="170px" loading="lazy" />
+          <Typography sx={{ color: "#fff", fontWeight: "200" }}>
+            Your personal productivity space
+          </Typography>
+        </Box>
+
         <img
           src={signup}
           alt=""
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          loading="lazy"
         />
       </Box>
       <Box
@@ -52,9 +71,9 @@ function SignupPage() {
         mt="10%"
         sx={{
           width: {
-            sx: "90%",
-            sm: "30%",
-            md: "27%",
+            sx: "97%",
+            sm: "40%",
+            md: "33%",
             lg: "27%",
             xl: "20%",
           },
