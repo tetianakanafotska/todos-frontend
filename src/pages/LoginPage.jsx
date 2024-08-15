@@ -131,7 +131,10 @@ function LoginPage() {
         </Box>
 
         <Typography variant="body2" mt="20px" align="center">
-          Don't have an account? <Link to="/signup">Sign up for free</Link>
+          Don't have an account?{" "}
+          <Link to="/signup" className="login-link">
+            Sign up for free
+          </Link>
         </Typography>
       </Box>
     </Stack>

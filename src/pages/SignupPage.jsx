@@ -162,7 +162,10 @@ function SignupPage() {
         </Box>
 
         <Typography variant="body2" mt="20px" align="center">
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account? {}
+          <Link to="/login" className="login-link">
+            Login
+          </Link>
         </Typography>
       </Box>
     </Stack>
