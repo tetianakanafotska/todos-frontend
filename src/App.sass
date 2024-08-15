@@ -174,11 +174,17 @@ body
   align-items: center
   @extend %user-pic
 
-.login form
-  display: flex
-  flex-direction: column
-  color: white
-  width: 100%
+.login-sidepic
+  width: 30%
+  height: 100vh
+  .text-container
+    position: absolute
+    top: 100px
+    left: 50px
+    cursor: pointer
+
+a:visited
+  color: #29BC94
 
 .MuiSkeleton-root
   width: calc(100vw - 80px)

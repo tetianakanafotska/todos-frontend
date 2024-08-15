@@ -9,6 +9,7 @@ import {
   Box,
   Stack,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import { signup } from "@/assets";
 import { logoWhite } from "@/assets";
@@ -17,6 +18,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(null);
 
   const navigate = useNavigate();
 
@@ -27,12 +29,16 @@ function LoginPage() {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const requestBody = { email, password };
     authService
       .login(requestBody)
       .then((response) => {
         storeToken(response.data.authToken);
-        authenticateUser();
+        return authenticateUser();
+      })
+      .then(() => {
+        setLoading(false);
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -47,24 +53,15 @@ function LoginPage() {
   return (
     <Stack direction="row" sx={{ overflow: "hidden" }}>
       <Box
+        className="login-sidepic"
         sx={{
-          width: "30%",
-          height: "100vh",
           display: {
             xs: "none",
             lg: "block",
           },
         }}
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "100px",
-            left: "40px",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/")}
-        >
+        <Box className="text-container" onClick={() => navigate("/")}>
           <img src={logoWhite} alt="Logo" width="170px" loading="lazy" />
           <Typography sx={{ color: "#fff", fontWeight: "200" }}>
             Your personal productivity space
@@ -129,7 +126,7 @@ function LoginPage() {
             onClick={handleLoginSubmit}
             sx={{ padding: "11px 16px" }}
           >
-            Login
+            {loading ? <CircularProgress size={25} /> : "Login"}
           </Button>
         </Box>
 
