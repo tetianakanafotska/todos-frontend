@@ -49,6 +49,7 @@ function Dashboard() {
 
     const taskMap = [...tasks];
     const sourceTasks = taskMap.filter((task) => task.type === sourceId);
+
     const destTasks =
       sourceId === destId
         ? sourceTasks
@@ -67,7 +68,13 @@ function Dashboard() {
     const remainingTasks = taskMap.filter(
       (task) => task.type !== sourceId && task.type !== destId
     );
-    const updatedTasks = [...remainingTasks, ...sourceTasks, ...destTasks];
+
+    let updatedTasks;
+    if (sourceId === destId) {
+      updatedTasks = [...remainingTasks, ...destTasks];
+    } else {
+      updatedTasks = [...remainingTasks, ...sourceTasks, ...destTasks];
+    }
     setTasks(updatedTasks);
     await tasksService.put(updatedTask._id, updatedTask);
   };
