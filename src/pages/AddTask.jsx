@@ -20,6 +20,7 @@ function AddTask({ open, setOpen }) {
   const { taskType } = useParams();
   const { user } = useContext(UserContext);
   const { tasks, setTasks } = useTasks();
+  const [saving, setSaving] = useState(false);
 
   const [formInputs, setFormInputs] = useState({
     title: "",
@@ -41,6 +42,7 @@ function AddTask({ open, setOpen }) {
   }, [user]);
 
   const saveTask = async (formInputs) => {
+    setSaving(true);
     try {
       const tasksOfType = tasks[formInputs.type] || [];
       const maxIndex = Math.max(...tasksOfType.map((task) => task.position), 0);
@@ -54,6 +56,8 @@ function AddTask({ open, setOpen }) {
       navigate("/dashboard");
     } catch (error) {
       console.error("Failed to save task:", error);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -98,10 +102,10 @@ function AddTask({ open, setOpen }) {
           <Button
             onClick={handleSaveButton}
             variant="contained"
-            disabled={formInputs.title === ""}
+            disabled={formInputs.title === "" || saving}
             color="black"
           >
-            Save
+            {saving ? "Saving..." : "Save"}
           </Button>
           <Button onClick={handleClose} variant="outlined" color="black">
             Cancel

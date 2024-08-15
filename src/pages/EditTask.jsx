@@ -18,6 +18,7 @@ function EditTask({ open, setOpen }) {
   const navigate = useNavigate();
   const { taskId } = useParams();
   const { tasks, setTasks, fetchTasks } = useTasks();
+  const [deleting, setDeleting] = useState(false);
 
   const findTaskById = (taskId) => {
     return tasks.find((task) => task._id === taskId);
@@ -66,6 +67,7 @@ function EditTask({ open, setOpen }) {
   };
 
   const handleDelete = async () => {
+    setDeleting(true);
     try {
       await tasksService.delete(taskId);
       const updatedTasks = tasks.filter((task) => task._id != taskId);
@@ -74,6 +76,8 @@ function EditTask({ open, setOpen }) {
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -106,8 +110,13 @@ function EditTask({ open, setOpen }) {
           >
             Save
           </Button>
-          <Button onClick={handleDelete} variant="outlined" color="black">
-            Delete
+          <Button
+            onClick={handleDelete}
+            variant="outlined"
+            color="black"
+            disabled={deleting}
+          >
+            {deleting ? "Deleting..." : "Delete"}
           </Button>
         </DialogActions>
       </DialogContent>
