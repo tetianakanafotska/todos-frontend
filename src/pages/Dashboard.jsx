@@ -22,14 +22,14 @@ function Dashboard() {
   }, [fetchTasks]);
 
   useEffect(() => {
-    const allTasks = Object.values(tasks).flat();
-    const taskExists = allTasks.some((task) => task._id === taskId);
-
-    if (taskId) {
-      if (taskExists) {
-        setOpenEditTask(true);
-      } else {
-        navigate("*");
+    if (tasks.length > 0) {
+      const taskExists = tasks.find((task) => task._id === taskId);
+      if (taskId) {
+        if (taskExists) {
+          setOpenEditTask(true);
+        } else {
+          navigate("*");
+        }
       }
     }
   }, [taskId, tasks, navigate, setOpenEditTask]);
@@ -45,13 +45,17 @@ function Dashboard() {
     if (!destination) return;
     const { index: sourceIndex, droppableId: sourceId } = source;
     const { index: destIndex, droppableId: destId } = destination;
-
     if (sourceId === destId && sourceIndex === destIndex) return;
 
-    const taskMap = { ...tasks };
-    const sourceTasks = [...taskMap[sourceId]];
-    const destTasks = sourceId === destId ? sourceTasks : [...taskMap[destId]];
+    const taskMap = [...tasks];
+    const sourceTasks = taskMap.filter((task) => task.type === sourceId);
+    const destTasks =
+      sourceId === destId
+        ? sourceTasks
+        : taskMap.filter((task) => task.type === destId);
+
     const [movedTask] = sourceTasks.splice(sourceIndex, 1);
+
     const taskLeft = destTasks[destIndex - 1];
     const taskRight = destTasks[destIndex];
     const leftPosition = taskLeft ? taskLeft.position : 0;
@@ -60,14 +64,12 @@ function Dashboard() {
 
     const updatedTask = { ...movedTask, type: destId, position: newPosition };
     destTasks.splice(destIndex, 0, updatedTask);
-
-    setTasks((prevTasks) => ({
-      ...prevTasks,
-      [sourceId]: sourceTasks,
-      [destId]: destTasks,
-    }));
-
-    await tasksService.put(movedTask._id, updatedTask);
+    const remainingTasks = taskMap.filter(
+      (task) => task.type !== sourceId && task.type !== destId
+    );
+    const updatedTasks = [...remainingTasks, ...sourceTasks, ...destTasks];
+    setTasks(updatedTasks);
+    await tasksService.put(updatedTask._id, updatedTask);
   };
 
   return (
@@ -106,7 +108,10 @@ function Dashboard() {
                 height={80}
               />
             ) : (
-              <TaskList taskType="toDo" tasks={tasks["toDo"]} />
+              <TaskList
+                taskType="toDo"
+                tasks={tasks.filter((task) => task.type === "toDo")}
+              />
             )}
           </Grid>
 
@@ -119,7 +124,10 @@ function Dashboard() {
                 height={80}
               />
             ) : (
-              <TaskList taskType="inProgress" tasks={tasks["inProgress"]} />
+              <TaskList
+                taskType="inProgress"
+                tasks={tasks.filter((task) => task.type === "inProgress")}
+              />
             )}
           </Grid>
 
@@ -132,7 +140,10 @@ function Dashboard() {
                 height={80}
               />
             ) : (
-              <TaskList taskType="done" tasks={tasks["done"]} />
+              <TaskList
+                taskType="done"
+                tasks={tasks.filter((task) => task.type === "done")}
+              />
             )}
           </Grid>
         </Grid>

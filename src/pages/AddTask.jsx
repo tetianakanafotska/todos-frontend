@@ -50,12 +50,7 @@ function AddTask({ open, setOpen }) {
         ...formInputs,
         position: nextIndex,
       });
-
-      setTasks((prev) => ({
-        ...prev,
-        [formInputs.type]: [...prev[formInputs.type], savedTask.data],
-      }));
-
+      setTasks((prev) => [...prev, savedTask.data]);
       setOpen(false);
       navigate("/dashboard");
     } catch (error) {

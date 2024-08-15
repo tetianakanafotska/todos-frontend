@@ -20,12 +20,7 @@ function EditTask({ open, setOpen }) {
   const { tasks, setTasks, fetchTasks } = useTasks();
 
   const findTaskById = (taskId) => {
-    const allTasks = [
-      ...(tasks.toDo || []),
-      ...(tasks.inProgress || []),
-      ...(tasks.done || []),
-    ];
-    return allTasks.find((task) => task._id === taskId);
+    return tasks.find((task) => task._id === taskId);
   };
 
   const currentTask = findTaskById(taskId);
@@ -35,6 +30,7 @@ function EditTask({ open, setOpen }) {
     type: "",
     priority: "",
     description: "",
+    position: "",
     createdAt: "",
     dueAt: "",
   });
@@ -55,8 +51,14 @@ function EditTask({ open, setOpen }) {
 
   const handleSave = async () => {
     try {
-      await tasksService.put(taskId, { ...formInputs, user: user._id });
-      await fetchTasks();
+      const savedTask = await tasksService.put(taskId, {
+        ...formInputs,
+        user: user._id,
+      });
+      const updatedTasks = tasks.map((task) =>
+        task._id === taskId ? savedTask.data : task
+      );
+      setTasks(updatedTasks);
       setOpen(false);
       navigate("/dashboard");
     } catch (err) {
@@ -67,7 +69,8 @@ function EditTask({ open, setOpen }) {
   const handleDelete = async () => {
     try {
       await tasksService.delete(taskId);
-      await fetchTasks();
+      const updatedTasks = tasks.filter((task) => task._id != taskId);
+      setTasks(updatedTasks);
       setOpen(false);
       navigate("/dashboard");
     } catch (err) {
