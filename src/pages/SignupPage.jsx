@@ -87,7 +87,7 @@ function SignupPage() {
 
         <img
           src={signup}
-          alt=""
+          alt="todo-background"
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
           loading="lazy"
         />

@@ -15,7 +15,7 @@ function Loading() {
     >
       <CircularProgress size={50} thickness={3} />
       <Typography sx={{ color: "primary.main", mt: "30px" }}>
-        Verifying user...
+        Loading...
       </Typography>
     </Box>
   );

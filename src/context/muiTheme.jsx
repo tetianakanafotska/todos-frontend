@@ -107,6 +107,15 @@ let theme = createTheme({
         }),
       },
     },
+    MuiDialog: {
+      styleOverrides: {
+        root: ({ theme, ownerState }) => ({
+          "& .MuiBackdrop-root": {
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
+          },
+        }),
+      },
+    },
 
     MuiButton: {
       styleOverrides: {

@@ -24,7 +24,7 @@ function AuthProviderWrapper(props) {
             setTokenPayload(res.data);
             setIsLoggedIn(true);
             setIsLoading(false);
-            resolve(); // Resolve the promise when the user is authenticated
+            resolve();
           })
           .catch((error) => {
             if (error) {
@@ -33,14 +33,14 @@ function AuthProviderWrapper(props) {
               setIsLoggedIn(false);
               setIsLoading(false);
               setTokenPayload(null);
-              reject(error); // Reject the promise if there's an error
+              reject(error);
             }
           });
       } else {
         setIsLoggedIn(false);
         setIsLoading(false);
         setTokenPayload(null);
-        resolve(); // Resolve immediately if no token is stored
+        resolve();
       }
     });
   }
