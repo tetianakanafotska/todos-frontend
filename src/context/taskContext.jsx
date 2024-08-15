@@ -5,20 +5,18 @@ const TaskContext = createContext();
 
 export function TaskProvider({ children }) {
   const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchTasks = useCallback(async () => {
     try {
       const tasks = await tasksService.get();
       setTasks(tasks.data);
-      setLoading(false);
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
     }
   }, []);
 
   return (
-    <TaskContext.Provider value={{ tasks, fetchTasks, loading, setTasks }}>
+    <TaskContext.Provider value={{ tasks, fetchTasks, setTasks }}>
       {children}
     </TaskContext.Provider>
   );

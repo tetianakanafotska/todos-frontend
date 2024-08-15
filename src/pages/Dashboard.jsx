@@ -9,9 +9,10 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { useTasks } from "@context/taskContext.jsx";
 
 function Dashboard() {
-  const { tasks, fetchTasks, loading, setTasks } = useTasks();
+  const { tasks, fetchTasks, setTasks } = useTasks();
   const [openAddTask, setOpenAddTask] = useState(false);
   const [openEditTask, setOpenEditTask] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { taskId } = useParams();
   const { taskType } = useParams();
@@ -22,8 +23,10 @@ function Dashboard() {
   useEffect(() => {
     if (isNewUser) {
       setTasks([]);
+      setLoading(false);
     } else {
       fetchTasks();
+      setLoading(false);
     }
   }, [fetchTasks]);
 
