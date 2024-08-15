@@ -19,7 +19,7 @@ This application is built as a full-stack MERN (MongoDB, Express, React, Node.js
 - **User Profile:** `/profile` - This page allows users to manage their profile settings.
 - **About:** `/about` - A public page providing information about the app.
 - **Login and Signup:** `/login` and `/signup` - Public pages for user authentication.
-- **Error Page:** `/404` - A fallback for undefined routes.
+- **Error Page:** `/*` - A fallback for undefined routes.
 - **Edit Task:** `/tasks/:taskId` - Allows users to edit a specific task. Protected route for authenticated users.
 - **Add Task:** `/addTask/:taskType` - Allows users to add a new task. Protected route for authenticated users.
 
