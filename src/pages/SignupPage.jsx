@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "@context/authContext.jsx";
 import authService from "@services/auth.service";
 import {
   Button,
@@ -20,14 +21,18 @@ function SignupPage() {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     authService
       .signup(data)
-      .then(() => {
-        navigate("/login");
+      .then((response) => {
+        storeToken(response.data.authToken);
+        authenticateUser();
+        navigate("/dashboard");
       })
+
       .catch((err) => {
         console.error("Error while creating a user", err);
         const errorDescription = err.response.data.message
