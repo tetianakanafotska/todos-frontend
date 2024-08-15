@@ -45,8 +45,17 @@ function LoginPage() {
   };
 
   return (
-    <Stack direction="row">
-      <Box sx={{ height: "100vh" }}>
+    <Stack direction="row" sx={{ overflow: "hidden" }}>
+      <Box
+        sx={{
+          width: "30%",
+          height: "100vh",
+          display: {
+            xs: "none",
+            lg: "block",
+          },
+        }}
+      >
         <Box
           sx={{
             position: "absolute",

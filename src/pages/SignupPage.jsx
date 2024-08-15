@@ -42,8 +42,17 @@ function SignupPage() {
   };
 
   return (
-    <Stack direction="row">
-      <Box sx={{ height: "100vh" }}>
+    <Stack direction="row" sx={{ overflow: "hidden" }}>
+      <Box
+        sx={{
+          width: "30%",
+          height: "100vh",
+          display: {
+            xs: "none",
+            lg: "block",
+          },
+        }}
+      >
         <Box
           sx={{
             position: "absolute",
@@ -53,8 +62,13 @@ function SignupPage() {
           }}
           onClick={() => navigate("/")}
         >
-          <img src={logoWhite} alt="Logo" width="170px" loading="lazy" />
-          <Typography sx={{ color: "#fff", fontWeight: "200" }}>
+          <img src={logoWhite} alt="Logo" width="170" loading="lazy" />
+          <Typography
+            sx={{
+              color: "#fff",
+              fontWeight: "200",
+            }}
+          >
             Your personal productivity space
           </Typography>
         </Box>
@@ -67,9 +81,11 @@ function SignupPage() {
         />
       </Box>
       <Box
-        ml="8%"
-        mt="10%"
         sx={{
+          m: {
+            xs: "10% auto",
+            lg: "10% 0 10% 8%",
+          },
           width: {
             sx: "97%",
             sm: "40%",
