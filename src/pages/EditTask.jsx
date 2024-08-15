@@ -55,11 +55,11 @@ function EditTask({ open, setOpen }) {
         task._id === taskId ? { ...task, ...formInputs } : task
       );
       setTasks(updatedTask);
+      setOpen(false);
+      navigate("/dashboard");
       await tasksService.put(taskId, {
         ...formInputs,
       });
-      setOpen(false);
-      navigate("/dashboard");
     } catch (err) {
       console.error(err);
     }
