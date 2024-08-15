@@ -79,9 +79,11 @@ function LoginPage() {
         />
       </Box>
       <Box
-        ml="8%"
-        mt="10%"
         sx={{
+          m: {
+            xs: "10% auto",
+            lg: "10% 0 10% 8%",
+          },
           width: {
             sx: "97%",
             sm: "40%",

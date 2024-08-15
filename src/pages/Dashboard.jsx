@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { Grid, Skeleton } from "@mui/material";
 import TaskList from "@components/TaskList";
 import EditTask from "./EditTask";
@@ -16,9 +16,15 @@ function Dashboard() {
   const { taskId } = useParams();
   const { taskType } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isNewUser = location.state?.newUser;
 
   useEffect(() => {
-    fetchTasks();
+    if (isNewUser) {
+      setTasks([]);
+    } else {
+      fetchTasks();
+    }
   }, [fetchTasks]);
 
   useEffect(() => {

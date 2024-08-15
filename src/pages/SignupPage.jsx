@@ -9,6 +9,7 @@ import {
   Box,
   Stack,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import { signup } from "@/assets";
 import { logoWhite } from "@/assets";
@@ -21,24 +22,30 @@ function SignupPage() {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [loading, setLoading] = useState(null);
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+
     authService
       .signup(data)
       .then((response) => {
         storeToken(response.data.authToken);
-        authenticateUser();
-        navigate("/dashboard");
+        return authenticateUser();
       })
-
+      .then(() => {
+        setLoading(false);
+        navigate("/dashboard", { state: { newUser: true } });
+      })
       .catch((err) => {
         console.error("Error while creating a user", err);
         const errorDescription = err.response.data.message
           ? err.response.data.message
           : err.request.statusText;
         setErrorMessage(errorDescription);
+        setLoading(false);
       });
   };
 
@@ -142,6 +149,7 @@ function SignupPage() {
               {errorMessage}
             </Alert>
           )}
+
           <Button
             type="submit"
             onClick={handleSubmit}
@@ -149,7 +157,7 @@ function SignupPage() {
             color="black"
             sx={{ padding: "11px 16px" }}
           >
-            Sign up
+            {loading ? <CircularProgress size={25} /> : "Sign up"}
           </Button>
         </Box>
 

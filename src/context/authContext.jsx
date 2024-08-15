@@ -13,45 +13,53 @@ function AuthProviderWrapper(props) {
     localStorage.setItem("authToken", token);
   };
 
-  const authenticateUser = () => {
-    const storedToken = localStorage.getItem("authToken");
+  function authenticateUser() {
+    return new Promise((resolve, reject) => {
+      const storedToken = localStorage.getItem("authToken");
 
-    if (storedToken) {
-      authService
-        .verify()
-        .then((res) => {
-          setIsLoggedIn(true);
-          setIsLoading(false);
-          setTokenPayload(res.data);
-        })
-        .catch((error) => {
-          if (error) {
-            setAuthError(error.response.data.message);
-            removeToken();
-            setIsLoggedIn(false);
+      if (storedToken) {
+        authService
+          .verify()
+          .then((res) => {
+            setTokenPayload(res.data);
+            setIsLoggedIn(true);
             setIsLoading(false);
-            setTokenPayload(null);
-            return;
-          }
-        });
-    } else {
-      setIsLoggedIn(false);
-      setIsLoading(false);
-      setTokenPayload(null);
-    }
-  };
+            resolve(); // Resolve the promise when the user is authenticated
+          })
+          .catch((error) => {
+            if (error) {
+              setAuthError(error.response.data.message);
+              removeToken();
+              setIsLoggedIn(false);
+              setIsLoading(false);
+              setTokenPayload(null);
+              reject(error); // Reject the promise if there's an error
+            }
+          });
+      } else {
+        setIsLoggedIn(false);
+        setIsLoading(false);
+        setTokenPayload(null);
+        resolve(); // Resolve immediately if no token is stored
+      }
+    });
+  }
 
   const removeToken = () => {
     localStorage.removeItem("authToken");
   };
 
-  const logOutUser = () => {
+  const logOutUser = async () => {
     removeToken();
-    authenticateUser();
+    await authenticateUser();
   };
 
   useEffect(() => {
-    authenticateUser();
+    authenticateUser()
+      .then(() => {})
+      .catch((error) => {
+        console.error("Authentication failed:", error);
+      });
   }, []);
 
   return (
