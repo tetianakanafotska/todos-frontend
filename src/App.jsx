@@ -19,11 +19,21 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <IsPrivate>
-              <Layout>
+            <Layout>
+              <IsPrivate>
                 <Dashboard />
-              </Layout>
-            </IsPrivate>
+              </IsPrivate>
+            </Layout>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Layout>
+              <IsPrivate>
+                <UserPage />
+              </IsPrivate>
+            </Layout>
           }
         />
         <Route
@@ -37,21 +47,21 @@ function App() {
         <Route
           path="/tasks/:taskId"
           element={
-            <IsPrivate>
-              <Layout>
+            <Layout>
+              <IsPrivate>
                 <Dashboard />
-              </Layout>
-            </IsPrivate>
+              </IsPrivate>
+            </Layout>
           }
         />
         <Route
           path="/addTask/:taskType"
           element={
-            <IsPrivate>
-              <Layout>
+            <Layout>
+              <IsPrivate>
                 <Dashboard />
-              </Layout>
-            </IsPrivate>
+              </IsPrivate>
+            </Layout>
           }
         />
         <Route
@@ -70,16 +80,7 @@ function App() {
             </IsAnon>
           }
         />
-        <Route
-          path="/profile"
-          element={
-            <IsPrivate>
-              <Layout>
-                <UserPage />
-              </Layout>
-            </IsPrivate>
-          }
-        />
+
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

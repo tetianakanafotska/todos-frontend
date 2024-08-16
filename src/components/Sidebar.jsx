@@ -9,8 +9,7 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import HelpIcon from "@mui/icons-material/Help";
 import { IconButton, Typography, Avatar, Stack, Box } from "@mui/material";
 
-function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
+function Sidebar({ isOpen, setIsOpen }) {
   const ref = useRef();
   const { user } = useContext(UserContext);
   const [profileUrl, setProfileUrl] = useState(null);
@@ -50,16 +49,7 @@ function Sidebar() {
         <NavLink to="/profile" className="userInfo">
           {profileUrl ? (
             <IconButton sx={{ padding: "2px" }}>
-              <img
-                src={profileUrl}
-                alt="profile picture"
-                style={{
-                  width: "45px",
-                  height: "45px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
+              <img src={profileUrl} alt="profile picture" />
             </IconButton>
           ) : (
             <IconButton sx={{ padding: "2px" }}>
@@ -75,7 +65,6 @@ function Sidebar() {
               </Avatar>
             </IconButton>
           )}
-
           <Typography
             variant="body1"
             component="span"

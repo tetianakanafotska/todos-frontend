@@ -24,7 +24,9 @@ function Navbar() {
             padding: "5px 20px",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+          >
             <img
               src={logo}
               alt="todo logo"
