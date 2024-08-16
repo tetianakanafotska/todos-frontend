@@ -3,8 +3,6 @@ import { useEffect } from "react";
 function useOutsideClick(ref, handleClickOutside) {
   useEffect(() => {
     const handleClick = (event) => {
-      //console.log("this is what was clicked", event.target);
-      //console.log("gets closed", !ref.current.contains(event.target));
       if (ref.current && !ref.current.contains(event.target)) {
         handleClickOutside();
       }
