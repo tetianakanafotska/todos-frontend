@@ -8,6 +8,7 @@ import GridViewSharpIcon from "@mui/icons-material/GridViewSharp";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import HelpIcon from "@mui/icons-material/Help";
 import { IconButton, Typography, Avatar, Stack, Box } from "@mui/material";
+import CustomNavLink from "./CustomNavLink";
 
 function Sidebar({ isOpen, setIsOpen }) {
   const ref = useRef();
@@ -46,7 +47,12 @@ function Sidebar({ isOpen, setIsOpen }) {
             <MenuIcon />
           </IconButton>
         </Box>
-        <NavLink to="/profile" className="userInfo">
+        <CustomNavLink
+          to={"/profile"}
+          className={"userInfo"}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        >
           {profileUrl ? (
             <IconButton sx={{ padding: "2px" }}>
               <img src={profileUrl} alt="profile picture" />
@@ -77,8 +83,8 @@ function Sidebar({ isOpen, setIsOpen }) {
           >
             {user.name}
           </Typography>
-        </NavLink>
-        <NavLink to="/dashboard">
+        </CustomNavLink>
+        <CustomNavLink to={"/dashboard"} isOpen={isOpen} setIsOpen={setIsOpen}>
           {({ isActive }) => (
             <>
               {isActive ? <GridViewSharpIcon /> : <GridViewOutlinedIcon />}
@@ -87,9 +93,9 @@ function Sidebar({ isOpen, setIsOpen }) {
               </Typography>
             </>
           )}
-        </NavLink>
+        </CustomNavLink>
 
-        <NavLink to="/about">
+        <CustomNavLink to={"/about"} isOpen={isOpen} setIsOpen={setIsOpen}>
           {({ isActive }) => (
             <>
               {isActive ? <HelpIcon /> : <HelpOutlineOutlinedIcon />}
@@ -98,7 +104,7 @@ function Sidebar({ isOpen, setIsOpen }) {
               </Typography>
             </>
           )}
-        </NavLink>
+        </CustomNavLink>
       </Stack>
     </>
   );

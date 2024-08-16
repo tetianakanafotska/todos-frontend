@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-const CustomNavLink = ({ to, isOpen, setIsOpen, children }) => {
+const CustomNavLink = ({ to, isOpen, setIsOpen, children, className }) => {
   const location = useLocation();
 
   const handleClick = (event) => {
@@ -12,7 +12,7 @@ const CustomNavLink = ({ to, isOpen, setIsOpen, children }) => {
   };
 
   return (
-    <NavLink to={to} onClick={handleClick}>
+    <NavLink to={to} onClick={handleClick} className={className}>
       {children}
     </NavLink>
   );
